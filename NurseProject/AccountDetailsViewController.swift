@@ -4,7 +4,6 @@ import PopupDialog
 import MobileCoreServices
 import NADocumentPicker
 
-
 class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIDocumentPickerDelegate,UIDocumentInteractionControllerDelegate {
     
     @IBOutlet var buttonNext: UIButton!
@@ -47,7 +46,6 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        //loadValuesFronDict()
         self.updateUI()
     }
     
