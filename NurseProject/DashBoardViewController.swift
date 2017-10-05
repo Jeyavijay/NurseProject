@@ -7,6 +7,7 @@ import YLProgressBar
 class DashBoardViewController: UIViewController, IndicatorInfoProvider {
 
 
+    @IBOutlet var labelLine: UILabel!
     @IBOutlet var progressHour: YLProgressBar!
     @IBOutlet var progressRatings: YLProgressBar!
     @IBOutlet var progressMatchRate: YLProgressBar!
@@ -31,14 +32,12 @@ class DashBoardViewController: UIViewController, IndicatorInfoProvider {
         segmentControl.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.darkGray], for: UIControlState.normal)
         UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).numberOfLines = 0
 
-        
-
-        
         self.progressHour.progressTintColors = StaticArrayValues().tintGreenColors as! [Any]
         self.progressRatings.progressTintColors = StaticArrayValues().tintYellowColors as! [Any]
         self.progressMatchRate.progressTintColors = StaticArrayValues().tintBlueColors as! [Any]
         self.progressEarnings.progressTintColors = StaticArrayValues().tintRedColors as! [Any]
         
+        labelLine.frame = CGRect(x: labelLine.frame.origin.x, y: labelLine.frame.origin.y, width: labelLine.frame.width, height: 1)
 
     }
     

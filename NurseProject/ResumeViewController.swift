@@ -26,7 +26,7 @@ class ResumeViewController: UIViewController, UIDocumentPickerDelegate,UIDocumen
     @IBAction func buttonNext(_ sender: Any)
     {
         if labelDocName.text == ""{
-            self.popupAlertQuiz(msg: "Please Upload Your Resume")
+            self.popupAlert(Title: "Information",msg: "Please Upload Your Resume")
         }else{
             let nextViewController = storyBoard.instantiateViewController(withIdentifier:"PreferenceViewController") as! PreferenceViewController
             self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -83,25 +83,22 @@ class ResumeViewController: UIViewController, UIDocumentPickerDelegate,UIDocumen
 
 
     
-    
     //MARK:- Alert PopUps
     
-    func popupAlertQuiz(msg:String)
+    func popupAlert(Title:String,msg:String)
     {
-        let title = "Information"
+        let title = Title
         let message = msg
         let popup = PopupDialog(title: title, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
         }
-        let buttonTwo = DefaultButton(title: "OK")
+        let buttonOk = DefaultButton(title: "OK")
         {
-            
         }
-        buttonTwo.buttonColor = UIColor.red
-        buttonTwo.titleColor = UIColor.white
-        popup.addButtons([buttonTwo])
+        buttonOk.buttonColor = UIColor.red
+        buttonOk.titleColor = UIColor.white
+        popup.addButtons([buttonOk])
         self.present(popup, animated: true, completion: nil)
     }
-    
-    
+
 
 }

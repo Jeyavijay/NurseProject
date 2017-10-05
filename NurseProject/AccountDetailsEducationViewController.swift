@@ -55,9 +55,9 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if nsectionCount == (indexPath as NSIndexPath).section{
-            return 100
+            return self.view.frame.height/5.59
         }else{
-            return 320
+            return self.view.frame.height/2.358
         }
     }
     
@@ -155,23 +155,23 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
             let strDocument:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "Document") as! String
 
             if strEduLevel == ""{
-                popupAlertQuiz(msg: "Select your Educational Level", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringEducationalLevel)
             }else if strEduDegree == ""{
-                popupAlertQuiz(msg: "Select your Degree", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringDegreeName)
             }else if strEduSchool == ""{
-                popupAlertQuiz(msg: "Enter your School Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringNameofSchool)
             }else if strState == ""{
-                popupAlertQuiz(msg: "Select your State", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringState)
             }else if strDate == ""{
-                popupAlertQuiz(msg: "Pick The Year of Graduationl", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringGraduationDate)
             }else if strDocument == ""{
-                popupAlertQuiz(msg: "Please Upload Your Documents", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringUploadFrontDegree)
             }else{
                 nsectionCount = nsectionCount + 1
                 tableViewEducation.reloadData()
             }
         }else{
-            popupAlertQuiz(msg: "Please fill the details to add more", buttonColor: UIColor.red)
+            self.popupAlert(Title: "Information",msg: stringMessages().stringAddMore)
         }
 
     }
@@ -193,17 +193,17 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
             let strDocument:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "Document") as! String
 
             if strEduLevel == ""{
-                popupAlertQuiz(msg: "Select your Educational Level", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringEducationalLevel)
             }else if strEduDegree == ""{
-                popupAlertQuiz(msg: "Select your Degree", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringDegreeName)
             }else if strEduSchool == ""{
-                popupAlertQuiz(msg: "Enter your School Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringNameofSchool)
             }else if strState == ""{
-                popupAlertQuiz(msg: "Select your State", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringState)
             }else if strDate == ""{
-                popupAlertQuiz(msg: "Pick The Year of Graduationl", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringGraduationDate)
             }else if strDocument == ""{
-                popupAlertQuiz(msg: "Please Upload Your Documents", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringUploadFrontDegree)
             }else{
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier:"EducationCertificationViewController") as! EducationCertificationViewController
                 self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -216,32 +216,19 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
         nArrObject = (sender as AnyObject).tag
     }
 
-    //MARK:- DocumentMenu Delegate
 
-    
-    func doc(asd:URL)
-    {
-//        var documentInteractionController = UIDocumentInteractionController()
-//        documentInteractionController = UIDocumentInteractionController(url: asd)
-//        documentInteractionController.delegate = self
-//        documentInteractionController.presentPreview(animated: true)
-    }
-    
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self
     }
 
     //MARK- Popup Alert
-    
-    func popupAlertQuiz(msg:String, buttonColor:UIColor)
+
+    func popupAlert(Title:String,msg:String)
     {
-        let title = "Information"
-        let message = msg
-        let popup = PopupDialog(title: title, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
+        let popup = PopupDialog(title: Title, message: msg, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
         }
         let buttonTwo = DefaultButton(title: "OK")
         {
-            
         }
         buttonTwo.buttonColor = UIColor.red
         buttonTwo.titleColor = UIColor.white

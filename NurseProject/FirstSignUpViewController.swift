@@ -30,24 +30,6 @@ class FirstSignUpViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.textFieldUI()
-    }
-    
-    func textFieldUI(){
-        textFieldUII(textField: textFieldFirstName)
-        textFieldUII(textField: textFieldMiddleName)
-        textFieldUII(textField: textFieldLastName)
-        textFieldUII(textField: textFieldMailID)
-        textFieldUII(textField: textFieldPhoneNumber)
-        textFieldUII(textField: textFieldCPassword)
-        textFieldUII(textField: textFieldPassword)
-
-    }
-    
-    func textFieldUII(textField:HoshiTextField){
-        textField.borderActiveColor = AppColors().appBlueColor
-        textField.placeholderColor = UIColor.darkGray
-        textField.borderInactiveColor = UIColor.gray
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,20 +43,20 @@ class FirstSignUpViewController: UIViewController,UITextFieldDelegate {
     {
         if (textFieldFirstName.text?.characters.count)! <= 2
         {
-            self.popupAlertQuiz(msg: "Please Enter Valid Name")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringFirstName)
         }else if (textFieldLastName.text?.characters.count)! < 1
         {
-            self.popupAlertQuiz(msg: "Last Name Must Not be Empty!!")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringLastName)
         }else if (EmailValidation().validateMail(textEmail: self.textFieldMailID.text!) == false)
         {
-            self.popupAlertQuiz(msg: "Please Enter Valid Miail-ID")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringMail)
         }else if (textFieldPhoneNumber.text?.characters.count)! <= 9
         {
-            self.popupAlertQuiz(msg: "Please Enter Valid Phone Number")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringMail)
         }else  if (textFieldPassword.text?.characters.count)! < 6{
-            self.popupAlertQuiz(msg: "Password Must atleast 6 Characters")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringPassword)
         }else if textFieldPassword.text != textFieldCPassword.text{
-            self.popupAlertQuiz(msg: "Password Doesnot Match")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringConfirmPassword)
         }else{
             dictStoredValues.setObject(textFieldFirstName.text!, forKey: "FirstName" as NSCopying)
             dictStoredValues.setObject(textFieldMiddleName.text!, forKey: "MiddleName" as NSCopying)
@@ -98,23 +80,21 @@ class FirstSignUpViewController: UIViewController,UITextFieldDelegate {
     
     //MARK:- Alert PopUps
     
-    func popupAlertQuiz(msg:String)
+    func popupAlert(Title:String,msg:String)
     {
-        let title = "Information"
+        let title = Title
         let message = msg
         let popup = PopupDialog(title: title, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
         }
-        let buttonTwo = DefaultButton(title: "OK")
+        let buttonOk = DefaultButton(title: "OK")
         {
-            
         }
-        buttonTwo.buttonColor = AppColors().appBlueColor
-        buttonTwo.titleColor = UIColor.white
-        popup.addButtons([buttonTwo])
+        buttonOk.buttonColor = UIColor.red
+        buttonOk.titleColor = UIColor.white
+        popup.addButtons([buttonOk])
         self.present(popup, animated: true, completion: nil)
     }
-    
-    
+
 
 
 }

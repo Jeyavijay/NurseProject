@@ -23,17 +23,23 @@ class AccountDetailStatementViewController: UIViewController {
     @IBOutlet var button4No: UIButton!
     @IBOutlet var button5Yes: UIButton!
     @IBOutlet var button5No: UIButton!
+    @IBOutlet var labelLine1: UILabel!
+    @IBOutlet var labelLine2: UILabel!
+    @IBOutlet var labelLine3: UILabel!
+    @IBOutlet var labelLine4: UILabel!
+    @IBOutlet var labelLine5: UILabel!
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
 
-        self.loadButtonImages()
+        self.loadUI()
         
     }
     
-    func loadButtonImages(){
+    func loadUI(){
         let DSImage:UIImage = UIImage(named: "unchecked")!
         let SImage:UIImage = UIImage(named: "checked")!
         button1No.setImage(DSImage, for: .normal)
@@ -56,7 +62,11 @@ class AccountDetailStatementViewController: UIViewController {
         button5No.setImage(SImage, for: .selected)
         button5Yes.setImage(DSImage, for: .normal)
         button5Yes.setImage(SImage, for: .selected)
-
+        labelLine1.frame = CGRect(x: labelLine1.frame.origin.x, y: labelLine1.frame.origin.y, width: labelLine1.frame.width, height: 1)
+        labelLine2.frame = CGRect(x: labelLine2.frame.origin.x, y: labelLine2.frame.origin.y, width: labelLine2.frame.width, height: 1)
+        labelLine3.frame = CGRect(x: labelLine3.frame.origin.x, y: labelLine3.frame.origin.y, width: labelLine3.frame.width, height: 1)
+        labelLine4.frame = CGRect(x: labelLine4.frame.origin.x, y: labelLine4.frame.origin.y, width: labelLine4.frame.width, height: 1)
+        labelLine5.frame = CGRect(x: labelLine5.frame.origin.x, y: labelLine5.frame.origin.y, width: labelLine5.frame.width, height: 1)
 
     }
 
@@ -69,19 +79,15 @@ class AccountDetailStatementViewController: UIViewController {
     @IBAction func buttonNext(_ sender: Any)
     {
         if (button1Yes.isSelected || button1No.isSelected) == false{
-            self.popupAlertQuiz(msg: "Please Select about your license/certification ever been investigated/suspended")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringLisenceInvestigation)
         }else if (button2Yes.isSelected || button2No.isSelected) == false{
-            self.popupAlertQuiz(msg: "Please Select about your convicted crime")
-            
+            self.popupAlert(Title: "Information",msg: stringMessages().stringConvictedCrime)
         }else if (button3Yes.isSelected || button3No.isSelected) == false{
-            self.popupAlertQuiz(msg: "Please Select about your pending misdemeanor or felony criminal charges")
-            
+            self.popupAlert(Title: "Information",msg: stringMessages().stringConvictedFelonyCharges)
         }else if (button4Yes.isSelected || button4No.isSelected) == false{
-            self.popupAlertQuiz(msg: "Please Select about your defedant in a professional liability action")
-            
+            self.popupAlert(Title: "Information",msg: stringMessages().stringProfessionalLiability)
         }else if (button5Yes.isSelected || button5No.isSelected) == false{
-            self.popupAlertQuiz(msg: "Please Select about verification of your legal right to work in the US")
-            
+            self.popupAlert(Title: "Information",msg: stringMessages().stringLegalRightVerification)
         }else{
             let nextViewController = storyBoard.instantiateViewController(withIdentifier:"AccountDetailsEducationViewController") as! AccountDetailsEducationViewController
             self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -185,15 +191,12 @@ class AccountDetailStatementViewController: UIViewController {
     
     //MARK:- Alert PopUps
     
-    func popupAlertQuiz(msg:String)
+    func popupAlert(Title:String,msg:String)
     {
-        let title = "Information"
-        let message = msg
-        let popup = PopupDialog(title: title, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
+        let popup = PopupDialog(title: Title, message: msg, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
         }
         let buttonTwo = DefaultButton(title: "OK")
         {
-            
         }
         buttonTwo.buttonColor = UIColor.red
         buttonTwo.titleColor = UIColor.white

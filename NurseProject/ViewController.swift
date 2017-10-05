@@ -13,18 +13,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // view.backgroundColor = GradientColor(UIGradientStyle.radial, frame: view.frame, colors: [AppColors().appBlueColor,AppColors().appSkyBlueColor])
-        self.textFieldUI()
-    }
-    
-    func textFieldUI(){
+
         
-        textFieldEmail.borderActiveColor = AppColors().appBlueColor
-        textFieldEmail.placeholderColor = UIColor.darkGray
-        textFieldEmail.borderInactiveColor = UIColor.gray
-        textFieldPassword.borderActiveColor = AppColors().appBlueColor
-        textFieldPassword.borderInactiveColor = UIColor.gray
-        textFieldPassword.placeholderColor = UIColor.darkGray
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,10 +33,10 @@ class ViewController: UIViewController {
     {
         if (EmailValidation().validateMail(textEmail: self.textFieldEmail.text!) == false)
         {
-            self.popupAlertQuiz(msg: "Please Enter Vaild E-Mail ID")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringMail)
         }else if (textFieldPassword.text?.characters.count)! <= 5
         {
-          self.popupAlertQuiz(msg: "Password Must Contain atleast 6 Characters")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringPassword)
         }else{
             let nextViewController = storyBoard.instantiateViewController(withIdentifier:"AccountDetailStatementViewController") as! AccountDetailStatementViewController
             self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -63,19 +53,18 @@ class ViewController: UIViewController {
 
     //MARK:- Alert PopUps
     
-    func popupAlertQuiz(msg:String)
+    func popupAlert(Title:String,msg:String)
     {
-        let title = "Information"
+        let title = Title
         let message = msg
         let popup = PopupDialog(title: title, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
         }
-        let buttonTwo = DefaultButton(title: "OK")
+        let buttonOk = DefaultButton(title: "OK")
         {
-            
         }
-        buttonTwo.buttonColor = UIColor.red
-        buttonTwo.titleColor = UIColor.white
-        popup.addButtons([buttonTwo])
+        buttonOk.buttonColor = UIColor.red
+        buttonOk.titleColor = UIColor.white
+        popup.addButtons([buttonOk])
         self.present(popup, animated: true, completion: nil)
     }
 

@@ -50,19 +50,6 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     }
     
     func updateUI(){
-        self.textFieldUI(textField:textFieldFirstName)
-        self.textFieldUI(textField:textFieldMiddleName)
-        self.textFieldUI(textField:textFieldLastName)
-        self.textFieldUI(textField:textFieldEmailAddress)
-        self.textFieldUI(textField:textFieldPassword)
-        self.textFieldUI(textField:textFieldAddress)
-        self.textFieldUI(textField:textFieldDOB)
-        self.textFieldUI(textField:textFielsSSN)
-        self.textFieldUI(textField:textFieldState)
-        self.textFieldUI(textField:textFieldCountry)
-        self.textFieldUI(textField:textFieldZipCode)
-        self.textFieldUI(textField:textFieldDocument)
-        self.textFieldUI(textField:textFieldMobileNumber)
         CornerRadius().viewCircular(circleView: imageViewUserImage)
         CornerRadius().viewCircular(circleView: buttonAddImage)
         ScrollView.contentSize = CGSize(width: self.viewScroll.frame.width, height: self.buttonNext.frame.height+self.buttonNext.frame.origin.y+25)
@@ -99,13 +86,7 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         textFieldMobileNumber.text = dictStoredValues.value(forKey: "Mobile") as? String
 
     }
-    
-    func textFieldUI(textField:HoshiTextField){
-        textField.borderActiveColor = AppColors().appBlueColor
-        textField.placeholderColor = UIColor.darkGray
-        textField.borderInactiveColor = UIColor.gray
-    }
-    
+
     // Pragma Mark - Textfield Delegates -
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
@@ -314,51 +295,46 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     @IBAction func buttonNext(_ sender: Any)
     {
         if imageViewUserImage.image == nil {
-            self.popupAlertQuiz(msg: "Please Select Picture for You")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringSelectImage)
         }else if (textFieldFirstName.text?.characters.count)! == 0{
-            self.popupAlertQuiz(msg: "Please Enter First Name")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringFirstName)
         }else if (textFieldLastName.text?.characters.count)! < 1{
-            self.popupAlertQuiz(msg: "Please Enter Last Name")
-
+            self.popupAlert(Title: "Information",msg: stringMessages().stringLastName)
         }else if (EmailValidation().validateMail(textEmail: self.textFieldEmailAddress.text!) == false){
-            self.popupAlertQuiz(msg: "Please Enter Valid Mail ID")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringMail)
 
         }else if (textFieldPassword.text?.characters.count)! < 8{
-            self.popupAlertQuiz(msg: "Password Must Contain atleast 8 Characters")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringPassword)
 
         }else if (textFieldMobileNumber.text?.characters.count)! < 10{
-            self.popupAlertQuiz(msg: "Please Enter Valid Mobile Number")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringPhoneNumber)
 
         }else if (textFieldDOB.text?.characters.count)! < 2{
-            self.popupAlertQuiz(msg: "Please Select your Date of Birth")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringDOB)
 
         }else if (buttonMale.isSelected || buttonFemale.isSelected || buttonNotToSay.isSelected) == false{
-            self.popupAlertQuiz(msg: "Please Select your Gender")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringGender)
 
         }else if (textFieldAddress.text?.characters.count)! < 5{
-            self.popupAlertQuiz(msg: "Please Enter Your Address")
-
+            self.popupAlert(Title: "Information",msg: stringMessages().stringAddress)
         }else if (textFieldState.text?.characters.count)! < 2{
-            self.popupAlertQuiz(msg: "Please Choose your State")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringState)
 
         }else if (textFieldCountry.text?.characters.count)! < 2{
-            self.popupAlertQuiz(msg: "Please Choose your Country")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringCountry)
 
         }else if (textFieldZipCode.text?.characters.count)! < 2{
-            self.popupAlertQuiz(msg: "Please Choose Your ZIP COde")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringZipCode)
 
         }else if (textFielsSSN.text?.characters.count)! < 2{
-            self.popupAlertQuiz(msg: "Please Enter Your Social Security Number")
-
+            self.popupAlert(Title: "Information",msg: stringMessages().stringSSN)
         }else if (textFieldDocument.text?.characters.count)! < 2{
-            self.popupAlertQuiz(msg: "Please Choose Your Identity Document")
-
+            self.popupAlert(Title: "Information",msg: stringMessages().stringIdentityDocument)
         }else if bUpload == false{
-            self.popupAlertQuiz(msg: "Please Upload your Document")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringUploadDocument)
 
         }else if (buttonNoEligible.isSelected || buttonYesEligible.isSelected) == false{
-            self.popupAlertQuiz(msg: "Please Select your Eligibility to Work in US")
-
+            self.popupAlert(Title: "Information",msg: stringMessages().stringEligibility)
         }else{
             let nextViewController = storyBoard.instantiateViewController(withIdentifier:"AccountDetailStatementViewController") as! AccountDetailStatementViewController
             self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -437,9 +413,9 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     
     func documentPicker(_ controller: UIDocumentPickerViewController,didPickDocumentAt url: URL) {
         print(url)
- //       self.doc(asd: url)
+
         bUpload = true
-        viewDocumentView.isHidden = true
+        viewDocumentView.isHidden = false
 
         if controller.documentPickerMode == UIDocumentPickerMode.import {
 
@@ -463,22 +439,18 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     
     //MARK:- Alert PopUps
     
-    func popupAlertQuiz(msg:String)
+    func popupAlert(Title:String,msg:String)
     {
-        let title = "Information"
-        let message = msg
-        let popup = PopupDialog(title: title, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
+        let popup = PopupDialog(title: Title, message: msg, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
         }
         let buttonTwo = DefaultButton(title: "OK")
         {
-
         }
         buttonTwo.buttonColor = UIColor.red
         buttonTwo.titleColor = UIColor.white
         popup.addButtons([buttonTwo])
         self.present(popup, animated: true, completion: nil)
     }
-    
     
 
 }

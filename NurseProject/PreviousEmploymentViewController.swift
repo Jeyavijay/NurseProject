@@ -45,9 +45,9 @@ class PreviousEmploymentViewController: UIViewController,UITableViewDelegate,UIT
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if nsectionCount == (indexPath as NSIndexPath).section{
-            return 100
+            return self.view.frame.height/5.59
         }else{
-            return 350
+            return self.view.frame.height/1.89
         }
     }
 
@@ -131,23 +131,23 @@ class PreviousEmploymentViewController: UIViewController,UITableViewDelegate,UIT
             let strSDate:String = (arrayEmpDetails[nsectionCount-1] as AnyObject).value(forKey: "SDate") as! String
             let strEDate:String = (arrayEmpDetails[nsectionCount-1] as AnyObject).value(forKey: "EDate") as! String
             if strSName == ""{
-                popupAlertQuiz(msg: "Please Enter Your Supervisor Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringSupervisorName)
             }else if strSTitle == ""{
-                popupAlertQuiz(msg: "Please Enter Your Supervisor Title", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringSupervisorTitle)
             }else if strHName == ""{
-                popupAlertQuiz(msg: "Please Enter Your Hospital Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringHospitalName)
             }else if strHDepartment == ""{
-                popupAlertQuiz(msg: "Please Enter Your Department Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringDepartmentName)
             }else if strSDate == ""{
-                popupAlertQuiz(msg: "Choose Your Date of Join in this hospital", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringHospitalDOJ)
             }else if strEDate == ""{
-                popupAlertQuiz(msg: "Choose Your Relieving date in this hospital", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringHospitalRelievingDate)
             }else{
                 nsectionCount = nsectionCount + 1
                 tableViewEmployment.reloadData()
             }
         }else{
-            popupAlertQuiz(msg: "Please fill the details Completely to add more", buttonColor: UIColor.red)
+            self.popupAlert(Title: "Information",msg: stringMessages().stringAddMore)
         }
         
     }
@@ -169,17 +169,17 @@ class PreviousEmploymentViewController: UIViewController,UITableViewDelegate,UIT
             let strSDate:String = (arrayEmpDetails[nsectionCount-1] as AnyObject).value(forKey: "SDate") as! String
             let strEDate:String = (arrayEmpDetails[nsectionCount-1] as AnyObject).value(forKey: "EDate") as! String
             if strSName == ""{
-                popupAlertQuiz(msg: "Please Enter Your Supervisor Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringSupervisorName)
             }else if strSTitle == ""{
-                popupAlertQuiz(msg: "Please Enter Your Supervisor Title", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringSupervisorTitle)
             }else if strHName == ""{
-                popupAlertQuiz(msg: "Please Enter Your Hospital Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringHospitalName)
             }else if strHDepartment == ""{
-                popupAlertQuiz(msg: "Please Enter Your Department Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringDepartmentName)
             }else if strSDate == ""{
-                popupAlertQuiz(msg: "Choose Your Date of Join in this hospital", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringHospitalDOJ)
             }else if strEDate == ""{
-                popupAlertQuiz(msg: "Choose Your Relieving date in this hospital", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringHospitalRelievingDate)
             }else{
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier:"ReferenceViewController") as! ReferenceViewController
                 self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -188,23 +188,21 @@ class PreviousEmploymentViewController: UIViewController,UITableViewDelegate,UIT
         
     }
 
-    //MARK- Popup Alert
+    //MARK:- Alert PopUps
     
-    func popupAlertQuiz(msg:String, buttonColor:UIColor)
+    func popupAlert(Title:String,msg:String)
     {
-        let title = "Information"
+        let title = Title
         let message = msg
         let popup = PopupDialog(title: title, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
         }
-        let buttonTwo = DefaultButton(title: "OK")
+        let buttonOk = DefaultButton(title: "OK")
         {
         }
-        buttonTwo.buttonColor = UIColor.red
-        buttonTwo.titleColor = UIColor.white
-        popup.addButtons([buttonTwo])
+        buttonOk.buttonColor = UIColor.red
+        buttonOk.titleColor = UIColor.white
+        popup.addButtons([buttonOk])
         self.present(popup, animated: true, completion: nil)
     }
-    
-    
-    
+
 }

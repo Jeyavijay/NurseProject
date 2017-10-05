@@ -46,10 +46,10 @@ class EducationCertificationViewController: UIViewController,UITableViewDelegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if nsectionCount == (indexPath as NSIndexPath).section{
-            return 100
+            return self.view.frame.height/5.59
         }else{
-            return 260
-            
+            return self.view.frame.height/2.36
+
         }
     }
     
@@ -142,19 +142,18 @@ class EducationCertificationViewController: UIViewController,UITableViewDelegate
             let strName:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "Name") as! String
             let strDate:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "Date") as! String
             let strDocument:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "Document") as! String
-
             if strName == ""{
-                popupAlertQuiz(msg: "Please Enter your Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringCertificate)
             }else if strDate == ""{
-                popupAlertQuiz(msg: "Choose Your Certificate Expiration date", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringCertificateExpiryDate)
             }else if strDocument == ""{
-                popupAlertQuiz(msg: "Please Upload your Certificate", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringUploadFrontCertificate)
             }else{
                 nsectionCount = nsectionCount + 1
                 tableViewCertificate.reloadData()
             }
         }else{
-            popupAlertQuiz(msg: "Please fill the details to add more", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringAddMore)
         }
         
     }
@@ -172,11 +171,11 @@ class EducationCertificationViewController: UIViewController,UITableViewDelegate
             let strDate:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "Date") as! String
             let strDocument:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "Document") as! String
             if strName == ""{
-                popupAlertQuiz(msg: "Please Enter Your Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringCertificate)
             }else if strDate == ""{
-                popupAlertQuiz(msg: "Choose Your Certificate Expiration date", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringCertificateExpiryDate)
             }else if strDocument == ""{
-                popupAlertQuiz(msg: "Please Upload your Certificate", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringUploadFrontCertificate)
             }else{
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier:"CurrentEmploymentViewController") as! CurrentEmploymentViewController
                 self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -187,22 +186,18 @@ class EducationCertificationViewController: UIViewController,UITableViewDelegate
 
     //MARK- Popup Alert
     
-    func popupAlertQuiz(msg:String, buttonColor:UIColor)
+    func popupAlert(Title:String,msg:String)
     {
-        let title = "Information"
-        let message = msg
-        let popup = PopupDialog(title: title, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
+        let popup = PopupDialog(title: Title, message: msg, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
         }
         let buttonTwo = DefaultButton(title: "OK")
         {
-            
         }
         buttonTwo.buttonColor = UIColor.red
         buttonTwo.titleColor = UIColor.white
         popup.addButtons([buttonTwo])
         self.present(popup, animated: true, completion: nil)
     }
-    
     
     func loadDocScreen(controller: UIViewController) {
         self.present(controller, animated: true) { () -> Void in

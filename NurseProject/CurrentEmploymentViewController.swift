@@ -47,19 +47,18 @@ class CurrentEmploymentViewController: UIViewController,UITextFieldDelegate {
             let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"PreviousEmploymentViewController") as! PreviousEmploymentViewController
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }else if (textFieldSupervisorName.text?.characters.count)! < 1{
-            self.popupAlertQuiz(msg: "Please Enter Valid Name")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringSupervisorName)
         }else if (textFieldSupervisorTitle.text?.characters.count)! < 1{
-            self.popupAlertQuiz(msg: "Please Enter Valid Title")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringSupervisorTitle)
         }else if (textFieldHospitalName.text?.characters.count)! < 1{
-            self.popupAlertQuiz(msg: "Please Enter Valid Name")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringHospitalName)
         }else if (textFieldHospitalDepartment.text?.characters.count)! < 1{
-            self.popupAlertQuiz(msg: "Please Enter Valid Department Name")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringDepartmentName)
         }else if (textFieldDate.text?.characters.count)! < 1{
             bUnemployment = true
-            self.popupAlertQuiz(msg: "Please Select your Date of Joining in This Hospital")
+            self.popupAlert(Title: "Information",msg: stringMessages().stringHospitalDOJ)
         }else if (buttonCheckBox.isSelected) == true{
             popupAlertYesorNo(msg:"If you select this boxYou will Consider as Unemployed for now!")
-
         }else{
             let nextViewController = storyBoard.instantiateViewController(withIdentifier:"PreviousEmploymentViewController") as! PreviousEmploymentViewController
             self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -115,11 +114,9 @@ class CurrentEmploymentViewController: UIViewController,UITextFieldDelegate {
 
     //MARK:- Alert PopUps
     
-    func popupAlertQuiz(msg:String)
+    func popupAlert(Title:String,msg:String)
     {
-        let title = "Information"
-        let message = msg
-        let popup = PopupDialog(title: title, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
+        let popup = PopupDialog(title: Title, message: msg, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
         }
         let buttonTwo = DefaultButton(title: "OK")
         {

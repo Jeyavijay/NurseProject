@@ -23,6 +23,7 @@
 		F20CF0581F71A2EF006F5C5B /* ResumeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF0571F71A2EF006F5C5B /* ResumeViewController.swift */; };
 		F20CF05A1F726E3F006F5C5B /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF0591F726E3F006F5C5B /* PreferenceViewController.swift */; };
 		F20CF05C1F72754E006F5C5B /* SpecialitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF05B1F72754E006F5C5B /* SpecialitiesViewController.swift */; };
+		F268022C1F863D95004DF987 /* stringMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F268022B1F863D95004DF987 /* stringMessages.swift */; };
 		F29855BF1F7CCC4D0020B526 /* MyDashBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29855BE1F7CCC4D0020B526 /* MyDashBoardViewController.swift */; };
 		F29855C11F7CCC960020B526 /* AcceptedDashBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29855C01F7CCC960020B526 /* AcceptedDashBoardViewController.swift */; };
 		F29855C31F7CCCCC0020B526 /* NewDashBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29855C21F7CCCCC0020B526 /* NewDashBoardViewController.swift */; };
@@ -39,8 +40,6 @@
 		F2A1E40C1F6BDC9F00921DF1 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E40B1F6BDC9F00921DF1 /* StringUtils.swift */; };
 		F2A1E40E1F6BDCC000921DF1 /* EmailValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E40D1F6BDCC000921DF1 /* EmailValidation.swift */; };
 		F2A1E4101F6BE33D00921DF1 /* FirstSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E40F1F6BE33D00921DF1 /* FirstSignUpViewController.swift */; };
-		F2A1E4121F6BE35000921DF1 /* SecondSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4111F6BE35000921DF1 /* SecondSignUpViewController.swift */; };
-		F2A1E4141F6BE35F00921DF1 /* ThirdSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4131F6BE35F00921DF1 /* ThirdSignUpViewController.swift */; };
 		F2A1E4171F6BE7AB00921DF1 /* StaticArrayValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4161F6BE7AB00921DF1 /* StaticArrayValues.swift */; };
 		F2A1E4191F6D0E0500921DF1 /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4181F6D0E0500921DF1 /* CornerRadius.swift */; };
 		F2A1E41B1F6D0E7F00921DF1 /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E41A1F6D0E7F00921DF1 /* AccountDetailsViewController.swift */; };
@@ -79,6 +78,7 @@
 		F20CF0571F71A2EF006F5C5B /* ResumeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResumeViewController.swift; sourceTree = "<group>"; };
 		F20CF0591F726E3F006F5C5B /* PreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
 		F20CF05B1F72754E006F5C5B /* SpecialitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecialitiesViewController.swift; sourceTree = "<group>"; };
+		F268022B1F863D95004DF987 /* stringMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stringMessages.swift; sourceTree = "<group>"; };
 		F29855BE1F7CCC4D0020B526 /* MyDashBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDashBoardViewController.swift; sourceTree = "<group>"; };
 		F29855C01F7CCC960020B526 /* AcceptedDashBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptedDashBoardViewController.swift; sourceTree = "<group>"; };
 		F29855C21F7CCCCC0020B526 /* NewDashBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDashBoardViewController.swift; sourceTree = "<group>"; };
@@ -97,8 +97,6 @@
 		F2A1E40B1F6BDC9F00921DF1 /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		F2A1E40D1F6BDCC000921DF1 /* EmailValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailValidation.swift; sourceTree = "<group>"; };
 		F2A1E40F1F6BE33D00921DF1 /* FirstSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstSignUpViewController.swift; sourceTree = "<group>"; };
-		F2A1E4111F6BE35000921DF1 /* SecondSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondSignUpViewController.swift; sourceTree = "<group>"; };
-		F2A1E4131F6BE35F00921DF1 /* ThirdSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdSignUpViewController.swift; sourceTree = "<group>"; };
 		F2A1E4161F6BE7AB00921DF1 /* StaticArrayValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticArrayValues.swift; sourceTree = "<group>"; };
 		F2A1E4181F6D0E0500921DF1 /* CornerRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		F2A1E41A1F6D0E7F00921DF1 /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
@@ -233,8 +231,6 @@
 			children = (
 				F2E8C3991F6BA7D000DC85FB /* ViewController.swift */,
 				F2A1E40F1F6BE33D00921DF1 /* FirstSignUpViewController.swift */,
-				F2A1E4111F6BE35000921DF1 /* SecondSignUpViewController.swift */,
-				F2A1E4131F6BE35F00921DF1 /* ThirdSignUpViewController.swift */,
 			);
 			name = "Login & Signup";
 			sourceTree = "<group>";
@@ -295,6 +291,7 @@
 				F2A1E40B1F6BDC9F00921DF1 /* StringUtils.swift */,
 				F2A1E40D1F6BDCC000921DF1 /* EmailValidation.swift */,
 				F2A1E4181F6D0E0500921DF1 /* CornerRadius.swift */,
+				F268022B1F863D95004DF987 /* stringMessages.swift */,
 			);
 			name = SupportingFiles;
 			sourceTree = "<group>";
@@ -504,16 +501,15 @@
 				F2A460581F6BB0F900BBB35C /* AppColors.swift in Sources */,
 				F2A1E4191F6D0E0500921DF1 /* CornerRadius.swift in Sources */,
 				F2E8C3981F6BA7D000DC85FB /* AppDelegate.swift in Sources */,
-				F2A1E4141F6BE35F00921DF1 /* ThirdSignUpViewController.swift in Sources */,
 				F29855CF1F7D0C690020B526 /* AcceptedCollectionViewCell.swift in Sources */,
 				F29855BF1F7CCC4D0020B526 /* MyDashBoardViewController.swift in Sources */,
 				F20CF05C1F72754E006F5C5B /* SpecialitiesViewController.swift in Sources */,
 				F20CF0431F7167A4006F5C5B /* CurrentEmploymentViewController.swift in Sources */,
 				F2A1E4071F6BC48800921DF1 /* UIViewExtensions.swift in Sources */,
 				F20CF0451F7178B6006F5C5B /* PreviousEmploymentViewController.swift in Sources */,
-				F2A1E4121F6BE35000921DF1 /* SecondSignUpViewController.swift in Sources */,
 				F29855C11F7CCC960020B526 /* AcceptedDashBoardViewController.swift in Sources */,
 				F2A1E40E1F6BDCC000921DF1 /* EmailValidation.swift in Sources */,
+				F268022C1F863D95004DF987 /* stringMessages.swift in Sources */,
 				F29855C51F7CCCE80020B526 /* DashBoardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -669,6 +665,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "NurseProject-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -707,6 +704,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "NurseProject-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

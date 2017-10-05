@@ -38,14 +38,14 @@ class ReferenceViewController: UIViewController,UITableViewDelegate,UITableViewD
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
-        return 30
+        return self.view.frame.height/18.5
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if nsectionCount == (indexPath as NSIndexPath).section{
-            return 100  
+            return self.view.frame.height/5.59
         }else{
-            return 240
+            return self.view.frame.height/2.358
         }
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -135,21 +135,20 @@ class ReferenceViewController: UIViewController,UITableViewDelegate,UITableViewD
             textField.text = strEmail
             let strRelationShip:String = (arrayEmpDetails[nsectionCount-1] as AnyObject).value(forKey: "Relationship") as! String
             if strName == ""{
-                popupAlertQuiz(msg: "Please Enter Your Full Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringName)
             }else if strPhone.characters.count < 10 {
-                popupAlertQuiz(msg: "Please Enter Your Phone Number", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringPhoneNumber)
             }else if (EmailValidation().validateMail(textEmail: textField.text!) == false){
-                popupAlertQuiz(msg: "Please Enter Your valid Email-ID", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringMail)
             }else if strRelationShip == ""{
-                popupAlertQuiz(msg: "Please Enter Your Relationship with the referral", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringRelationship)
             }else{
                 nsectionCount = nsectionCount + 1
                 tableViewReference.reloadData()
             }
         }else{
-            popupAlertQuiz(msg: "Please fill the details Completely to add more", buttonColor: UIColor.red)
+            self.popupAlert(Title: "Information",msg: stringMessages().stringAddMore)
         }
-        
     }
     
     
@@ -169,13 +168,13 @@ class ReferenceViewController: UIViewController,UITableViewDelegate,UITableViewD
             textField.text = strEmail
             let strRelationShip:String = (arrayEmpDetails[nsectionCount-1] as AnyObject).value(forKey: "Relationship") as! String
             if strName == ""{
-                popupAlertQuiz(msg: "Please Enter Your Full Name", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringName)
             }else if strPhone.characters.count < 10 {
-                popupAlertQuiz(msg: "Please Enter Your Phone Number", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringPhoneNumber)
             }else if (EmailValidation().validateMail(textEmail: textField.text!) == false){
-                popupAlertQuiz(msg: "Please Enter Your valid Email-ID", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringMail)
             }else if strRelationShip == ""{
-                popupAlertQuiz(msg: "Please Enter Your Relationship with the referral", buttonColor: UIColor.red)
+                self.popupAlert(Title: "Information",msg: stringMessages().stringRelationship)
             }else{
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier:"ResumeViewController") as! ResumeViewController
                 self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -183,20 +182,20 @@ class ReferenceViewController: UIViewController,UITableViewDelegate,UITableViewD
         }
     }
     
-    //MARK- Popup Alert
+    //MARK:- Alert PopUps
     
-    func popupAlertQuiz(msg:String, buttonColor:UIColor)
+    func popupAlert(Title:String,msg:String)
     {
-        let title = "Information"
+        let title = Title
         let message = msg
         let popup = PopupDialog(title: title, message: message, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
         }
-        let buttonTwo = DefaultButton(title: "OK")
+        let buttonOk = DefaultButton(title: "OK")
         {
         }
-        buttonTwo.buttonColor = UIColor.red
-        buttonTwo.titleColor = UIColor.white
-        popup.addButtons([buttonTwo])
+        buttonOk.buttonColor = UIColor.red
+        buttonOk.titleColor = UIColor.white
+        popup.addButtons([buttonOk])
         self.present(popup, animated: true, completion: nil)
     }
 
