@@ -7,6 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D4D61F52111F283CD7146AD /* Pods_NurseProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05025921C26E84C793DEE078 /* Pods_NurseProject.framework */; };
+		F20CF03D1F715A27006F5C5B /* EducationCertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF03C1F715A27006F5C5B /* EducationCertificationViewController.swift */; };
+		F20CF0401F7161A4006F5C5B /* CertificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF03E1F7161A4006F5C5B /* CertificationTableViewCell.swift */; };
+		F20CF0411F7161A4006F5C5B /* CertificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F20CF03F1F7161A4006F5C5B /* CertificationTableViewCell.xib */; };
+		F20CF0431F7167A4006F5C5B /* CurrentEmploymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF0421F7167A4006F5C5B /* CurrentEmploymentViewController.swift */; };
+		F20CF0451F7178B6006F5C5B /* PreviousEmploymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF0441F7178B6006F5C5B /* PreviousEmploymentViewController.swift */; };
+		F20CF04A1F717A25006F5C5B /* PreviousEmploymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF0481F717A25006F5C5B /* PreviousEmploymentTableViewCell.swift */; };
+		F20CF04B1F717A25006F5C5B /* PreviousEmploymentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F20CF0491F717A25006F5C5B /* PreviousEmploymentTableViewCell.xib */; };
+		F20CF04E1F717A3B006F5C5B /* PreviousEmployment2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF04C1F717A3B006F5C5B /* PreviousEmployment2TableViewCell.swift */; };
+		F20CF04F1F717A3B006F5C5B /* PreviousEmployment2TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F20CF04D1F717A3B006F5C5B /* PreviousEmployment2TableViewCell.xib */; };
+		F20CF0511F7190F1006F5C5B /* ReferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF0501F7190F1006F5C5B /* ReferenceViewController.swift */; };
+		F20CF0551F7191E1006F5C5B /* ReferenceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF0531F7191E1006F5C5B /* ReferenceTableViewCell.swift */; };
+		F20CF0561F7191E1006F5C5B /* ReferenceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F20CF0541F7191E1006F5C5B /* ReferenceTableViewCell.xib */; };
+		F20CF0581F71A2EF006F5C5B /* ResumeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF0571F71A2EF006F5C5B /* ResumeViewController.swift */; };
+		F20CF05A1F726E3F006F5C5B /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF0591F726E3F006F5C5B /* PreferenceViewController.swift */; };
+		F20CF05C1F72754E006F5C5B /* SpecialitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20CF05B1F72754E006F5C5B /* SpecialitiesViewController.swift */; };
+		F29855BF1F7CCC4D0020B526 /* MyDashBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29855BE1F7CCC4D0020B526 /* MyDashBoardViewController.swift */; };
+		F29855C11F7CCC960020B526 /* AcceptedDashBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29855C01F7CCC960020B526 /* AcceptedDashBoardViewController.swift */; };
+		F29855C31F7CCCCC0020B526 /* NewDashBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29855C21F7CCCCC0020B526 /* NewDashBoardViewController.swift */; };
+		F29855C51F7CCCE80020B526 /* DashBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29855C41F7CCCE80020B526 /* DashBoardViewController.swift */; };
+		F29855CF1F7D0C690020B526 /* AcceptedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29855CD1F7D0C690020B526 /* AcceptedCollectionViewCell.swift */; };
+		F29855D01F7D0C690020B526 /* AcceptedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F29855CE1F7D0C690020B526 /* AcceptedCollectionViewCell.xib */; };
+		F29855D11F7D594C0020B526 /* LGHorizontalLinearFlowLayout.h in Sources */ = {isa = PBXBuildFile; fileRef = F29855CA1F7D06F90020B526 /* LGHorizontalLinearFlowLayout.h */; };
+		F29855D21F7D594C0020B526 /* LGHorizontalLinearFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F29855CB1F7D06F90020B526 /* LGHorizontalLinearFlowLayout.m */; };
+		F29855D61F7E1BD10020B526 /* NewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29855D41F7E1BD10020B526 /* NewTableViewCell.swift */; };
+		F29855D71F7E1BD10020B526 /* NewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F29855D51F7E1BD10020B526 /* NewTableViewCell.xib */; };
+		F29855DB1F7E31040020B526 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29855D91F7E31040020B526 /* NewsTableViewCell.swift */; };
+		F29855DC1F7E31040020B526 /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F29855DA1F7E31040020B526 /* NewsTableViewCell.xib */; };
+		F2A1E4071F6BC48800921DF1 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4061F6BC48800921DF1 /* UIViewExtensions.swift */; };
+		F2A1E40C1F6BDC9F00921DF1 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E40B1F6BDC9F00921DF1 /* StringUtils.swift */; };
+		F2A1E40E1F6BDCC000921DF1 /* EmailValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E40D1F6BDCC000921DF1 /* EmailValidation.swift */; };
+		F2A1E4101F6BE33D00921DF1 /* FirstSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E40F1F6BE33D00921DF1 /* FirstSignUpViewController.swift */; };
+		F2A1E4121F6BE35000921DF1 /* SecondSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4111F6BE35000921DF1 /* SecondSignUpViewController.swift */; };
+		F2A1E4141F6BE35F00921DF1 /* ThirdSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4131F6BE35F00921DF1 /* ThirdSignUpViewController.swift */; };
+		F2A1E4171F6BE7AB00921DF1 /* StaticArrayValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4161F6BE7AB00921DF1 /* StaticArrayValues.swift */; };
+		F2A1E4191F6D0E0500921DF1 /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4181F6D0E0500921DF1 /* CornerRadius.swift */; };
+		F2A1E41B1F6D0E7F00921DF1 /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E41A1F6D0E7F00921DF1 /* AccountDetailsViewController.swift */; };
+		F2A1E41E1F6D60EB00921DF1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A1E41D1F6D60EB00921DF1 /* CloudKit.framework */; };
+		F2A1E4211F6EE99C00921DF1 /* AccountDetailStatementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4201F6EE99C00921DF1 /* AccountDetailStatementViewController.swift */; };
+		F2A1E4231F6EF46900921DF1 /* AccountDetailsEducationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4221F6EF46900921DF1 /* AccountDetailsEducationViewController.swift */; };
+		F2A1E4251F6EF49E00921DF1 /* ProfessionalEducationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4241F6EF49E00921DF1 /* ProfessionalEducationViewController.swift */; };
+		F2A1E4291F6EF68800921DF1 /* EducationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E4271F6EF68800921DF1 /* EducationTableViewCell.swift */; };
+		F2A1E42A1F6EF68800921DF1 /* EducationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2A1E4281F6EF68800921DF1 /* EducationTableViewCell.xib */; };
+		F2A1E42D1F6EF6A000921DF1 /* Education2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E42B1F6EF6A000921DF1 /* Education2TableViewCell.swift */; };
+		F2A1E42E1F6EF6A000921DF1 /* Education2TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2A1E42C1F6EF6A000921DF1 /* Education2TableViewCell.xib */; };
+		F2A460581F6BB0F900BBB35C /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A460571F6BB0F900BBB35C /* AppColors.swift */; };
 		F2E8C3981F6BA7D000DC85FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E8C3971F6BA7D000DC85FB /* AppDelegate.swift */; };
 		F2E8C39A1F6BA7D000DC85FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E8C3991F6BA7D000DC85FB /* ViewController.swift */; };
 		F2E8C39D1F6BA7D000DC85FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E8C39B1F6BA7D000DC85FB /* Main.storyboard */; };
@@ -15,6 +61,58 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05025921C26E84C793DEE078 /* Pods_NurseProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NurseProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC2CD635ACC320C78E1BD9F8 /* Pods-NurseProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NurseProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-NurseProject/Pods-NurseProject.release.xcconfig"; sourceTree = "<group>"; };
+		F0E43CEC7A87A93EEC9C89B7 /* Pods-NurseProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NurseProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NurseProject/Pods-NurseProject.debug.xcconfig"; sourceTree = "<group>"; };
+		F20CF03C1F715A27006F5C5B /* EducationCertificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EducationCertificationViewController.swift; sourceTree = "<group>"; };
+		F20CF03E1F7161A4006F5C5B /* CertificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificationTableViewCell.swift; sourceTree = "<group>"; };
+		F20CF03F1F7161A4006F5C5B /* CertificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CertificationTableViewCell.xib; sourceTree = "<group>"; };
+		F20CF0421F7167A4006F5C5B /* CurrentEmploymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentEmploymentViewController.swift; sourceTree = "<group>"; };
+		F20CF0441F7178B6006F5C5B /* PreviousEmploymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviousEmploymentViewController.swift; sourceTree = "<group>"; };
+		F20CF0481F717A25006F5C5B /* PreviousEmploymentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviousEmploymentTableViewCell.swift; sourceTree = "<group>"; };
+		F20CF0491F717A25006F5C5B /* PreviousEmploymentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviousEmploymentTableViewCell.xib; sourceTree = "<group>"; };
+		F20CF04C1F717A3B006F5C5B /* PreviousEmployment2TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviousEmployment2TableViewCell.swift; sourceTree = "<group>"; };
+		F20CF04D1F717A3B006F5C5B /* PreviousEmployment2TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviousEmployment2TableViewCell.xib; sourceTree = "<group>"; };
+		F20CF0501F7190F1006F5C5B /* ReferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceViewController.swift; sourceTree = "<group>"; };
+		F20CF0531F7191E1006F5C5B /* ReferenceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceTableViewCell.swift; sourceTree = "<group>"; };
+		F20CF0541F7191E1006F5C5B /* ReferenceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReferenceTableViewCell.xib; sourceTree = "<group>"; };
+		F20CF0571F71A2EF006F5C5B /* ResumeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResumeViewController.swift; sourceTree = "<group>"; };
+		F20CF0591F726E3F006F5C5B /* PreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
+		F20CF05B1F72754E006F5C5B /* SpecialitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecialitiesViewController.swift; sourceTree = "<group>"; };
+		F29855BE1F7CCC4D0020B526 /* MyDashBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDashBoardViewController.swift; sourceTree = "<group>"; };
+		F29855C01F7CCC960020B526 /* AcceptedDashBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptedDashBoardViewController.swift; sourceTree = "<group>"; };
+		F29855C21F7CCCCC0020B526 /* NewDashBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDashBoardViewController.swift; sourceTree = "<group>"; };
+		F29855C41F7CCCE80020B526 /* DashBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardViewController.swift; sourceTree = "<group>"; };
+		F29855CA1F7D06F90020B526 /* LGHorizontalLinearFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGHorizontalLinearFlowLayout.h; sourceTree = "<group>"; };
+		F29855CB1F7D06F90020B526 /* LGHorizontalLinearFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGHorizontalLinearFlowLayout.m; sourceTree = "<group>"; };
+		F29855CD1F7D0C690020B526 /* AcceptedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptedCollectionViewCell.swift; sourceTree = "<group>"; };
+		F29855CE1F7D0C690020B526 /* AcceptedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AcceptedCollectionViewCell.xib; sourceTree = "<group>"; };
+		F29855D41F7E1BD10020B526 /* NewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTableViewCell.swift; sourceTree = "<group>"; };
+		F29855D51F7E1BD10020B526 /* NewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewTableViewCell.xib; sourceTree = "<group>"; };
+		F29855D91F7E31040020B526 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		F29855DA1F7E31040020B526 /* NewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
+		F2A1E4061F6BC48800921DF1 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		F2A1E4091F6BCF4600921DF1 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		F2A1E40A1F6BCF4600921DF1 /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
+		F2A1E40B1F6BDC9F00921DF1 /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
+		F2A1E40D1F6BDCC000921DF1 /* EmailValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailValidation.swift; sourceTree = "<group>"; };
+		F2A1E40F1F6BE33D00921DF1 /* FirstSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstSignUpViewController.swift; sourceTree = "<group>"; };
+		F2A1E4111F6BE35000921DF1 /* SecondSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondSignUpViewController.swift; sourceTree = "<group>"; };
+		F2A1E4131F6BE35F00921DF1 /* ThirdSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdSignUpViewController.swift; sourceTree = "<group>"; };
+		F2A1E4161F6BE7AB00921DF1 /* StaticArrayValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticArrayValues.swift; sourceTree = "<group>"; };
+		F2A1E4181F6D0E0500921DF1 /* CornerRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
+		F2A1E41A1F6D0E7F00921DF1 /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
+		F2A1E41C1F6D606F00921DF1 /* NurseProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NurseProject.entitlements; sourceTree = "<group>"; };
+		F2A1E41D1F6D60EB00921DF1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		F2A1E4201F6EE99C00921DF1 /* AccountDetailStatementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailStatementViewController.swift; sourceTree = "<group>"; };
+		F2A1E4221F6EF46900921DF1 /* AccountDetailsEducationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailsEducationViewController.swift; sourceTree = "<group>"; };
+		F2A1E4241F6EF49E00921DF1 /* ProfessionalEducationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfessionalEducationViewController.swift; sourceTree = "<group>"; };
+		F2A1E4271F6EF68800921DF1 /* EducationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EducationTableViewCell.swift; sourceTree = "<group>"; };
+		F2A1E4281F6EF68800921DF1 /* EducationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EducationTableViewCell.xib; sourceTree = "<group>"; };
+		F2A1E42B1F6EF6A000921DF1 /* Education2TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Education2TableViewCell.swift; sourceTree = "<group>"; };
+		F2A1E42C1F6EF6A000921DF1 /* Education2TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Education2TableViewCell.xib; sourceTree = "<group>"; };
+		F2A4602E1F6BAF8C00BBB35C /* NurseProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NurseProject-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		F2A460571F6BB0F900BBB35C /* AppColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		F2E8C3941F6BA7D000DC85FB /* NurseProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NurseProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E8C3971F6BA7D000DC85FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2E8C3991F6BA7D000DC85FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +127,185 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D4D61F52111F283CD7146AD /* Pods_NurseProject.framework in Frameworks */,
+				F2A1E41E1F6D60EB00921DF1 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		906B0C1CC3415C29D1D2CEDB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F2A1E41D1F6D60EB00921DF1 /* CloudKit.framework */,
+				05025921C26E84C793DEE078 /* Pods_NurseProject.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		92E6DB7C28F0719A0A2DF2A0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F0E43CEC7A87A93EEC9C89B7 /* Pods-NurseProject.debug.xcconfig */,
+				BC2CD635ACC320C78E1BD9F8 /* Pods-NurseProject.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F20CF0461F7179EC006F5C5B /* Employment Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F20CF0481F717A25006F5C5B /* PreviousEmploymentTableViewCell.swift */,
+				F20CF0491F717A25006F5C5B /* PreviousEmploymentTableViewCell.xib */,
+				F20CF04C1F717A3B006F5C5B /* PreviousEmployment2TableViewCell.swift */,
+				F20CF04D1F717A3B006F5C5B /* PreviousEmployment2TableViewCell.xib */,
+			);
+			name = "Employment Cell";
+			sourceTree = "<group>";
+		};
+		F20CF0471F7179FB006F5C5B /* EducationCell */ = {
+			isa = PBXGroup;
+			children = (
+				F2A1E4271F6EF68800921DF1 /* EducationTableViewCell.swift */,
+				F2A1E4281F6EF68800921DF1 /* EducationTableViewCell.xib */,
+				F2A1E42B1F6EF6A000921DF1 /* Education2TableViewCell.swift */,
+				F2A1E42C1F6EF6A000921DF1 /* Education2TableViewCell.xib */,
+				F20CF03E1F7161A4006F5C5B /* CertificationTableViewCell.swift */,
+				F20CF03F1F7161A4006F5C5B /* CertificationTableViewCell.xib */,
+			);
+			name = EducationCell;
+			sourceTree = "<group>";
+		};
+		F20CF0521F7191AE006F5C5B /* ReferenceCell */ = {
+			isa = PBXGroup;
+			children = (
+				F20CF0531F7191E1006F5C5B /* ReferenceTableViewCell.swift */,
+				F20CF0541F7191E1006F5C5B /* ReferenceTableViewCell.xib */,
+			);
+			name = ReferenceCell;
+			sourceTree = "<group>";
+		};
+		F29855BD1F7CCB420020B526 /* DashBoard */ = {
+			isa = PBXGroup;
+			children = (
+				F29855D31F7E1B6B0020B526 /* TableviewCell */,
+				F29855CC1F7D0C430020B526 /* CollectionViewCell */,
+				F29855BE1F7CCC4D0020B526 /* MyDashBoardViewController.swift */,
+				F29855C21F7CCCCC0020B526 /* NewDashBoardViewController.swift */,
+				F29855C01F7CCC960020B526 /* AcceptedDashBoardViewController.swift */,
+				F29855C41F7CCCE80020B526 /* DashBoardViewController.swift */,
+			);
+			name = DashBoard;
+			sourceTree = "<group>";
+		};
+		F29855C91F7D06EB0020B526 /* CollectionViewLayout */ = {
+			isa = PBXGroup;
+			children = (
+				F29855CA1F7D06F90020B526 /* LGHorizontalLinearFlowLayout.h */,
+				F29855CB1F7D06F90020B526 /* LGHorizontalLinearFlowLayout.m */,
+			);
+			name = CollectionViewLayout;
+			sourceTree = "<group>";
+		};
+		F29855CC1F7D0C430020B526 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F29855CD1F7D0C690020B526 /* AcceptedCollectionViewCell.swift */,
+				F29855CE1F7D0C690020B526 /* AcceptedCollectionViewCell.xib */,
+			);
+			name = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		F29855D31F7E1B6B0020B526 /* TableviewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F29855D41F7E1BD10020B526 /* NewTableViewCell.swift */,
+				F29855D51F7E1BD10020B526 /* NewTableViewCell.xib */,
+				F29855D91F7E31040020B526 /* NewsTableViewCell.swift */,
+				F29855DA1F7E31040020B526 /* NewsTableViewCell.xib */,
+			);
+			name = TableviewCell;
+			sourceTree = "<group>";
+		};
+		F2A1E4051F6BBDEB00921DF1 /* Login & Signup */ = {
+			isa = PBXGroup;
+			children = (
+				F2E8C3991F6BA7D000DC85FB /* ViewController.swift */,
+				F2A1E40F1F6BE33D00921DF1 /* FirstSignUpViewController.swift */,
+				F2A1E4111F6BE35000921DF1 /* SecondSignUpViewController.swift */,
+				F2A1E4131F6BE35F00921DF1 /* ThirdSignUpViewController.swift */,
+			);
+			name = "Login & Signup";
+			sourceTree = "<group>";
+		};
+		F2A1E4081F6BCF3000921DF1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F2A1E4091F6BCF4600921DF1 /* Lato-Regular.ttf */,
+				F2A1E40A1F6BCF4600921DF1 /* Lato-Semibold.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		F2A1E4151F6BE78800921DF1 /* ArrayValues */ = {
+			isa = PBXGroup;
+			children = (
+				F2A1E4161F6BE7AB00921DF1 /* StaticArrayValues.swift */,
+			);
+			name = ArrayValues;
+			sourceTree = "<group>";
+		};
+		F2A1E41F1F6EE3F100921DF1 /* Account Details */ = {
+			isa = PBXGroup;
+			children = (
+				F2A1E4261F6EF65000921DF1 /* TableviewCells */,
+				F2A1E41A1F6D0E7F00921DF1 /* AccountDetailsViewController.swift */,
+				F2A1E4201F6EE99C00921DF1 /* AccountDetailStatementViewController.swift */,
+				F2A1E4221F6EF46900921DF1 /* AccountDetailsEducationViewController.swift */,
+				F2A1E4241F6EF49E00921DF1 /* ProfessionalEducationViewController.swift */,
+				F20CF03C1F715A27006F5C5B /* EducationCertificationViewController.swift */,
+				F20CF0421F7167A4006F5C5B /* CurrentEmploymentViewController.swift */,
+				F20CF0441F7178B6006F5C5B /* PreviousEmploymentViewController.swift */,
+				F20CF0501F7190F1006F5C5B /* ReferenceViewController.swift */,
+				F20CF0571F71A2EF006F5C5B /* ResumeViewController.swift */,
+				F20CF0591F726E3F006F5C5B /* PreferenceViewController.swift */,
+				F20CF05B1F72754E006F5C5B /* SpecialitiesViewController.swift */,
+			);
+			name = "Account Details";
+			sourceTree = "<group>";
+		};
+		F2A1E4261F6EF65000921DF1 /* TableviewCells */ = {
+			isa = PBXGroup;
+			children = (
+				F20CF0521F7191AE006F5C5B /* ReferenceCell */,
+				F20CF0471F7179FB006F5C5B /* EducationCell */,
+				F20CF0461F7179EC006F5C5B /* Employment Cell */,
+			);
+			name = TableviewCells;
+			sourceTree = "<group>";
+		};
+		F2A460561F6BB0CF00BBB35C /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				F29855C91F7D06EB0020B526 /* CollectionViewLayout */,
+				F2A1E4081F6BCF3000921DF1 /* Fonts */,
+				F2A460571F6BB0F900BBB35C /* AppColors.swift */,
+				F2A1E4061F6BC48800921DF1 /* UIViewExtensions.swift */,
+				F2A1E40B1F6BDC9F00921DF1 /* StringUtils.swift */,
+				F2A1E40D1F6BDCC000921DF1 /* EmailValidation.swift */,
+				F2A1E4181F6D0E0500921DF1 /* CornerRadius.swift */,
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		F2E8C38B1F6BA7D000DC85FB = {
 			isa = PBXGroup;
 			children = (
 				F2E8C3961F6BA7D000DC85FB /* NurseProject */,
 				F2E8C3951F6BA7D000DC85FB /* Products */,
+				92E6DB7C28F0719A0A2DF2A0 /* Pods */,
+				906B0C1CC3415C29D1D2CEDB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,12 +320,18 @@
 		F2E8C3961F6BA7D000DC85FB /* NurseProject */ = {
 			isa = PBXGroup;
 			children = (
+				F2A1E41C1F6D606F00921DF1 /* NurseProject.entitlements */,
+				F2A1E4151F6BE78800921DF1 /* ArrayValues */,
+				F29855BD1F7CCB420020B526 /* DashBoard */,
+				F2A1E41F1F6EE3F100921DF1 /* Account Details */,
+				F2A1E4051F6BBDEB00921DF1 /* Login & Signup */,
+				F2A460561F6BB0CF00BBB35C /* SupportingFiles */,
 				F2E8C3971F6BA7D000DC85FB /* AppDelegate.swift */,
-				F2E8C3991F6BA7D000DC85FB /* ViewController.swift */,
 				F2E8C39B1F6BA7D000DC85FB /* Main.storyboard */,
 				F2E8C39E1F6BA7D000DC85FB /* Assets.xcassets */,
 				F2E8C3A01F6BA7D000DC85FB /* LaunchScreen.storyboard */,
 				F2E8C3A31F6BA7D000DC85FB /* Info.plist */,
+				F2A4602E1F6BAF8C00BBB35C /* NurseProject-Bridging-Header.h */,
 			);
 			path = NurseProject;
 			sourceTree = "<group>";
@@ -71,9 +343,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F2E8C3A61F6BA7D000DC85FB /* Build configuration list for PBXNativeTarget "NurseProject" */;
 			buildPhases = (
+				C5F9564A59CF218D37BBD69B /* [CP] Check Pods Manifest.lock */,
 				F2E8C3901F6BA7D000DC85FB /* Sources */,
 				F2E8C3911F6BA7D000DC85FB /* Frameworks */,
 				F2E8C3921F6BA7D000DC85FB /* Resources */,
+				A15FFE188203C1A104207594 /* [CP] Embed Pods Frameworks */,
+				A8BD9C94F4D95EBFC2387F3E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -97,7 +372,16 @@
 					F2E8C3931F6BA7D000DC85FB = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = Q6TYR9893Z;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -125,20 +409,112 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2E8C3A21F6BA7D000DC85FB /* LaunchScreen.storyboard in Resources */,
+				F20CF04F1F717A3B006F5C5B /* PreviousEmployment2TableViewCell.xib in Resources */,
 				F2E8C39F1F6BA7D000DC85FB /* Assets.xcassets in Resources */,
+				F20CF04B1F717A25006F5C5B /* PreviousEmploymentTableViewCell.xib in Resources */,
+				F20CF0411F7161A4006F5C5B /* CertificationTableViewCell.xib in Resources */,
+				F2A1E42E1F6EF6A000921DF1 /* Education2TableViewCell.xib in Resources */,
+				F20CF0561F7191E1006F5C5B /* ReferenceTableViewCell.xib in Resources */,
+				F29855D01F7D0C690020B526 /* AcceptedCollectionViewCell.xib in Resources */,
+				F2A1E42A1F6EF68800921DF1 /* EducationTableViewCell.xib in Resources */,
+				F29855D71F7E1BD10020B526 /* NewTableViewCell.xib in Resources */,
+				F29855DC1F7E31040020B526 /* NewsTableViewCell.xib in Resources */,
 				F2E8C39D1F6BA7D000DC85FB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A15FFE188203C1A104207594 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NurseProject/Pods-NurseProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A8BD9C94F4D95EBFC2387F3E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NurseProject/Pods-NurseProject-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5F9564A59CF218D37BBD69B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F2E8C3901F6BA7D000DC85FB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F29855D11F7D594C0020B526 /* LGHorizontalLinearFlowLayout.h in Sources */,
+				F29855D21F7D594C0020B526 /* LGHorizontalLinearFlowLayout.m in Sources */,
+				F20CF05A1F726E3F006F5C5B /* PreferenceViewController.swift in Sources */,
+				F20CF04A1F717A25006F5C5B /* PreviousEmploymentTableViewCell.swift in Sources */,
+				F2A1E4171F6BE7AB00921DF1 /* StaticArrayValues.swift in Sources */,
+				F29855DB1F7E31040020B526 /* NewsTableViewCell.swift in Sources */,
+				F2A1E40C1F6BDC9F00921DF1 /* StringUtils.swift in Sources */,
+				F20CF03D1F715A27006F5C5B /* EducationCertificationViewController.swift in Sources */,
+				F2A1E41B1F6D0E7F00921DF1 /* AccountDetailsViewController.swift in Sources */,
+				F20CF04E1F717A3B006F5C5B /* PreviousEmployment2TableViewCell.swift in Sources */,
+				F20CF0511F7190F1006F5C5B /* ReferenceViewController.swift in Sources */,
+				F20CF0551F7191E1006F5C5B /* ReferenceTableViewCell.swift in Sources */,
+				F20CF0401F7161A4006F5C5B /* CertificationTableViewCell.swift in Sources */,
+				F20CF0581F71A2EF006F5C5B /* ResumeViewController.swift in Sources */,
+				F2A1E42D1F6EF6A000921DF1 /* Education2TableViewCell.swift in Sources */,
 				F2E8C39A1F6BA7D000DC85FB /* ViewController.swift in Sources */,
+				F29855C31F7CCCCC0020B526 /* NewDashBoardViewController.swift in Sources */,
+				F2A1E4211F6EE99C00921DF1 /* AccountDetailStatementViewController.swift in Sources */,
+				F2A1E4101F6BE33D00921DF1 /* FirstSignUpViewController.swift in Sources */,
+				F29855D61F7E1BD10020B526 /* NewTableViewCell.swift in Sources */,
+				F2A1E4291F6EF68800921DF1 /* EducationTableViewCell.swift in Sources */,
+				F2A1E4231F6EF46900921DF1 /* AccountDetailsEducationViewController.swift in Sources */,
+				F2A1E4251F6EF49E00921DF1 /* ProfessionalEducationViewController.swift in Sources */,
+				F2A460581F6BB0F900BBB35C /* AppColors.swift in Sources */,
+				F2A1E4191F6D0E0500921DF1 /* CornerRadius.swift in Sources */,
 				F2E8C3981F6BA7D000DC85FB /* AppDelegate.swift in Sources */,
+				F2A1E4141F6BE35F00921DF1 /* ThirdSignUpViewController.swift in Sources */,
+				F29855CF1F7D0C690020B526 /* AcceptedCollectionViewCell.swift in Sources */,
+				F29855BF1F7CCC4D0020B526 /* MyDashBoardViewController.swift in Sources */,
+				F20CF05C1F72754E006F5C5B /* SpecialitiesViewController.swift in Sources */,
+				F20CF0431F7167A4006F5C5B /* CurrentEmploymentViewController.swift in Sources */,
+				F2A1E4071F6BC48800921DF1 /* UIViewExtensions.swift in Sources */,
+				F20CF0451F7178B6006F5C5B /* PreviousEmploymentViewController.swift in Sources */,
+				F2A1E4121F6BE35000921DF1 /* SecondSignUpViewController.swift in Sources */,
+				F29855C11F7CCC960020B526 /* AcceptedDashBoardViewController.swift in Sources */,
+				F2A1E40E1F6BDCC000921DF1 /* EmailValidation.swift in Sources */,
+				F29855C51F7CCCE80020B526 /* DashBoardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,26 +635,77 @@
 		};
 		F2E8C3A71F6BA7D000DC85FB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0E43CEC7A87A93EEC9C89B7 /* Pods-NurseProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NurseProject/NurseProject.entitlements;
 				DEVELOPMENT_TEAM = Q6TYR9893Z;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = NurseProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"BrightFutures\"",
+					"-framework",
+					"\"IQKeyboardManagerSwift\"",
+					"-framework",
+					"\"NADocumentPicker\"",
+					"-framework",
+					"\"PopupDialog\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"TextFieldEffects\"",
+					"-framework",
+					"\"XLPagerTabStrip\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pluggdd.NurseProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "NurseProject-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		F2E8C3A81F6BA7D000DC85FB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC2CD635ACC320C78E1BD9F8 /* Pods-NurseProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NurseProject/NurseProject.entitlements;
 				DEVELOPMENT_TEAM = Q6TYR9893Z;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = NurseProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"BrightFutures\"",
+					"-framework",
+					"\"IQKeyboardManagerSwift\"",
+					"-framework",
+					"\"NADocumentPicker\"",
+					"-framework",
+					"\"PopupDialog\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"TextFieldEffects\"",
+					"-framework",
+					"\"XLPagerTabStrip\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pluggdd.NurseProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "NurseProject-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -302,6 +729,7 @@
 				F2E8C3A81F6BA7D000DC85FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
