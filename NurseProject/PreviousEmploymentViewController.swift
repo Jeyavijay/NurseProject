@@ -47,7 +47,7 @@ class PreviousEmploymentViewController: UIViewController,UITableViewDelegate,UIT
         if nsectionCount == (indexPath as NSIndexPath).section{
             return self.view.frame.height/5.59
         }else{
-            return self.view.frame.height/1.89
+            return self.view.frame.height/1.45
         }
     }
 

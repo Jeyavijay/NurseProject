@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         {
             self.popupAlert(Title: "Information",msg: stringMessages().stringPassword)
         }else{
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier:"AccountDetailStatementViewController") as! AccountDetailStatementViewController
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier:"AccountDetailsViewController") as! AccountDetailsViewController
             self.navigationController?.pushViewController(nextViewController, animated: true)
 
         }

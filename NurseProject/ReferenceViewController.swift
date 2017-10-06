@@ -45,7 +45,7 @@ class ReferenceViewController: UIViewController,UITableViewDelegate,UITableViewD
         if nsectionCount == (indexPath as NSIndexPath).section{
             return self.view.frame.height/5.59
         }else{
-            return self.view.frame.height/2.358
+            return self.view.frame.height/2.1
         }
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

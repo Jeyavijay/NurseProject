@@ -56,7 +56,7 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
 
         var fixedString: String = "+1  "
         let attributedString = NSMutableAttributedString(string: fixedString)
-        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.lightGray, range: NSRange(location: 0, length: (fixedString.characters.count )))
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: 0, length: (fixedString.characters.count )))
         textFieldMobileNumber?.attributedText = attributedString
         
         let DSImage:UIImage = UIImage(named: "unchecked")!
@@ -87,8 +87,8 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
 
     }
 
-    // Pragma Mark - Textfield Delegates -
-    
+    //MARK:- Textfield Delegates
+
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
 

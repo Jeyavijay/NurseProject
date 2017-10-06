@@ -25,6 +25,7 @@ class FirstSignUpViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLoadingIndicator()
+        UIInitialization()
 
     }
 
@@ -33,6 +34,44 @@ class FirstSignUpViewController: UIViewController,UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    func UIInitialization(){
+        var fixedString: String = "+1 "
+        let attributedString = NSMutableAttributedString(string: fixedString)
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: 0, length: (fixedString.characters.count )))
+        textFieldPhoneNumber?.attributedText = attributedString
+
+    }
+    
+    
+    //MARK:- TextField Delegates
+
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == self.textFieldPhoneNumber{
+            let substringRange: NSRange = (textFieldPhoneNumber.text! as NSString).range(of: "+1 ")
+            
+            if range.location >= substringRange.location && range.location < substringRange.location + substringRange.length {
+                return false
+            }
+            let attString: NSMutableAttributedString? = textFieldPhoneNumber.attributedText?.mutableCopy() as? NSMutableAttributedString
+            attString?.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: substringRange.length, length: (textFieldPhoneNumber.text?.characters.count)! - substringRange.length))
+            textField.attributedText = attString
+            
+            let currentText = textField.text ?? ""
+            let prospectiveText = (currentText as NSString).replacingCharacters(in: range, with: string)
+            switch textField {
+            case textFieldPhoneNumber:
+                return prospectiveText.containsCharactersIn("0123456789") &&
+                    prospectiveText.characters.count <= 13
+            default:
+                return true
+            }
+        }else{
+                return true
+            }
+     
+    }
+        
     //MARK:- Button Actions
 
     @IBAction func buttonNext(_ sender: Any)
@@ -46,7 +85,7 @@ class FirstSignUpViewController: UIViewController,UITextFieldDelegate {
         }else if (EmailValidation().validateMail(textEmail: self.textFieldMailID.text!) == false)
         {
             self.popupAlert(Title: "Information",msg: stringMessages().stringMail, butttonColor: UIColor.red)
-        }else if (textFieldPhoneNumber.text?.characters.count)! <= 9
+        }else if (textFieldPhoneNumber.text?.characters.count)! <= 12
         {
             self.popupAlert(Title: "Information",msg: stringMessages().stringMail, butttonColor: UIColor.red)
         }else  if (textFieldPassword.text?.characters.count)! < 6{
@@ -139,7 +178,7 @@ class FirstSignUpViewController: UIViewController,UITextFieldDelegate {
                 }else{
                     if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
 
-                        self.popupAlertToNavigate(Title: "Information", msg: Msg, butttonColor: UIColor.red)
+                        self.popupAlert(Title: "Information", msg: Msg, butttonColor: UIColor.red)
                     }
                 }
 
