@@ -16,7 +16,4 @@ pod 'YLProgressBar'
 pod 'SwipeCellKit'
 pod 'NVActivityIndicatorView'
 
-
-
-
 end
