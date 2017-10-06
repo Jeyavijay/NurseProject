@@ -19,6 +19,9 @@ PODS:
   - IQKeyboardManagerSwift (4.0.13)
   - NADocumentPicker (2.0.2):
     - BrightFutures
+  - NVActivityIndicatorView (3.7.0):
+    - NVActivityIndicatorView/Presenter (= 3.7.0)
+  - NVActivityIndicatorView/Presenter (3.7.0)
   - PopupDialog (0.5.4)
   - Result (3.2.3)
   - SwipeCellKit (1.9.1)
@@ -30,6 +33,7 @@ DEPENDENCIES:
   - AFNetworking
   - IQKeyboardManagerSwift
   - NADocumentPicker
+  - NVActivityIndicatorView
   - PopupDialog
   - SwipeCellKit
   - TextFieldEffects
@@ -41,6 +45,7 @@ SPEC CHECKSUMS:
   BrightFutures: 8681dbb9fa831b69b6e7dc4a498b9e081d5daeb5
   IQKeyboardManagerSwift: fb399c4cddcd8d9bbcd2d0c7c81ed290b61c088e
   NADocumentPicker: 962973260ea01c15dd261db331c88e1b86548c4c
+  NVActivityIndicatorView: d3738df7e2e476aca0ba6bf32a8c9fbcfc33d64b
   PopupDialog: 75cf955693590b0cb2fdde00223fb65d99c57247
   Result: 128640a6347e8d2ae48b142556739a2d13f90ce6
   SwipeCellKit: e9ff953c820394a4e641cfb0118b6c959506aec2
@@ -48,6 +53,6 @@ SPEC CHECKSUMS:
   XLPagerTabStrip: 9be80a66c6b7d60306b2c0a6004965016d68f813
   YLProgressBar: 763ad9be70b8de5ab98a3fab27953f3771869e3d
 
-PODFILE CHECKSUM: f73933f42596171a9f1ad9fc3b1a10c3a4ba7405
+PODFILE CHECKSUM: 3c97d5124d026d4aac7f0f4a11164fd827505c3b
 
 COCOAPODS: 1.1.1

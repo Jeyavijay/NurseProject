@@ -14,6 +14,8 @@ pod 'NADocumentPicker'
 pod 'XLPagerTabStrip'
 pod 'YLProgressBar'
 pod 'SwipeCellKit'
+pod 'NVActivityIndicatorView'
+
 
 
 

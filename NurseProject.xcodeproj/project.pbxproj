@@ -52,6 +52,8 @@
 		F2A1E42D1F6EF6A000921DF1 /* Education2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A1E42B1F6EF6A000921DF1 /* Education2TableViewCell.swift */; };
 		F2A1E42E1F6EF6A000921DF1 /* Education2TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2A1E42C1F6EF6A000921DF1 /* Education2TableViewCell.xib */; };
 		F2A460581F6BB0F900BBB35C /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A460571F6BB0F900BBB35C /* AppColors.swift */; };
+		F2B401DB1F87536A00523510 /* ApiString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B401DA1F87536A00523510 /* ApiString.swift */; };
+		F2B401DD1F875BC400523510 /* ConvertToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B401DC1F875AFC00523510 /* ConvertToString.swift */; };
 		F2E8C3981F6BA7D000DC85FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E8C3971F6BA7D000DC85FB /* AppDelegate.swift */; };
 		F2E8C39A1F6BA7D000DC85FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E8C3991F6BA7D000DC85FB /* ViewController.swift */; };
 		F2E8C39D1F6BA7D000DC85FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E8C39B1F6BA7D000DC85FB /* Main.storyboard */; };
@@ -111,6 +113,8 @@
 		F2A1E42C1F6EF6A000921DF1 /* Education2TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Education2TableViewCell.xib; sourceTree = "<group>"; };
 		F2A4602E1F6BAF8C00BBB35C /* NurseProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NurseProject-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		F2A460571F6BB0F900BBB35C /* AppColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		F2B401DA1F87536A00523510 /* ApiString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiString.swift; sourceTree = "<group>"; };
+		F2B401DC1F875AFC00523510 /* ConvertToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertToString.swift; sourceTree = "<group>"; };
 		F2E8C3941F6BA7D000DC85FB /* NurseProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NurseProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E8C3971F6BA7D000DC85FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2E8C3991F6BA7D000DC85FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -290,8 +294,10 @@
 				F2A1E4061F6BC48800921DF1 /* UIViewExtensions.swift */,
 				F2A1E40B1F6BDC9F00921DF1 /* StringUtils.swift */,
 				F2A1E40D1F6BDCC000921DF1 /* EmailValidation.swift */,
+				F2B401DC1F875AFC00523510 /* ConvertToString.swift */,
 				F2A1E4181F6D0E0500921DF1 /* CornerRadius.swift */,
 				F268022B1F863D95004DF987 /* stringMessages.swift */,
+				F2B401DA1F87536A00523510 /* ApiString.swift */,
 			);
 			name = SupportingFiles;
 			sourceTree = "<group>";
@@ -480,6 +486,7 @@
 				F20CF05A1F726E3F006F5C5B /* PreferenceViewController.swift in Sources */,
 				F20CF04A1F717A25006F5C5B /* PreviousEmploymentTableViewCell.swift in Sources */,
 				F2A1E4171F6BE7AB00921DF1 /* StaticArrayValues.swift in Sources */,
+				F2B401DB1F87536A00523510 /* ApiString.swift in Sources */,
 				F29855DB1F7E31040020B526 /* NewsTableViewCell.swift in Sources */,
 				F2A1E40C1F6BDC9F00921DF1 /* StringUtils.swift in Sources */,
 				F20CF03D1F715A27006F5C5B /* EducationCertificationViewController.swift in Sources */,
@@ -487,6 +494,7 @@
 				F20CF04E1F717A3B006F5C5B /* PreviousEmployment2TableViewCell.swift in Sources */,
 				F20CF0511F7190F1006F5C5B /* ReferenceViewController.swift in Sources */,
 				F20CF0551F7191E1006F5C5B /* ReferenceTableViewCell.swift in Sources */,
+				F2B401DD1F875BC400523510 /* ConvertToString.swift in Sources */,
 				F20CF0401F7161A4006F5C5B /* CertificationTableViewCell.swift in Sources */,
 				F20CF0581F71A2EF006F5C5B /* ResumeViewController.swift in Sources */,
 				F2A1E42D1F6EF6A000921DF1 /* Education2TableViewCell.swift in Sources */,
