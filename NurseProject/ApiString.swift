@@ -12,6 +12,6 @@ class ApiString: NSString {
     
     let baseUrl = "http://pluggdd.com/development/api/Nurse/"
     let signupUrl = "api_register.php"
-    let loginUrk = "api_login.php"
+    let loginUrl = "api_login.php"
 
 }
