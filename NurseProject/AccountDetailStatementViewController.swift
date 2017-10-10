@@ -241,10 +241,10 @@ class AccountDetailStatementViewController: UIViewController {
             if let Status:Any = (responseDictionary).value(forKey: "status")
             {
                 let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
-                if strStatus == "1"{
+                if strStatus == statusSuccess{
                     let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AccountDetailsViewController") as! AccountDetailsViewController
                     self.navigationController?.pushViewController(nextViewController, animated: true)
-                }else if strStatus == "401"{
+                }else if strStatus == AccessToken{
                     self.callWebserviseAccessToken()
                 }else{
                     self.stopLoading()
@@ -274,7 +274,7 @@ class AccountDetailStatementViewController: UIViewController {
             if let Status:Any = (responseDictionary).value(forKey: "status")
             {
                 let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
-                if strStatus == "1"
+                if strStatus == statusSuccess
                 {
                     if let AccessToken:String = (responseDictionary).value(forKey: "access_token") as? String{
                         let strToken:String = String(format: "Bearer %@",AccessToken)

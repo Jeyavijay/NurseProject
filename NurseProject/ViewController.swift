@@ -81,7 +81,7 @@ class ViewController: UIViewController {
             if let Status:Any = (responseDictionary).value(forKey: "status")
             {
                 let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
-                if strStatus == "1"{
+                if strStatus == statusSuccess{
                     if let AccessToken:String = (responseDictionary).value(forKey: "access_token") as? String{
                         let strToken:String = String(format: "Bearer %@",AccessToken)
                         UserDefaults.standard.set(strToken, forKey:"Authentication" )
@@ -92,7 +92,7 @@ class ViewController: UIViewController {
                     let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AccountDetailStatementViewController") as! AccountDetailStatementViewController
                                 self.navigationController?.pushViewController(nextViewController, animated: true)
                     self.stopLoading()
-                }else if strStatus == "401"{
+                }else if strStatus == AccessToken{
 
                 }else{
                     self.stopLoading()

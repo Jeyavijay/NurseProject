@@ -170,7 +170,7 @@ class FirstSignUpViewController: UIViewController,UITextFieldDelegate {
             if let Status:Any = (responseDictionary).value(forKey: "status")
             {
                 let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
-                if strStatus == "1"{
+                if strStatus == statusSuccess{
                     if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
                         
                         self.popupAlertToNavigate(Title: "Information", msg: Msg, butttonColor: AppColors().appBlueColor)
