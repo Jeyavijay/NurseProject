@@ -48,6 +48,7 @@ class ViewController: UIViewController {
                 dictParameters.setObject("", forKey: "devicetoken" as NSCopying)
             }
 
+            UserDefaults.standard.set(textFieldPassword.text!, forKey:"password" )
             dictParameters.setObject("3", forKey: "devicetype" as NSCopying)
             dictParameters.setObject(textFieldPassword.text!, forKey: "password" as NSCopying)
             dictParameters.setObject(textFieldEmail.text!, forKey: "username" as NSCopying)

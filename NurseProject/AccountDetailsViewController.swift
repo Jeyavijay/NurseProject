@@ -17,12 +17,12 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     @IBOutlet var textFieldFirstName: HoshiTextField!
     @IBOutlet var textFieldMiddleName: HoshiTextField!
     @IBOutlet var textFieldLastName: HoshiTextField!
-    @IBOutlet var textFieldEmailAddress: HoshiTextField!
-    @IBOutlet var textFieldPassword: HoshiTextField!
+    
+    @IBOutlet var textFieldStreetName: HoshiTextField!
+    @IBOutlet var textFieldFlatNumber: HoshiTextField!
     @IBOutlet var textFieldAddress: HoshiTextField!
     @IBOutlet var textFieldDOB: HoshiTextField!
     @IBOutlet var textFieldDocument: HoshiTextField!
-    @IBOutlet var textFieldMobileNumber: HoshiTextField!
     @IBOutlet var textFielsSSN: HoshiTextField!
     @IBOutlet var textFieldZipCode: HoshiTextField!
     @IBOutlet var textFieldCountry: HoshiTextField!
@@ -54,11 +54,7 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         CornerRadius().viewCircular(circleView: buttonAddImage)
         ScrollView.contentSize = CGSize(width: self.viewScroll.frame.width, height: self.buttonNext.frame.height+self.buttonNext.frame.origin.y+25)
 
-        var fixedString: String = "+1  "
-        let attributedString = NSMutableAttributedString(string: fixedString)
-        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: 0, length: (fixedString.characters.count )))
-        textFieldMobileNumber?.attributedText = attributedString
-        
+
         let DSImage:UIImage = UIImage(named: "unchecked")!
         let SImage:UIImage = UIImage(named: "checked")!
         buttonMale.setImage(DSImage, for: .normal)
@@ -80,10 +76,6 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         textFieldFirstName.text = dictStoredValues.value(forKey: "FirstName") as? String
         textFieldMiddleName.text = dictStoredValues.value(forKey: "MiddleName") as? String
         textFieldLastName.text = dictStoredValues.value(forKey: "LastName") as? String
-        textFieldEmailAddress.text = dictStoredValues.value(forKey: "Email") as? String
-        textFieldState.text = dictStoredValues.value(forKey: "State") as? String
-        textFieldPassword.text = dictStoredValues.value(forKey: "Password") as? String
-        textFieldMobileNumber.text = dictStoredValues.value(forKey: "Mobile") as? String
 
     }
 
@@ -130,26 +122,6 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         return true
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == self.textFieldMobileNumber{
-            let substringRange: NSRange = (textFieldMobileNumber.text! as NSString).range(of: "+1  ")
-            
-            if range.location >= substringRange.location && range.location < substringRange.location + substringRange.length {
-                return false
-            }
-            let attString: NSMutableAttributedString? = textFieldMobileNumber.attributedText?.mutableCopy() as? NSMutableAttributedString
-            attString?.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: substringRange.length, length: (textFieldMobileNumber.text?.characters.count)! - substringRange.length))
-            textField.attributedText = attString
-            
-            let currentText = textField.text ?? ""
-            let prospectiveText = (currentText as NSString).replacingCharacters(in: range, with: string)
-            switch textField {
-            case textFieldMobileNumber:
-                return prospectiveText.containsCharactersIn("0123456789") &&
-                    prospectiveText.characters.count <= 14
-            default:
-                return true
-            }
-        }else{
             if string.characters.count == 0
             {
                 return true
@@ -162,10 +134,7 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
                     prospectiveText.characters.count <= 8
             default:
                 return true
-            }
         }
-
-        return true
     }
 
     //MARK:- DatePicker
@@ -280,11 +249,6 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         bUpload = false
         self.SelectImage()
     }
-    
-    @IBAction func buttonChangePassword(_ sender: Any)
-    {
-        textFieldPassword.text = ""
-    }
 
     @IBAction func buttonBack(_ sender: Any)
     {
@@ -300,43 +264,32 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
             self.popupAlert(Title: "Information",msg: stringMessages().stringFirstName)
         }else if (textFieldLastName.text?.characters.count)! < 1{
             self.popupAlert(Title: "Information",msg: stringMessages().stringLastName)
-        }else if (EmailValidation().validateMail(textEmail: self.textFieldEmailAddress.text!) == false){
-            self.popupAlert(Title: "Information",msg: stringMessages().stringMail)
-
-        }else if (textFieldPassword.text?.characters.count)! < 8{
-            self.popupAlert(Title: "Information",msg: stringMessages().stringPassword)
-
-        }else if (textFieldMobileNumber.text?.characters.count)! < 10{
-            self.popupAlert(Title: "Information",msg: stringMessages().stringPhoneNumber)
-
         }else if (textFieldDOB.text?.characters.count)! < 2{
             self.popupAlert(Title: "Information",msg: stringMessages().stringDOB)
-
         }else if (buttonMale.isSelected || buttonFemale.isSelected || buttonNotToSay.isSelected) == false{
             self.popupAlert(Title: "Information",msg: stringMessages().stringGender)
-
         }else if (textFieldAddress.text?.characters.count)! < 5{
             self.popupAlert(Title: "Information",msg: stringMessages().stringAddress)
+        }else if (textFieldFlatNumber.text?.characters.count)! < 1{
+            self.popupAlert(Title: "Information",msg: "Please Enter Your House/Flat Number")
+        }else if (textFieldFlatNumber.text?.characters.count)! < 1{
+            self.popupAlert(Title: "Information",msg: "Please Enter Your Street Name")
         }else if (textFieldState.text?.characters.count)! < 2{
             self.popupAlert(Title: "Information",msg: stringMessages().stringState)
-
         }else if (textFieldCountry.text?.characters.count)! < 2{
             self.popupAlert(Title: "Information",msg: stringMessages().stringCountry)
-
         }else if (textFieldZipCode.text?.characters.count)! < 2{
             self.popupAlert(Title: "Information",msg: stringMessages().stringZipCode)
-
         }else if (textFielsSSN.text?.characters.count)! < 2{
             self.popupAlert(Title: "Information",msg: stringMessages().stringSSN)
         }else if (textFieldDocument.text?.characters.count)! < 2{
             self.popupAlert(Title: "Information",msg: stringMessages().stringIdentityDocument)
         }else if bUpload == false{
             self.popupAlert(Title: "Information",msg: stringMessages().stringUploadDocument)
-
         }else if (buttonNoEligible.isSelected || buttonYesEligible.isSelected) == false{
             self.popupAlert(Title: "Information",msg: stringMessages().stringEligibility)
         }else{
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier:"AccountDetailStatementViewController") as! AccountDetailStatementViewController
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier:"AccountDetailsEducationViewController") as! AccountDetailsEducationViewController
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }
     }
