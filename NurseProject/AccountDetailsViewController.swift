@@ -3,6 +3,9 @@ import TextFieldEffects
 import PopupDialog
 import MobileCoreServices
 import NADocumentPicker
+import AFNetworking
+import NVActivityIndicatorView
+
 
 class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIDocumentPickerDelegate,UIDocumentInteractionControllerDelegate {
     
@@ -40,7 +43,12 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     let imagePicker = UIImagePickerController()
     var bUpload = Bool()
     var imageUpload = UIImage()
-    var dictStoredValues = NSMutableDictionary()
+    var dictParameters = NSMutableDictionary()
+    var activity:NVActivityIndicatorView!
+    var stringGender = NSString()
+    var fileData = NSData()
+    var fileName = NSString()
+
 
 
     override func viewDidLoad()
@@ -53,8 +61,6 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         CornerRadius().viewCircular(circleView: imageViewUserImage)
         CornerRadius().viewCircular(circleView: buttonAddImage)
         ScrollView.contentSize = CGSize(width: self.viewScroll.frame.width, height: self.buttonNext.frame.height+self.buttonNext.frame.origin.y+25)
-
-
         let DSImage:UIImage = UIImage(named: "unchecked")!
         let SImage:UIImage = UIImage(named: "checked")!
         buttonMale.setImage(DSImage, for: .normal)
@@ -67,17 +73,10 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         buttonYesEligible.setImage(SImage, for: .selected)
         buttonNoEligible.setImage(DSImage, for: .normal)
         buttonNoEligible.setImage(SImage, for: .selected)
-        
         viewDocumentView.isHidden = true
+        setLoadingIndicator()
     }
-    
-    func loadValuesFronDict(){
-        print(dictStoredValues)
-        textFieldFirstName.text = dictStoredValues.value(forKey: "FirstName") as? String
-        textFieldMiddleName.text = dictStoredValues.value(forKey: "MiddleName") as? String
-        textFieldLastName.text = dictStoredValues.value(forKey: "LastName") as? String
 
-    }
 
     //MARK:- Textfield Delegates
 
@@ -289,8 +288,27 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         }else if (buttonNoEligible.isSelected || buttonYesEligible.isSelected) == false{
             self.popupAlert(Title: "Information",msg: stringMessages().stringEligibility)
         }else{
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier:"AccountDetailsEducationViewController") as! AccountDetailsEducationViewController
-            self.navigationController?.pushViewController(nextViewController, animated: true)
+            
+            let strNurseID:String = UserDefaults.standard.value(forKey: "nurse_ID") as! String
+            dictParameters.setObject(strNurseID, forKey: "nurse_id" as NSCopying)
+            dictParameters.setObject(stringGender, forKey: "gender" as NSCopying)
+            dictParameters.setObject(textFieldFirstName.text!, forKey: "name" as NSCopying)
+            dictParameters.setObject(textFieldDOB.text!, forKey: "dob" as NSCopying)
+            dictParameters.setObject(textFielsSSN.text!, forKey: "ssc" as NSCopying)
+            dictParameters.setObject(textFieldDocument.text!, forKey: "idcard" as NSCopying)
+
+            dictParameters.setObject(textFieldAddress.text!, forKey: "address" as NSCopying)
+            dictParameters.setObject(textFieldFlatNumber.text!, forKey: "houseno" as NSCopying)
+            dictParameters.setObject(textFieldStreetName.text!, forKey: "street" as NSCopying)
+            dictParameters.setObject(textFieldZipCode.text!, forKey: "zipcode" as NSCopying)
+            dictParameters.setObject(textFieldState.text!, forKey: "state" as NSCopying)
+            dictParameters.setObject(textFieldCountry.text!, forKey: "country" as NSCopying)
+            dictParameters.setObject("2", forKey: "stepid" as NSCopying)
+            
+            self.CallWebserviceReistration(params:dictParameters, fileData: fileData)
+
+            
+           
         }
     }
     
@@ -311,11 +329,18 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
             bUpload = true
             imageViewUserImage.image = chosenImage
             CornerRadius().viewCircular(circleView: imageViewUserImage)
+            
         }else{
             imageUpload = chosenImage
             self.imageViewDocument.image = chosenImage
             self.viewDocumentView.isHidden = false
+            let imageData:Data = UIImageJPEGRepresentation(chosenImage, 0.5)!
+            print(imageData)
+            fileData = imageData as NSData
+
+
         }
+
         dismiss(animated: true, completion: nil)
     }
     
@@ -366,12 +391,13 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     
     func documentPicker(_ controller: UIDocumentPickerViewController,didPickDocumentAt url: URL) {
         print(url)
-
+        fileName = url.lastPathComponent as NSString
+        let data = NSData.init(contentsOf: url)
+        fileData = data!
+        print(fileData)
         bUpload = true
         viewDocumentView.isHidden = false
-
         if controller.documentPickerMode == UIDocumentPickerMode.import {
-
         }
     }
     
@@ -405,5 +431,95 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         self.present(popup, animated: true, completion: nil)
     }
     
+    //MARK:- Webservices
+    
+    func CallWebserviceReistration(params:NSMutableDictionary, fileData:NSData)
+    {
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().completeRegistrationUrl) as NSString
+        let strAuth:String = UserDefaults.standard.value(forKey: "Authentication") as! String
+        manager.requestSerializer.setValue(strAuth, forHTTPHeaderField: "Authorization")
+        manager.post(stringURL as String, parameters: params, constructingBodyWith: {
+            (data: AFMultipartFormData!) in
+            let imageData = Data()
+            //= UIImageJPEGRepresentation(imageUpload, 0.5)!
+            data.appendPart(withFileData: fileData as Data, name: "idfile", fileName: self.fileName as String, mimeType: (kUTTypePDF as String))
+        }, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            print(responseDictionary)
+            if let Status:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
+                if strStatus == "1"{
+                    let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AccountDetailsViewController") as! AccountDetailsViewController
+                    self.navigationController?.pushViewController(nextViewController, animated: true)
+                }else if strStatus == "401"{
+                    self.callWebserviseAccessToken()
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+    func callWebserviseAccessToken(){
+        startLoading()
+        let parameter = NSMutableDictionary()
+        let strNurseID:String = UserDefaults.standard.value(forKey: "nurse_ID") as! String
+        let strPassword:String = UserDefaults.standard.value(forKey: "password") as! String
+        parameter.setObject(strNurseID, forKey: "username" as NSCopying)
+        parameter.setObject(strPassword, forKey: "password" as NSCopying)
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().getAccessTokenUrl) as NSString
+        
+        manager.post(stringURL as String, parameters: parameter, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            print(responseDictionary)
+            if let Status:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
+                if strStatus == "1"
+                {
+                    if let AccessToken:String = (responseDictionary).value(forKey: "access_token") as? String{
+                        let strToken:String = String(format: "Bearer %@",AccessToken)
+                        UserDefaults.standard.set(strToken, forKey:"Authentication" )
+                    }
+                    self.CallWebserviceReistration(params:self.dictParameters, fileData: self.fileData)
+                }
+                self.stopLoading()
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+
+    
+    //MARK:- Activity Indicator View
+    func setLoadingIndicator()
+    {
+        activity = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        activity.color = AppColors().appBlueColor
+        activity.type = NVActivityIndicatorType.ballScaleMultiple
+        activity.startAnimating()
+        activity.center = view.center
+    }
+    func startLoading()
+    {
+        view.isUserInteractionEnabled = false
+        self.view.addSubview(activity)
+    }
+    
+    func stopLoading(){
+        activity.removeFromSuperview()
+        self.view.isUserInteractionEnabled = true
+    }
+
 
 }
