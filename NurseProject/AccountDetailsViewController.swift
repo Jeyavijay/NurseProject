@@ -46,7 +46,9 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     var dictParameters = NSMutableDictionary()
     var activity:NVActivityIndicatorView!
     var stringGender = NSString()
-    var fileData = NSData()
+    var fileData = Data()
+    var ImageData = Data()
+
     var fileName = NSString()
 
 
@@ -76,7 +78,6 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         viewDocumentView.isHidden = true
         setLoadingIndicator()
     }
-
 
     //MARK:- Textfield Delegates
 
@@ -215,6 +216,7 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
                 buttonMale.isSelected = false
             }else{
                 buttonMale.isSelected = true
+                stringGender = "1"
                 buttonFemale.isSelected = false
                 buttonNotToSay.isSelected = false
             }
@@ -224,6 +226,8 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
             }else{
                 buttonFemale.isSelected = true
                 buttonMale.isSelected = false
+                stringGender = "2"
+
                 buttonNotToSay.isSelected = false
             }
         }else if (sender as AnyObject).tag == 3{
@@ -232,6 +236,7 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
             }else{
                 buttonNotToSay.isSelected = true
                 buttonMale.isSelected = false
+                stringGender = "3"
                 buttonFemale.isSelected = false
             }
         }
@@ -257,12 +262,8 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     
     @IBAction func buttonNext(_ sender: Any)
     {
-        if imageViewUserImage.image == nil {
-            self.popupAlert(Title: "Information",msg: stringMessages().stringSelectImage)
-        }else if (textFieldFirstName.text?.characters.count)! == 0{
+        if (textFieldFirstName.text?.characters.count)! == 0{
             self.popupAlert(Title: "Information",msg: stringMessages().stringFirstName)
-        }else if (textFieldLastName.text?.characters.count)! < 1{
-            self.popupAlert(Title: "Information",msg: stringMessages().stringLastName)
         }else if (textFieldDOB.text?.characters.count)! < 2{
             self.popupAlert(Title: "Information",msg: stringMessages().stringDOB)
         }else if (buttonMale.isSelected || buttonFemale.isSelected || buttonNotToSay.isSelected) == false{
@@ -285,10 +286,7 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
             self.popupAlert(Title: "Information",msg: stringMessages().stringIdentityDocument)
         }else if bUpload == false{
             self.popupAlert(Title: "Information",msg: stringMessages().stringUploadDocument)
-        }else if (buttonNoEligible.isSelected || buttonYesEligible.isSelected) == false{
-            self.popupAlert(Title: "Information",msg: stringMessages().stringEligibility)
         }else{
-            
             let strNurseID:String = UserDefaults.standard.value(forKey: "nurse_ID") as! String
             dictParameters.setObject(strNurseID, forKey: "nurse_id" as NSCopying)
             dictParameters.setObject(stringGender, forKey: "gender" as NSCopying)
@@ -326,17 +324,20 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         if bUpload == false
         {
-            bUpload = true
             imageViewUserImage.image = chosenImage
             CornerRadius().viewCircular(circleView: imageViewUserImage)
-            
+            let imageData1:Data = UIImageJPEGRepresentation(chosenImage, 0.5)!
+            print(imageData1)
+            ImageData = imageData1
+
         }else{
             imageUpload = chosenImage
             self.imageViewDocument.image = chosenImage
             self.viewDocumentView.isHidden = false
             let imageData:Data = UIImageJPEGRepresentation(chosenImage, 0.5)!
             print(imageData)
-            fileData = imageData as NSData
+            fileData = imageData
+            self.fileName = "photo.jpg"
 
 
         }
@@ -379,7 +380,8 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         present(imagePicker, animated: true, completion: nil)
     }
     func DocLibrary(){
-       var types: [Any]? = [(kUTTypeData as? String),(kUTTypeBMP as? String),(kUTTypeXML as? String),(kUTTypeItem as? String),(kUTTypeRTF as? String),(kUTTypeText as? String),(kUTTypeRTFD as? String),(kUTTypeInkText as? String),(kUTTypeContent as? String),(kUTTypeDelimitedText as? String),(kUTTypePlainText as? String), (kUTTypePresentation as? String),(kUTTypeFolder as? String),(kUTTypePDF as? String)]
+        var types: [Any]? = [(kUTTypePDF as? String)]
+
         let documentPicker: UIDocumentPickerViewController = UIDocumentPickerViewController(documentTypes: types as! [String], in: UIDocumentPickerMode.import)
         documentPicker.delegate = self
         documentPicker.modalPresentationStyle = UIModalPresentationStyle.fullScreen
@@ -392,11 +394,9 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     func documentPicker(_ controller: UIDocumentPickerViewController,didPickDocumentAt url: URL) {
         print(url)
         fileName = url.lastPathComponent as NSString
-        let data = NSData.init(contentsOf: url)
-        fileData = data!
-        print(fileData)
-        bUpload = true
         viewDocumentView.isHidden = false
+        let dataFile = try! Data(contentsOf: url)
+        fileData = dataFile
         if controller.documentPickerMode == UIDocumentPickerMode.import {
         }
     }
@@ -433,7 +433,7 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     
     //MARK:- Webservices
     
-    func CallWebserviceReistration(params:NSMutableDictionary, fileData:NSData)
+    func CallWebserviceReistration(params:NSMutableDictionary, fileData:Data)
     {
         startLoading()
         let manager = AFHTTPSessionManager()
@@ -442,9 +442,12 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         manager.requestSerializer.setValue(strAuth, forHTTPHeaderField: "Authorization")
         manager.post(stringURL as String, parameters: params, constructingBodyWith: {
             (data: AFMultipartFormData!) in
-            let imageData = Data()
-            //= UIImageJPEGRepresentation(imageUpload, 0.5)!
-            data.appendPart(withFileData: fileData as Data, name: "idfile", fileName: self.fileName as String, mimeType: (kUTTypePDF as String))
+            data.appendPart(withFileData: self.ImageData, name: "profileimage", fileName: "photo.jpg", mimeType: "image/jpeg")
+            if self.fileName == "photo.jpg"{
+                data.appendPart(withFileData: self.fileData, name: "idfile", fileName: self.fileName as String, mimeType: "image/jpeg")
+            }else{
+                data.appendPart(withFileData: fileData, name: "idfile", fileName: self.fileName as String, mimeType: "application/pdf")
+            }
         }, progress: nil, success: { (operation, responseObject) -> Void in
             let responseDictionary:NSDictionary = responseObject as! NSDictionary
             print(responseDictionary)
@@ -500,7 +503,6 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         })
     }
 
-    
     //MARK:- Activity Indicator View
     func setLoadingIndicator()
     {
