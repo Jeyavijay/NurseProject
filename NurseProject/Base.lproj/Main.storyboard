@@ -1042,7 +1042,7 @@
                                                     <action selector="buttonPickImage:" destination="axf-Kg-fcE" eventType="touchUpInside" id="XUC-OY-L70"/>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" borderStyle="line" placeholder="First Name" textAlignment="natural" minimumFontSize="17" id="W2L-s1-72s" customClass="HoshiTextField" customModule="TextFieldEffects">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Name" textAlignment="natural" minimumFontSize="17" id="W2L-s1-72s" customClass="HoshiTextField" customModule="TextFieldEffects">
                                                 <rect key="frame" x="8" y="195" width="295" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
