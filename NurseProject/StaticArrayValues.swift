@@ -19,7 +19,7 @@ class StaticArrayValues: NSArray {
 
     let arrayDocuments = ["Driving Licence","Passport Number","PAN Card Number"]
 
-    let arrayEducationLevel = ["University","College","School"]
+    let arrayEducationLevel = ["Doctorate","Masters","Bachelors","Associates"]
 
     let arrayDegree = ["MBA","BE","ME","B.Com","MBBS"]
     

@@ -9,6 +9,7 @@ class ProfessionalEducationViewController: UIViewController,UITextFieldDelegate,
 
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     var activity:NVActivityIndicatorView!
+    var dictArray = NSMutableDictionary()
     @IBOutlet var textFieldEducationLevel: HoshiTextField!
     @IBOutlet var textFieldDegreeName: HoshiTextField!
     @IBOutlet var textFieldGraduationDate: HoshiTextField!
@@ -22,13 +23,14 @@ class ProfessionalEducationViewController: UIViewController,UITextFieldDelegate,
     var strDate = String()
     let imagePicker = UIImagePickerController()
     var imageUpload = UIImage()
+    var fileData = Data()
 
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setLoadingIndicator()
     }
 
     override func didReceiveMemoryWarning() {
@@ -143,11 +145,112 @@ class ProfessionalEducationViewController: UIViewController,UITextFieldDelegate,
         }else if (labelDocumentName.text?.characters.count)! == 0{
             self.popupAlert(Title: "Information",msg: stringMessages().stringUploadFrontDegree)
         }else{
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier:"EducationCertificationViewController") as! EducationCertificationViewController
-            self.navigationController?.pushViewController(nextViewController, animated: true)
+            
+            let arrayEducationalDetails = NSMutableArray()
+            
+            dictArray.setValue(textFieldEducationLevel.text, forKey: "highestdegree")
+            dictArray.setValue(textFieldDegreeName.text, forKey: "nameofdegree")
+            dictArray.setValue(textFieldNameOfSchool.text, forKey: "school")
+            dictArray.setValue(textFieldState.text, forKey: "state")
+            dictArray.setValue(textFieldGraduationDate.text, forKey: "gradudate")
+            arrayEducationalDetails.insert(dictArray, at: 0)
+
+            
+                startLoading()
+                var dictParameters = NSMutableDictionary()
+                let strNurseID:String = UserDefaults.standard.value(forKey: "nurse_ID") as! String
+                dictParameters.setObject(strNurseID, forKey: "nurse_id" as NSCopying)
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: arrayEducationalDetails, options: JSONSerialization.WritingOptions.prettyPrinted)
+                    
+                    if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
+                        print(JSONString)
+                        dictParameters.setObject(JSONString, forKey: "educationdetails" as NSCopying)
+                        dictParameters.setObject("5", forKey: "stepid" as NSCopying)
+                        self.CallWebserviceReistration(params:dictParameters)
+                    }
+                }catch
+                {
+                    self.stopLoading()
+                }
+            
+
+
         }
     }
+    //MARK:- Webservices
     
+    func CallWebserviceReistration(params:NSMutableDictionary)
+    {
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().completeRegistrationUrl) as NSString
+        let strAuth:String = UserDefaults.standard.value(forKey: "Authentication") as! String
+        manager.requestSerializer.setValue(strAuth, forHTTPHeaderField: "Authorization")
+        manager.post(stringURL as String, parameters: params, constructingBodyWith: {
+            (data: AFMultipartFormData!) in
+
+            if  self.labelDocumentName.text != "Image copy chosen!"{
+                    data.appendPart(withFileData: self.fileData, name: "educationfiledetails[]", fileName: "file.pdf", mimeType: "application/pdf")
+                }else{
+                    data.appendPart(withFileData: self.fileData, name: "educationfiledetails[]", fileName: "photo.jpg", mimeType: "image/jpeg")
+                }
+        }, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            print(responseDictionary)
+            if let Status:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
+                if strStatus == statusSuccess{
+                    let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"EducationCertificationViewController") as! EducationCertificationViewController
+                    self.navigationController?.pushViewController(nextViewController, animated: true)
+                }else if strStatus == AccessToken{
+                    self.callWebserviseAccessToken(params:params)
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+    func callWebserviseAccessToken(params:NSMutableDictionary){
+        startLoading()
+        let parameter = NSMutableDictionary()
+        let strNurseID:String = UserDefaults.standard.value(forKey: "nurse_ID") as! String
+        let strPassword:String = UserDefaults.standard.value(forKey: "password") as! String
+        parameter.setObject(strNurseID, forKey: "username" as NSCopying)
+        parameter.setObject(strPassword, forKey: "password" as NSCopying)
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().getAccessTokenUrl) as NSString
+        
+        manager.post(stringURL as String, parameters: parameter, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            print(responseDictionary)
+            if let Status:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
+                if strStatus == "1"
+                {
+                    if let AccessToken:String = (responseDictionary).value(forKey: "access_token") as? String{
+                        let strToken:String = String(format: "Bearer %@",AccessToken)
+                        UserDefaults.standard.set(strToken, forKey:"Authentication" )
+                    }
+                    self.CallWebserviceReistration(params:params)
+                }
+                self.stopLoading()
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+    
+
     @IBAction func buttonUpload(_ sender: Any)
     {
         self.SelectImage()
@@ -181,6 +284,9 @@ class ProfessionalEducationViewController: UIViewController,UITextFieldDelegate,
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         labelDocumentName.text = "Image copy chosen!"
+        let imageData:Data = UIImageJPEGRepresentation(chosenImage, 0.5)!
+        print(imageData)
+        fileData = imageData
         dismiss(animated: true, completion: nil)
     }
     
@@ -217,7 +323,7 @@ class ProfessionalEducationViewController: UIViewController,UITextFieldDelegate,
         present(imagePicker, animated: true, completion: nil)
     }
     func DocLibrary(){
-        var types: [Any]? = [(kUTTypeData as? String),(kUTTypeBMP as? String),(kUTTypeXML as? String),(kUTTypeItem as? String),(kUTTypeRTF as? String),(kUTTypeText as? String),(kUTTypeRTFD as? String),(kUTTypeInkText as? String),(kUTTypeContent as? String),(kUTTypeDelimitedText as? String),(kUTTypePlainText as? String), (kUTTypePresentation as? String),(kUTTypeFolder as? String),(kUTTypePDF as? String)]
+        var types: [Any]? = [(kUTTypePDF as? String)]
         let documentPicker: UIDocumentPickerViewController = UIDocumentPickerViewController(documentTypes: types as! [String], in: UIDocumentPickerMode.import)
         documentPicker.delegate = self
         documentPicker.modalPresentationStyle = UIModalPresentationStyle.fullScreen
@@ -231,24 +337,36 @@ class ProfessionalEducationViewController: UIViewController,UITextFieldDelegate,
         print(url)
 
         self.labelDocumentName.text = url.lastPathComponent
+        let dataFile = try! Data(contentsOf: url)
+        fileData = dataFile
+
         if controller.documentPickerMode == UIDocumentPickerMode.import {
         }
     }
     
-    func doc(asd:URL)
+
+    
+    //MARK:- Activity Indicator View
+    func setLoadingIndicator()
     {
-        var documentInteractionController = UIDocumentInteractionController()
-        documentInteractionController = UIDocumentInteractionController(url: asd)
-        // Configure Document Interaction Controller
-        documentInteractionController.delegate = self
-        // Preview PDF
-        documentInteractionController.presentPreview(animated: true)
+        activity = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        activity.color = AppColors().appBlueColor
+        activity.type = NVActivityIndicatorType.ballScaleMultiple
+        activity.startAnimating()
+        activity.center = view.center
+    }
+    func startLoading()
+    {
+        view.isUserInteractionEnabled = false
+        self.view.addSubview(activity)
     }
     
-    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
-        return self
+    func stopLoading(){
+        activity.removeFromSuperview()
+        self.view.isUserInteractionEnabled = true
     }
     
+
 
     
 }

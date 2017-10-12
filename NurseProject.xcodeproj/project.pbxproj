@@ -55,6 +55,11 @@
 		F2B401DB1F87536A00523510 /* ApiString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B401DA1F87536A00523510 /* ApiString.swift */; };
 		F2B401DD1F875BC400523510 /* ConvertToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B401DC1F875AFC00523510 /* ConvertToString.swift */; };
 		F2B401E21F8D4F5500523510 /* ConstantFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B401E11F8D4F5500523510 /* ConstantFiles.swift */; };
+		F2B401E41F8E230400523510 /* RNDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B401E31F8E230200523510 /* RNDetailsViewController.swift */; };
+		F2B401E71F8E244C00523510 /* RNDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B401E51F8E244C00523510 /* RNDetailsTableViewCell.swift */; };
+		F2B401E81F8E244C00523510 /* RNDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2B401E61F8E244C00523510 /* RNDetailsTableViewCell.xib */; };
+		F2B401EB1F8F852F00523510 /* BLSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B401E91F8F852F00523510 /* BLSTableViewCell.swift */; };
+		F2B401EC1F8F852F00523510 /* BLSTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2B401EA1F8F852F00523510 /* BLSTableViewCell.xib */; };
 		F2E8C3981F6BA7D000DC85FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E8C3971F6BA7D000DC85FB /* AppDelegate.swift */; };
 		F2E8C39A1F6BA7D000DC85FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E8C3991F6BA7D000DC85FB /* ViewController.swift */; };
 		F2E8C39D1F6BA7D000DC85FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E8C39B1F6BA7D000DC85FB /* Main.storyboard */; };
@@ -117,6 +122,11 @@
 		F2B401DA1F87536A00523510 /* ApiString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiString.swift; sourceTree = "<group>"; };
 		F2B401DC1F875AFC00523510 /* ConvertToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertToString.swift; sourceTree = "<group>"; };
 		F2B401E11F8D4F5500523510 /* ConstantFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantFiles.swift; sourceTree = "<group>"; };
+		F2B401E31F8E230200523510 /* RNDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNDetailsViewController.swift; sourceTree = "<group>"; };
+		F2B401E51F8E244C00523510 /* RNDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		F2B401E61F8E244C00523510 /* RNDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RNDetailsTableViewCell.xib; sourceTree = "<group>"; };
+		F2B401E91F8F852F00523510 /* BLSTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLSTableViewCell.swift; sourceTree = "<group>"; };
+		F2B401EA1F8F852F00523510 /* BLSTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BLSTableViewCell.xib; sourceTree = "<group>"; };
 		F2E8C3941F6BA7D000DC85FB /* NurseProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NurseProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E8C3971F6BA7D000DC85FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2E8C3991F6BA7D000DC85FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +187,10 @@
 				F2A1E42C1F6EF6A000921DF1 /* Education2TableViewCell.xib */,
 				F20CF03E1F7161A4006F5C5B /* CertificationTableViewCell.swift */,
 				F20CF03F1F7161A4006F5C5B /* CertificationTableViewCell.xib */,
+				F2B401E51F8E244C00523510 /* RNDetailsTableViewCell.swift */,
+				F2B401E61F8E244C00523510 /* RNDetailsTableViewCell.xib */,
+				F2B401E91F8F852F00523510 /* BLSTableViewCell.swift */,
+				F2B401EA1F8F852F00523510 /* BLSTableViewCell.xib */,
 			);
 			name = EducationCell;
 			sourceTree = "<group>";
@@ -273,6 +287,7 @@
 				F20CF0571F71A2EF006F5C5B /* ResumeViewController.swift */,
 				F20CF0591F726E3F006F5C5B /* PreferenceViewController.swift */,
 				F20CF05B1F72754E006F5C5B /* SpecialitiesViewController.swift */,
+				F2B401E31F8E230200523510 /* RNDetailsViewController.swift */,
 			);
 			name = "Account Details";
 			sourceTree = "<group>";
@@ -419,12 +434,14 @@
 				F2E8C39F1F6BA7D000DC85FB /* Assets.xcassets in Resources */,
 				F20CF04B1F717A25006F5C5B /* PreviousEmploymentTableViewCell.xib in Resources */,
 				F20CF0411F7161A4006F5C5B /* CertificationTableViewCell.xib in Resources */,
+				F2B401EC1F8F852F00523510 /* BLSTableViewCell.xib in Resources */,
 				F2A1E42E1F6EF6A000921DF1 /* Education2TableViewCell.xib in Resources */,
 				F20CF0561F7191E1006F5C5B /* ReferenceTableViewCell.xib in Resources */,
 				F29855D01F7D0C690020B526 /* AcceptedCollectionViewCell.xib in Resources */,
 				F2A1E42A1F6EF68800921DF1 /* EducationTableViewCell.xib in Resources */,
 				F29855D71F7E1BD10020B526 /* NewTableViewCell.xib in Resources */,
 				F29855DC1F7E31040020B526 /* NewsTableViewCell.xib in Resources */,
+				F2B401E81F8E244C00523510 /* RNDetailsTableViewCell.xib in Resources */,
 				F2E8C39D1F6BA7D000DC85FB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -489,6 +506,8 @@
 				F20CF05A1F726E3F006F5C5B /* PreferenceViewController.swift in Sources */,
 				F20CF04A1F717A25006F5C5B /* PreviousEmploymentTableViewCell.swift in Sources */,
 				F2A1E4171F6BE7AB00921DF1 /* StaticArrayValues.swift in Sources */,
+				F2B401E71F8E244C00523510 /* RNDetailsTableViewCell.swift in Sources */,
+				F2B401E41F8E230400523510 /* RNDetailsViewController.swift in Sources */,
 				F2B401DB1F87536A00523510 /* ApiString.swift in Sources */,
 				F29855DB1F7E31040020B526 /* NewsTableViewCell.swift in Sources */,
 				F2A1E40C1F6BDC9F00921DF1 /* StringUtils.swift in Sources */,
@@ -515,6 +534,7 @@
 				F29855CF1F7D0C690020B526 /* AcceptedCollectionViewCell.swift in Sources */,
 				F29855BF1F7CCC4D0020B526 /* MyDashBoardViewController.swift in Sources */,
 				F20CF05C1F72754E006F5C5B /* SpecialitiesViewController.swift in Sources */,
+				F2B401EB1F8F852F00523510 /* BLSTableViewCell.swift in Sources */,
 				F20CF0431F7167A4006F5C5B /* CurrentEmploymentViewController.swift in Sources */,
 				F2A1E4071F6BC48800921DF1 /* UIViewExtensions.swift in Sources */,
 				F20CF0451F7178B6006F5C5B /* PreviousEmploymentViewController.swift in Sources */,

@@ -454,10 +454,10 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
             if let Status:Any = (responseDictionary).value(forKey: "status")
             {
                 let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
-                if strStatus == "1"{
-                    let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AccountDetailsViewController") as! AccountDetailsViewController
+                if strStatus == statusSuccess{
+                    let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"RNDetailsViewController") as! RNDetailsViewController
                     self.navigationController?.pushViewController(nextViewController, animated: true)
-                }else if strStatus == "401"{
+                }else if strStatus == AccessToken{
                     self.callWebserviseAccessToken()
                 }else{
                     self.stopLoading()

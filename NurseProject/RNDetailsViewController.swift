@@ -5,10 +5,10 @@ import MobileCoreServices
 import AFNetworking
 import NVActivityIndicatorView
 
-class AccountDetailsEducationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,ChangeDocumentProtocol {
+class RNDetailsViewController: UIViewController ,UITableViewDelegate,UITableViewDataSource,ChangeDocumentProtocol,UIImagePickerControllerDelegate  {
 
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-    @IBOutlet var tableViewEducation: UITableView!
+    @IBOutlet var tableViewRNDetails: UITableView!
     var nsectionCount = Int()
     var nsectionValue = Int()
     var nArrObject = Int()
@@ -16,26 +16,31 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
     var dictParameters = NSMutableDictionary()
 
 
-    
-    
-    
+    func loadDocScreen(controller: UIViewController) {
+        self.present(controller, animated: true) { () -> Void in
+        };
+    }
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
         nsectionCount = 1
         updateUI()
-
+        
     }
-
+    
     func updateUI()
     {
-        self.tableViewEducation.register(UINib(nibName: "EducationTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "Education")
-        self.tableViewEducation.register(UINib(nibName: "Education2TableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "lastCell")
+        self.tableViewRNDetails.register(UINib(nibName: "RNDetailsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "RN")
+        self.tableViewRNDetails.register(UINib(nibName: "Education2TableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "lastCell")
+        tableViewRNDetails.reloadData()
         setLoadingIndicator()
-        tableViewEducation.reloadData()
     }
-
-
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     //MARK: - Tableview Delegate Methods -
     func numberOfSections(in tableView: UITableView) -> Int
     {
@@ -50,14 +55,16 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
         return 20
     }
     
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if nsectionCount == (indexPath as NSIndexPath).section{
             return self.view.frame.height/5.59
         }else{
-            return self.view.frame.height/1.6
+            return self.view.frame.height/2
+            
         }
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let viewHeader = UIView()
@@ -70,55 +77,55 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
         viewHeader.backgroundColor = UIColor.clear
         return viewHeader
     }
-
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         if nsectionCount == (indexPath as NSIndexPath).section{
             let lastCell = tableView.dequeueReusableCell(withIdentifier: "lastCell") as! Education2TableViewCell!
             lastCell!.buttonNext.addTarget(self, action: #selector(self.buttonNext), for: .touchUpInside)
             lastCell!.buttonAddMore.addTarget(self, action: #selector(self.buttonAddMore), for: .touchUpInside)
-
+            
             return lastCell!
         }else{
-            let Cell = tableView.dequeueReusableCell(withIdentifier: "Education") as! EducationTableViewCell!
+            let Cell = tableView.dequeueReusableCell(withIdentifier: "RN") as! RNDetailsTableViewCell!
             Cell!.textFieldState.tag = indexPath.section
-            Cell!.textFieldDate.tag = indexPath.section
-            Cell!.textFieldNameofSchool.tag = indexPath.section
-            Cell!.textFieldDegreeName.tag = indexPath.section
-            Cell!.textFieldEducationLevel.tag = indexPath.section
+            Cell!.textFieldIssueDate.tag = indexPath.section
+            Cell!.textFieldExpirationDate.tag = indexPath.section
+            Cell!.textFieldRNNumber.tag = indexPath.section
             Cell!.buttonUpload.tag = indexPath.section
             Cell!.delegate = self
 
             return Cell!
         }
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        tableViewEducation.deselectRow(at: indexPath, animated: false)
+        tableViewRNDetails.deselectRow(at: indexPath, animated: false)
     }
     
-        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+    {
+        if editingStyle == .delete
         {
-            if editingStyle == .delete
-            {
-                let arrayEducationalDetails = NSMutableArray()
-                if ((UserDefaults.standard.value(forKey: "arrayEdu") != nil)){
-                    if arrayEducationalDetails.count > 1{
-                        let array:NSArray = UserDefaults.standard.array(forKey: "arrayEdu")! as NSArray
-                        arrayEducationalDetails.addObjects(from: array as! [Any])
-                        arrayEducationalDetails.removeObject(at: indexPath.section)
-                        print(arrayEducationalDetails)
-                        UserDefaults.standard.set(arrayEducationalDetails, forKey: "arrayEdu")
-                        nsectionCount = nsectionCount - 1
-                        self.tableViewEducation.reloadData()
-                    }else{
-                        nsectionCount = nsectionCount - 1
-                        self.tableViewEducation.reloadData()
-                    }
+            let arrayEducationalDetails = NSMutableArray()
+            if ((UserDefaults.standard.value(forKey: "arrayRN") != nil)){
+                if arrayEducationalDetails.count > 1{
+                    let array:NSArray = UserDefaults.standard.array(forKey: "arrayRN")! as NSArray
+                    arrayEducationalDetails.addObjects(from: array as! [Any])
+                    arrayEducationalDetails.removeObject(at: indexPath.section)
+                    print(arrayEducationalDetails)
+                    UserDefaults.standard.set(arrayEducationalDetails, forKey: "arrayRN")
+                    nsectionCount = nsectionCount - 1
+                    self.tableViewRNDetails.reloadData()
+                }else{
+                    nsectionCount = nsectionCount - 1
+                    self.tableViewRNDetails.reloadData()
                 }
             }
         }
+    }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         if indexPath.section == 0{
@@ -139,28 +146,25 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
     {
         let arrayEducationalDetails = NSMutableArray()
         let arrayEducationalDetailsFile = NSMutableArray()
-
-        if ((UserDefaults.standard.value(forKey: "arrayEdu") != nil)){
-            let array:NSArray = UserDefaults.standard.array(forKey: "arrayEdu")! as NSArray
+        
+        if ((UserDefaults.standard.value(forKey: "arrayRN") != nil)){
+            let array:NSArray = UserDefaults.standard.array(forKey: "arrayRN")! as NSArray
             arrayEducationalDetails.addObjects(from: array as! [Any])
             print(arrayEducationalDetails)
         }
-        if ((UserDefaults.standard.value(forKey: "arrayEduFile") != nil)){
-            let array:NSArray = UserDefaults.standard.array(forKey: "arrayEduFile")! as NSArray
+        if ((UserDefaults.standard.value(forKey: "arrayRNFile") != nil)){
+            let array:NSArray = UserDefaults.standard.array(forKey: "arrayRNFile")! as NSArray
             arrayEducationalDetailsFile.addObjects(from: array as! [Any])
             print(arrayEducationalDetailsFile)
         }
 
         if arrayEducationalDetails.count == nsectionCount{
-            let strEduLevel:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "highestdegree") as! String
-            let strEduDegree:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "nameofdegree") as! String
-            let strEduSchool:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "school") as! String
-            let strState:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "state") as! String
-            let strDate:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "gradudate") as! String
-
-            if strEduLevel == ""{
-                self.popupAlert(Title: "Information",msg: stringMessages().stringEducationalLevel)
-            }else if strEduDegree == ""{
+            let strEduDegree:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "nursern") as! String
+            let strEduSchool:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "state") as! String
+            let strState:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "expirydate") as! String
+            let strDate:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "issuedate") as! String
+            
+            if strEduDegree == ""{
                 self.popupAlert(Title: "Information",msg: stringMessages().stringDegreeName)
             }else if strEduSchool == ""{
                 self.popupAlert(Title: "Information",msg: stringMessages().stringNameofSchool)
@@ -172,39 +176,36 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
                 self.popupAlert(Title: "Information",msg: stringMessages().stringUploadFrontDegree)
             }else{
                 nsectionCount = nsectionCount + 1
-                tableViewEducation.reloadData()
+                tableViewRNDetails.reloadData()
             }
         }else{
             self.popupAlert(Title: "Information",msg: stringMessages().stringAddMore)
         }
-
     }
     
     func buttonNext()
     {
         let arrayEducationalDetails = NSMutableArray()
         let arrayEducationalDetailsFile = NSMutableArray()
-
-        if ((UserDefaults.standard.value(forKey: "arrayEdu") != nil)){
-            let array:NSArray = UserDefaults.standard.array(forKey: "arrayEdu")! as NSArray
+        
+        if ((UserDefaults.standard.value(forKey: "arrayRN") != nil)){
+            let array:NSArray = UserDefaults.standard.array(forKey: "arrayRN")! as NSArray
             arrayEducationalDetails.addObjects(from: array as! [Any])
             print(arrayEducationalDetails)
         }
-        if ((UserDefaults.standard.value(forKey: "arrayEduFile") != nil)){
-            let array:NSArray = UserDefaults.standard.array(forKey: "arrayEduFile")! as NSArray
+        if ((UserDefaults.standard.value(forKey: "arrayRNFile") != nil)){
+            let array:NSArray = UserDefaults.standard.array(forKey: "arrayRNFile")! as NSArray
             arrayEducationalDetailsFile.addObjects(from: array as! [Any])
             print(arrayEducationalDetailsFile)
         }
 
-        if arrayEducationalDetails.count > 0{
-            let strEduLevel:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "highestdegree") as! String
-            let strEduDegree:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "nameofdegree") as! String
-            let strEduSchool:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "school") as! String
-            let strState:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "state") as! String
-            let strDate:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "gradudate") as! String
-            if strEduLevel == ""{
-                self.popupAlert(Title: "Information",msg: stringMessages().stringEducationalLevel)
-            }else if strEduDegree == ""{
+        if arrayEducationalDetails.count == nsectionCount{
+            let strEduDegree:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "nursern") as! String
+            let strEduSchool:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "state") as! String
+            let strState:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "expirydate") as! String
+            let strDate:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "issuedate") as! String
+
+            if strEduDegree == ""{
                 self.popupAlert(Title: "Information",msg: stringMessages().stringDegreeName)
             }else if strEduSchool == ""{
                 self.popupAlert(Title: "Information",msg: stringMessages().stringNameofSchool)
@@ -215,39 +216,46 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
             }else if arrayEducationalDetailsFile.count != nsectionCount{
                 self.popupAlert(Title: "Information",msg: stringMessages().stringUploadFrontDegree)
             }else{
-                startLoading()
-
                 let strNurseID:String = UserDefaults.standard.value(forKey: "nurse_ID") as! String
                 dictParameters.setObject(strNurseID, forKey: "nurse_id" as NSCopying)
                 do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: arrayEducationalDetails, options: JSONSerialization.WritingOptions.prettyPrinted)
-                    
-                    if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
-                        print(JSONString)
-                        dictParameters.setObject(JSONString, forKey: "educationdetails" as NSCopying)
-                        dictParameters.setObject("4", forKey: "stepid" as NSCopying)
-                        self.CallWebserviceReistration(params:dictParameters,arrayImages: arrayEducationalDetailsFile)
-                    }
+                let jsonData = try JSONSerialization.data(withJSONObject: arrayEducationalDetails, options: JSONSerialization.WritingOptions.prettyPrinted)
+                
+                if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
+                    print(JSONString)
+                    dictParameters.setObject(JSONString, forKey: "nurse_rn_details" as NSCopying)
+                    dictParameters.setObject("3", forKey: "stepid" as NSCopying)
+                    self.CallWebserviceReistration(params:dictParameters,arrayImages: arrayEducationalDetailsFile)
+
+                            }
                 }catch
                 {
-                    self.stopLoading()
                 }
             }
+        }else{
+            self.popupAlert(Title: "Information",msg: stringMessages().stringAddMore)
         }
     }
     
-    @objc func buttonUpload(_ sender: Any){
-        print((sender as AnyObject).tag)
-        nArrObject = (sender as AnyObject).tag
-    }
-
-    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
-        return self
+    
+    //MARK- Popup Alert
+    
+    func popupAlert(Title:String,msg:String)
+    {
+        let popup = PopupDialog(title: Title, message: msg, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
+        }
+        let buttonTwo = DefaultButton(title: "OK")
+        {
+        }
+        buttonTwo.buttonColor = UIColor.red
+        buttonTwo.titleColor = UIColor.white
+        popup.addButtons([buttonTwo])
+        self.present(popup, animated: true, completion: nil)
     }
     
     //MARK:- Webservices
     
-    func CallWebserviceReistration(params:NSMutableDictionary, arrayImages:NSMutableArray)
+    func CallWebserviceReistration(params:NSMutableDictionary,arrayImages:NSMutableArray)
     {
         startLoading()
         let manager = AFHTTPSessionManager()
@@ -260,9 +268,9 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
                 let strData:Data = (arrayImages[i] as AnyObject).value(forKey: "Document") as! Data
                 let strimage:String = (arrayImages[i] as AnyObject).value(forKey: "image") as! String
                 if strimage == "0"{
-                    data.appendPart(withFileData: strData, name: "educationfiledetails[]", fileName: "file.pdf", mimeType: "application/pdf")
+                    data.appendPart(withFileData: strData, name: "nurse_rn_filedetails[]", fileName: "file.pdf", mimeType: "application/pdf")
                 }else{
-                    data.appendPart(withFileData: strData, name: "educationfiledetails[]", fileName: "photo\(i).jpg", mimeType: "image/jpeg")
+                    data.appendPart(withFileData: strData, name: "nurse_rn_filedetails[]", fileName: "photo\(i).jpg", mimeType: "image/jpeg")
                 }
             }
         }, progress: nil, success: { (operation, responseObject) -> Void in
@@ -271,10 +279,10 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
             if let Status:Any = (responseDictionary).value(forKey: "status")
             {
                 let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
-                if strStatus == statusSuccess{
-                    let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"ProfessionalEducationViewController") as! ProfessionalEducationViewController
+                if strStatus == "1"{
+                    let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AccountDetailsEducationViewController") as! AccountDetailsEducationViewController
                     self.navigationController?.pushViewController(nextViewController, animated: true)
-                }else if strStatus == AccessToken{
+                }else if strStatus == "401"{
                     self.callWebserviseAccessToken(params:params,arrayImages:arrayImages)
                 }else{
                     self.stopLoading()
@@ -320,27 +328,6 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
         })
     }
     
-
-    //MARK- Popup Alert
-
-    func popupAlert(Title:String,msg:String)
-    {
-        let popup = PopupDialog(title: Title, message: msg, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
-        }
-        let buttonTwo = DefaultButton(title: "OK")
-        {
-        }
-        buttonTwo.buttonColor = UIColor.red
-        buttonTwo.titleColor = UIColor.white
-        popup.addButtons([buttonTwo])
-        self.present(popup, animated: true, completion: nil)
-    }
-    
-    func loadDocScreen(controller: UIViewController) {
-        self.present(controller, animated: true) { () -> Void in
-        };
-    }
-    
     //MARK:- Activity Indicator View
     func setLoadingIndicator()
     {
@@ -361,6 +348,11 @@ class AccountDetailsEducationViewController: UIViewController,UITableViewDelegat
         self.view.isUserInteractionEnabled = true
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        dismiss(animated: true, completion: nil)
+    }
+
 
     
 }

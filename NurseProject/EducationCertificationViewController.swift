@@ -15,12 +15,13 @@ class EducationCertificationViewController: UIViewController,UITableViewDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        nsectionCount = 1
+        nsectionCount = 2
         updateUI()
     }
     
     func updateUI()
     {
+        self.tableViewCertificate.register(UINib(nibName: "BLSTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "BLS")
         self.tableViewCertificate.register(UINib(nibName: "CertificationTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "Certificate")
         self.tableViewCertificate.register(UINib(nibName: "Education2TableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "lastCell")
         tableViewCertificate.reloadData()
@@ -45,14 +46,15 @@ class EducationCertificationViewController: UIViewController,UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if nsectionCount == (indexPath as NSIndexPath).section{
-            return self.view.frame.height/5.59
-        }else{
+        if (indexPath as NSIndexPath).section == 0{
+            return self.view.frame.height/3.55
+        }else if nsectionCount > (indexPath as NSIndexPath).section{
             return self.view.frame.height/2
-
+        }else{
+            return self.view.frame.height/5.59
         }
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let viewHeader = UIView()
@@ -77,22 +79,29 @@ class EducationCertificationViewController: UIViewController,UITableViewDelegate
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        if nsectionCount == (indexPath as NSIndexPath).section{
+         if (indexPath as NSIndexPath).section == 0 {
+            let Cell = tableView.dequeueReusableCell(withIdentifier: "BLS") as! BLSTableViewCell!
+            
+            Cell!.buttonBack.tag = indexPath.section
+            Cell!.delegate = self
+            Cell!.buttonFront.tag = indexPath.section
+            return Cell!
+        }else if nsectionCount > (indexPath as NSIndexPath).section{
+            let Cell = tableView.dequeueReusableCell(withIdentifier: "Certificate") as! CertificationTableViewCell!
+            Cell!.textFieldName.tag = indexPath.section - 1
+            Cell!.textFieldDate.tag = indexPath.section - 1
+            Cell!.buttonUploadFront.tag = indexPath.section - 1
+            Cell!.buttonUploadBack.tag = indexPath.section - 1
+            Cell!.delegate = self
+            
+            return Cell!
+        }else{
+
             let lastCell = tableView.dequeueReusableCell(withIdentifier: "lastCell") as! Education2TableViewCell!
             lastCell!.buttonNext.addTarget(self, action: #selector(self.buttonNext), for: .touchUpInside)
-    //        lastCell!.buttonUpload.addTarget(self, action: #selector(self.buttonUpload), for: .touchUpInside)
-            lastCell!.buttonAddMore.addTarget(self, action: #selector(self.buttonAddMore), for: .touchUpInside)
-       
-            return lastCell!
+         //   lastCell!.buttonAddMore.addTarget(self, action: #selector(self.buttonAddMore), for: .touchUpInside)
             
-        }else{
-            let Cell = tableView.dequeueReusableCell(withIdentifier: "Certificate") as! CertificationTableViewCell!
-            Cell!.textFieldName.tag = indexPath.section
-            Cell!.textFieldDate.tag = indexPath.section
-            Cell!.buttonUpload.tag = indexPath.section
-            Cell!.delegate = self
-
-            return Cell!
+            return lastCell!
         }
     }
     
@@ -133,11 +142,20 @@ class EducationCertificationViewController: UIViewController,UITableViewDelegate
     func buttonAddMore()
     {
         let arrayEducationalDetails = NSMutableArray()
+        let arrayEducationalDetailsFile = NSMutableArray()
         if ((UserDefaults.standard.value(forKey: "arrayCertificate") != nil)){
             let array:NSArray = UserDefaults.standard.array(forKey: "arrayCertificate")! as NSArray
             arrayEducationalDetails.addObjects(from: array as! [Any])
             print(arrayEducationalDetails)
         }
+
+        if ((UserDefaults.standard.value(forKey: "arrayCertificateFile") != nil)){
+            let array:NSArray = UserDefaults.standard.array(forKey: "arrayCertificateFile")! as NSArray
+            arrayEducationalDetailsFile.addObjects(from: array as! [Any])
+            print(arrayEducationalDetailsFile)
+        }
+
+        
         if arrayEducationalDetails.count == nsectionCount{
             let strName:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "Name") as! String
             let strDate:String = (arrayEducationalDetails[nsectionCount-1] as AnyObject).value(forKey: "Date") as! String

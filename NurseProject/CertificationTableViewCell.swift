@@ -1,37 +1,90 @@
-
 import UIKit
 import TextFieldEffects
 import NADocumentPicker
 import BrightFutures
+import MobileCoreServices
 
 
-class CertificationTableViewCell: UITableViewCell,UITextFieldDelegate {
 
-    @IBOutlet var labelDocument: UILabel!
+class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumentPickerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIDocumentInteractionControllerDelegate,UINavigationControllerDelegate
+{
+    
+    @IBOutlet var imageViewCalender: UIImageView!
+    @IBOutlet var labelDocumentFront: UILabel!
+    @IBOutlet var labelDocumentBack: UILabel!
 
     @IBOutlet var textFieldDate: HoshiTextField!
     @IBOutlet var textFieldName: HoshiTextField!
-    @IBOutlet var buttonUpload: UIButton!
+    @IBOutlet var buttonUploadFront: UIButton!
+    @IBOutlet var buttonUploadBack: UIButton!
     weak var delegate: ChangeDocumentProtocol?
     var strDocument = NSString()
 
-
-
-    
     var arrayEducationalDetails = NSMutableArray()
+    var arrayEducationalDetailsFile = NSMutableArray()
     var datePickerview = UIDatePicker()
+    var bButtonFront = Bool()
+    let imagePicker = UIImagePickerController()
 
+    @IBOutlet var buttonNonPermanent: UIButton!
+    @IBOutlet var buttonPermanent: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        strDocument = ""
+        let DSImage:UIImage = UIImage(named: "unchecked")!
+        let SImage:UIImage = UIImage(named: "checked")!
+        buttonNonPermanent.setImage(DSImage, for: .normal)
+        buttonNonPermanent.setImage(SImage, for: .selected)
+        buttonPermanent.setImage(DSImage, for: .normal)
+        buttonPermanent.setImage(SImage, for: .selected)
+
         if ((UserDefaults.standard.value(forKey: "arrayCertificate") != nil)){
             let array:NSArray = UserDefaults.standard.array(forKey: "arrayCertificate")! as NSArray
             arrayEducationalDetails.addObjects(from: array as! [Any])
             print(arrayEducationalDetails)
         }
+        if ((UserDefaults.standard.value(forKey: "arrayCertificateFile") != nil)){
+            let array:NSArray = UserDefaults.standard.array(forKey: "arrayCertificateFile")! as NSArray
+            arrayEducationalDetailsFile.addObjects(from: array as! [Any])
+            print(arrayEducationalDetailsFile)
+        }
 
     }
+    
+    @IBAction func buttonPermanent(_ sender: Any)
+    {
+        if (sender as AnyObject).tag == 1{
+            if buttonPermanent.isSelected == true{
+                buttonPermanent.isSelected = false
+                buttonNonPermanent.isSelected = true
+                textFieldDate.isHidden = false
+                imageViewCalender.isHidden = false
+            }else{
+                buttonPermanent.isSelected = true
+                buttonNonPermanent.isSelected = false
+                textFieldDate.isHidden = true
+                textFieldDate.text = ""
+                imageViewCalender.isHidden = true
+            }
+            
+        }else if (sender as AnyObject).tag == 2{
+            if buttonNonPermanent.isSelected == true{
+                buttonNonPermanent.isSelected = false
+                buttonPermanent.isSelected = true
+                textFieldDate.text = ""
+                imageViewCalender.isHidden = true
+
+            }else{
+                buttonNonPermanent.isSelected = true
+                buttonPermanent.isSelected = false
+                imageViewCalender.isHidden = false
+                textFieldDate.isHidden = false
+                textFieldDate.text = ""
+            }
+        }
+    }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -87,9 +140,15 @@ class CertificationTableViewCell: UITableViewCell,UITextFieldDelegate {
         let dictArray = NSMutableDictionary()
         
         if textField.tag == 0{
-            dictArray.setValue(textFieldName.text, forKey: "Name")
-            dictArray.setValue(textFieldDate.text, forKey: "Date")
-            dictArray.setValue(strDocument, forKey: "Document")
+            dictArray.setValue(textFieldName.text, forKey: "certificate_name")
+            dictArray.setValue(textFieldDate.text, forKey: "expiry_date")
+            if textFieldDate.text != ""{
+                dictArray.setValue("permanent", forKey: "permanent")
+            }else{
+                dictArray.setValue("", forKey: "permanent")
+            }
+
+            
             if arrayEducationalDetails.count == 0{
                 arrayEducationalDetails.insert(dictArray, at: textField.tag)
             }else{
@@ -97,9 +156,14 @@ class CertificationTableViewCell: UITableViewCell,UITextFieldDelegate {
             }
             UserDefaults.standard.set(arrayEducationalDetails, forKey: "arrayCertificate")
         }else{
-            dictArray.setValue(textFieldName.text, forKey: "Name")
-            dictArray.setValue(textFieldDate.text, forKey: "Date")
-            dictArray.setValue(strDocument, forKey: "Document")
+            dictArray.setValue(textFieldName.text, forKey: "certificate_name")
+            dictArray.setValue(textFieldDate.text, forKey: "expiry_date")
+            if textFieldDate.text != ""{
+                dictArray.setValue("permanent", forKey: "permanent")
+            }else{
+                dictArray.setValue("", forKey: "permanent")
+            }
+
             if arrayEducationalDetails.count == textField.tag{
                 arrayEducationalDetails.insert(dictArray, at: textField.tag)
             }else{
@@ -111,44 +175,163 @@ class CertificationTableViewCell: UITableViewCell,UITextFieldDelegate {
         
     }
     
-    
-    @IBAction func pickerButtonPressed(_ sender: UIButton) {
-        let viewController = UIViewController()
-        let urlPickedfuture = NADocumentPicker.show(from: sender, parentViewController: self.delegate as! UIViewController)
+    func DocLibrary(){
+        var types: [Any]? = [(kUTTypePDF as? String)]
+        let documentPicker: UIDocumentPickerViewController = UIDocumentPickerViewController(documentTypes: types as! [String], in: UIDocumentPickerMode.import)
+        documentPicker.delegate = self
+        documentPicker.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+        (self.delegate as! UIViewController).present(documentPicker, animated: true, completion: nil)
+    }
+    func documentPicker(_ controller: UIDocumentPickerViewController,didPickDocumentAt url: URL) {
         let dictArray = NSMutableDictionary()
-        
-        urlPickedfuture.onSuccess { url in
-            
-            if self.buttonUpload.tag == 0{
-                
-                dictArray.setValue(self.textFieldName.text, forKey: "Name")
-                dictArray.setValue(self.textFieldDate.text, forKey: "Date")
+        let dataFile = try! Data(contentsOf: url)
+        print(dataFile)
+
+        if bButtonFront == true{
+            if self.buttonUploadFront.tag == 0{
+                self.labelDocumentFront.text = String(format: "%@",url.lastPathComponent)
                 dictArray.setValue(url.absoluteString, forKey: "Document")
                 if self.arrayEducationalDetails.count == 0{
-                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUpload.tag)
+                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadFront.tag)
                 }else{
-                    self.arrayEducationalDetails.replaceObject(at: self.buttonUpload.tag, with: dictArray)
+                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray)
                 }
-                
-                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificate")
+                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
             }else{
-                dictArray.setValue(self.textFieldName.text, forKey: "Name")
-                dictArray.setValue(self.textFieldDate.text, forKey: "Date")
                 dictArray.setValue(url.absoluteString, forKey: "Document")
-
-                if self.arrayEducationalDetails.count == self.buttonUpload.tag{
-                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUpload.tag)
+                
+                if self.arrayEducationalDetails.count == self.buttonUploadFront.tag{
+                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadFront.tag)
                 }else{
-                    self.arrayEducationalDetails.replaceObject(at: self.buttonUpload.tag, with: dictArray)
+                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray)
                 }
-                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificate")
+                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
             }
-            self.strDocument = url.absoluteString as NSString
             print(self.arrayEducationalDetails)
-            self.labelDocument.text = String(format: "%@",url.lastPathComponent)
-            }.onFailure { (error) in
+
+        }else{
+            if self.buttonUploadBack.tag == 0{
+                self.labelDocumentBack.text = String(format: "%@",url.lastPathComponent)
+                dictArray.setValue(url.absoluteString, forKey: "Document")
+                if self.arrayEducationalDetails.count == 0{
+                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadBack.tag)
+                }else{
+                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                }
+                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+            }else{
+                dictArray.setValue(url.absoluteString, forKey: "Document")
+                
+                if self.arrayEducationalDetails.count == self.buttonUploadBack.tag{
+                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadBack.tag)
+                }else{
+                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                }
+                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+            }
+            print(self.arrayEducationalDetails)
+            
         }
+    }
+
+    @IBAction func buttonUploadFront(_ sender: UIButton) {
+        bButtonFront = true
+        showActionSheet2()
+        
+    }
+    @IBAction func buttonUploadBack(_ sender: UIButton) {
+        bButtonFront = false
+        showActionSheet2()
+
+    }
+    
+    func showActionSheet2()
+    {
+        imagePicker.delegate = self
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
+            self.camera()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
+            self.photoLibrary()
+        }))
+//        actionSheet.addAction(UIAlertAction(title: "From Document", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
+//            self.DocLibrary()
+//        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        (self.delegate as! UIViewController).present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func camera()
+    {
+        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+        (self.delegate as! UIViewController).present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func photoLibrary()
+    {
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        (self.delegate as! UIViewController).present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        (self.delegate as! UIViewController).dismiss(animated: true, completion: nil)
     }
     
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        //  imageViewUserImage.image = chosenImage
+        let imageData1:Data = UIImageJPEGRepresentation(chosenImage, 0.5)!
+        print(imageData1)
+        let dictArray = NSMutableDictionary()
+        
+        if bButtonFront == true{
+            if self.buttonUploadFront.tag == 0{
+                self.labelDocumentFront.text = "Image File Chosen"
+                dictArray.setValue(imageData1, forKey: "Document")
+                if self.arrayEducationalDetails.count == 0{
+                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadFront.tag)
+                }else{
+                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray)
+                }
+                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+            }else{
+                dictArray.setValue(imageData1, forKey: "Document")
+                
+                if self.arrayEducationalDetails.count == self.buttonUploadFront.tag{
+                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadFront.tag)
+                }else{
+                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray)
+                }
+                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+            }
+            print(self.arrayEducationalDetails)
+            
+        }else{
+            if self.buttonUploadBack.tag == 0{
+                self.labelDocumentBack.text = "Image File Chosen"
+                dictArray.setValue(imageData1, forKey: "Document")
+                if self.arrayEducationalDetails.count == 0{
+                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadBack.tag)
+                }else{
+                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                }
+                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+            }else{
+                dictArray.setValue(imageData1, forKey: "Document")
+                
+                if self.arrayEducationalDetails.count == self.buttonUploadBack.tag{
+                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadBack.tag)
+                }else{
+                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                }
+                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+            }
+            print(self.arrayEducationalDetails)
+            
+        }
+        (self.delegate as! UIViewController).dismiss(animated: true, completion: nil)
+
+    }
 }
