@@ -129,9 +129,9 @@ class  BLSTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumentPickerDe
         let dictArray = NSMutableDictionary()
         dictArray.setValue("1", forKey: "image")
         
-        if arrayEducationalDetailsFile.count != 0{
-             dataFront = (arrayEducationalDetailsFile[0] as AnyObject).value(forKey: "blsfront") as! Data
-             dataBack = (arrayEducationalDetailsFile[0] as AnyObject).value(forKey: "blsback") as! Data
+        if arrayEducationalDetails.count != 0{
+             dataFront = (arrayEducationalDetails[0] as AnyObject).value(forKey: "blsfront") as! Data
+             dataBack = (arrayEducationalDetails[0] as AnyObject).value(forKey: "blsback") as! Data
         }
 
         if bButtonFront == true{
@@ -143,12 +143,12 @@ class  BLSTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumentPickerDe
                     dictArray.setValue(dataBack, forKey: "blsback")
                 }
                 self.labelFront.text = "Image File Chosen"
-                if self.arrayEducationalDetailsFile.count == 0{
-                    self.arrayEducationalDetailsFile.insert(dictArray, at: 0)
+                if self.arrayEducationalDetails.count == 0{
+                    self.arrayEducationalDetails.insert(dictArray, at: 0)
                 }else{
-                    self.arrayEducationalDetailsFile.replaceObject(at: 0, with: dictArray)
+                    self.arrayEducationalDetails.replaceObject(at: 0, with: dictArray)
                 }
-                UserDefaults.standard.set(self.arrayEducationalDetailsFile, forKey: "arrayBLSFile")
+                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayBLS")
             }
         }else{
             if self.buttonBack.tag == 0{
@@ -160,12 +160,12 @@ class  BLSTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumentPickerDe
                 }
 
                 self.labelBack.text = "Image File Chosen"
-                if self.arrayEducationalDetailsFile.count == 0{
-                    self.arrayEducationalDetailsFile.insert(dictArray, at: 0)
+                if self.arrayEducationalDetails.count == 0{
+                    self.arrayEducationalDetails.insert(dictArray, at: 0)
                 }else{
-                    self.arrayEducationalDetailsFile.replaceObject(at: 0, with: dictArray)
+                    self.arrayEducationalDetails.replaceObject(at: 0, with: dictArray)
                 }
-                UserDefaults.standard.set(self.arrayEducationalDetailsFile, forKey: "arrayBLSFile")
+                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayBLS")
             }
         }
         print(self.arrayEducationalDetailsFile)
@@ -186,9 +186,9 @@ class  BLSTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumentPickerDe
         actionSheet.addAction(UIAlertAction(title: "Photo Library", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
             self.photoLibrary()
         }))
-//        actionSheet.addAction(UIAlertAction(title: "From Document", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
-//            self.DocLibrary()
-//        }))
+        actionSheet.addAction(UIAlertAction(title: "From Document", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
+            self.DocLibrary()
+        }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         (self.delegate as! UIViewController).present(actionSheet, animated: true, completion: nil)
     }

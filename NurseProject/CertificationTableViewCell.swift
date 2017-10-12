@@ -74,7 +74,7 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
                 buttonPermanent.isSelected = true
                 textFieldDate.text = ""
                 imageViewCalender.isHidden = true
-
+                textFieldDate.isHidden = true
             }else{
                 buttonNonPermanent.isSelected = true
                 buttonPermanent.isSelected = false
@@ -85,12 +85,6 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
         }
     }
     
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
     override func layoutSubviews(){
         super.layoutSubviews()
@@ -186,11 +180,29 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
         let dictArray = NSMutableDictionary()
         let dataFile = try! Data(contentsOf: url)
         print(dataFile)
+        let Front:String  = "12"
+        var dataFront:Data = Front.data(using: .utf8)!
+        var dataBack:Data = Front.data(using: .utf8)!
+        
+        dictArray.setValue("0", forKey: "image")
+        
+        if arrayEducationalDetailsFile.count != 0{
+            dataFront = (arrayEducationalDetailsFile[0] as AnyObject).value(forKey: "blsfront") as! Data
+            dataBack = (arrayEducationalDetailsFile[0] as AnyObject).value(forKey: "blsback") as! Data
+        }
+        
+
 
         if bButtonFront == true{
             if self.buttonUploadFront.tag == 0{
                 self.labelDocumentFront.text = String(format: "%@",url.lastPathComponent)
-                dictArray.setValue(url.absoluteString, forKey: "Document")
+                dictArray.setValue(dataFile, forKey: "blsfront")
+                if dataBack.count != 2{
+                    dictArray.setValue(dataBack, forKey: "blsback")
+                }else{
+                    dictArray.setValue(dataBack, forKey: "blsback")
+                }
+
                 if self.arrayEducationalDetails.count == 0{
                     self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadFront.tag)
                 }else{
