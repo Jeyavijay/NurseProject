@@ -80,10 +80,10 @@ class ReferenceTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         if textField.tag == 0{
             
-            dictArray.setValue(textFieldFullName.text, forKey: "FullName")
-            dictArray.setValue(textFieldPhoneNumber.text, forKey: "Phone")
-            dictArray.setValue(textFieldEmailID.text, forKey: "Email")
-            dictArray.setValue(textFieldRelationShip.text, forKey: "Relationship")
+            dictArray.setValue(textFieldFullName.text, forKey: "nameofrefer")
+            dictArray.setValue(textFieldPhoneNumber.text, forKey: "reference_phone")
+            dictArray.setValue(textFieldEmailID.text, forKey: "reference_email")
+            dictArray.setValue(textFieldRelationShip.text, forKey: "reference_designation")
             if arrayRefDetails.count == 0{
                 arrayRefDetails.insert(dictArray, at: textField.tag)
             }else{
@@ -91,10 +91,10 @@ class ReferenceTableViewCell: UITableViewCell,UITextFieldDelegate {
             }
             UserDefaults.standard.set(arrayRefDetails, forKey: "arrayRef")
         }else{
-            dictArray.setValue(textFieldFullName.text, forKey: "FullName")
-            dictArray.setValue(textFieldPhoneNumber.text, forKey: "Phone")
-            dictArray.setValue(textFieldEmailID.text, forKey: "Email")
-            dictArray.setValue(textFieldRelationShip.text, forKey: "Relationship")
+            dictArray.setValue(textFieldFullName.text, forKey: "nameofrefer")
+            dictArray.setValue(textFieldPhoneNumber.text, forKey: "reference_phone")
+            dictArray.setValue(textFieldEmailID.text, forKey: "reference_email")
+            dictArray.setValue(textFieldRelationShip.text, forKey: "reference_designation")
             if arrayRefDetails.count == textField.tag{
                 arrayRefDetails.insert(dictArray, at: textField.tag)
             }else{

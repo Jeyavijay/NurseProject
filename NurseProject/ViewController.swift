@@ -45,15 +45,14 @@ class ViewController: UIViewController {
                 let strDeviceToken:String = String(format: "%@",UserDefaults.standard.value(forKey: "DEVICETOKEN") as! CVarArg)
                 dictParameters.setObject(strDeviceToken, forKey: "devicetoken" as NSCopying)
             }else{
-                dictParameters.setObject("", forKey: "devicetoken" as NSCopying)
+                dictParameters.setObject("ncjkchskjchsjkhcjkschjkscs", forKey: "devicetoken" as NSCopying)
             }
-
             UserDefaults.standard.set(textFieldPassword.text!, forKey:"password" )
             dictParameters.setObject("3", forKey: "devicetype" as NSCopying)
             dictParameters.setObject(textFieldPassword.text!, forKey: "password" as NSCopying)
             dictParameters.setObject(textFieldEmail.text!, forKey: "username" as NSCopying)
+            UserDefaults.standard.set(textFieldEmail.text!, forKey: "Email-ID")
             self.CallWebserviceReistration(params:dictParameters)
-            
         }
         
     }
@@ -71,10 +70,7 @@ class ViewController: UIViewController {
         startLoading()
         let manager = AFHTTPSessionManager()
         let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().loginUrl) as NSString
-        
-        //        let strAuth:String = UserDefaults.standard.value(forKey: "Authentication") as! String
-        //        manager.requestSerializer.setValue(strAuth, forHTTPHeaderField: "Auth-Token")
-        
+
         manager.post(stringURL as String, parameters: params, progress: nil, success: { (operation, responseObject) -> Void in
             let responseDictionary:NSDictionary = responseObject as! NSDictionary
             print(responseDictionary)

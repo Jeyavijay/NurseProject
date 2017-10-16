@@ -13,30 +13,24 @@ class  BLSTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumentPickerDe
     weak var delegate: ChangeDocumentProtocol?
     let imagePicker = UIImagePickerController()
     var datePickerview = UIDatePicker()
-    var arrayEducationalDetails = NSMutableArray()
-    var arrayEducationalDetailsFile = NSMutableArray()
+    var arrayFront = NSMutableArray()
+    var arrayBack = NSMutableArray()
     var nTextFieldTags = Int()
     var bButtonFront = Bool()
 
-
-    
-    
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        if ((UserDefaults.standard.value(forKey: "arrayBLS") != nil)){
-            let array:NSArray = UserDefaults.standard.array(forKey: "arrayBLS")! as NSArray
-            arrayEducationalDetails.addObjects(from: array as! [Any])
-            print(arrayEducationalDetails)
+        if ((UserDefaults.standard.value(forKey: "arrayBLSFront") != nil)){
+            let array:NSArray = UserDefaults.standard.array(forKey: "arrayBLSFront")! as NSArray
+            arrayFront.addObjects(from: array as! [Any])
+            print(arrayFront)
         }
-        if ((UserDefaults.standard.value(forKey: "arrayBLSFile") != nil)){
-            let array:NSArray = UserDefaults.standard.array(forKey: "arrayBLSFile")! as NSArray
-            arrayEducationalDetailsFile.addObjects(from: array as! [Any])
-            print(arrayEducationalDetailsFile)
+        if ((UserDefaults.standard.value(forKey: "arrayBLSBack") != nil)){
+            let array:NSArray = UserDefaults.standard.array(forKey: "arrayBLSBack")! as NSArray
+            arrayBack.addObjects(from: array as! [Any])
+            print(arrayBack)
         }
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -68,107 +62,77 @@ class  BLSTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumentPickerDe
     func documentPicker(_ controller: UIDocumentPickerViewController,didPickDocumentAt url: URL) {
         let dataFile = try! Data(contentsOf: url)
         print(dataFile)
-        let Front:String  = "12"
-        var dataFront:Data = Front.data(using: .utf8)!
-        var dataBack:Data = Front.data(using: .utf8)!
-        
         let dictArray = NSMutableDictionary()
-        dictArray.setValue("0", forKey: "image")
-        
-        if arrayEducationalDetailsFile.count != 0{
-            dataFront = (arrayEducationalDetailsFile[0] as AnyObject).value(forKey: "blsfront") as! Data
-            dataBack = (arrayEducationalDetailsFile[0] as AnyObject).value(forKey: "blsback") as! Data
-        }
-        
 
         if bButtonFront == true{
             if self.buttonFront.tag == 0{
                 self.labelFront.text = String(format: "%@",url.lastPathComponent)
                 dictArray.setValue(dataFile, forKey: "blsfront")
-                if dataBack.count != 2{
-                    dictArray.setValue(dataBack, forKey: "blsback")
+                dictArray.setValue("0", forKey: "image")
+
+                if self.arrayBack.count == 0{
+                    self.arrayFront.insert(dictArray, at: 0)
                 }else{
-                    dictArray.setValue(dataBack, forKey: "blsback")
+                    self.arrayFront.replaceObject(at: 0, with: dictArray)
                 }
-                if self.arrayEducationalDetailsFile.count == 0{
-                    self.arrayEducationalDetailsFile.insert(dictArray, at: 0)
-                }else{
-                    self.arrayEducationalDetailsFile.replaceObject(at: 0, with: dictArray)
-                }
-                UserDefaults.standard.set(self.arrayEducationalDetailsFile, forKey: "arrayBLSFile")
+                UserDefaults.standard.set(self.arrayFront, forKey: "arrayBLSFront")
             }
         }else{
             if self.buttonBack.tag == 0{
-                dictArray.setValue(dataFile, forKey: "blsfront")
-                if dataFront.count != 2{
-                    dictArray.setValue(dataFront, forKey: "blsback")
-                }else{
-                    dictArray.setValue(dataFront, forKey: "blsback")
-                }
                 self.labelBack.text = String(format: "%@",url.lastPathComponent)
-                if self.arrayEducationalDetailsFile.count == 0{
-                    self.arrayEducationalDetailsFile.insert(dictArray, at: 0)
+                dictArray.setValue(dataFile, forKey: "blsback")
+                dictArray.setValue("0", forKey: "image")
+                
+                if self.arrayBack.count == 0{
+                    self.arrayBack.insert(dictArray, at: 0)
                 }else{
-                    self.arrayEducationalDetailsFile.replaceObject(at: 0, with: dictArray)
+                    self.arrayBack.replaceObject(at: 0, with: dictArray)
                 }
-                UserDefaults.standard.set(self.arrayEducationalDetailsFile, forKey: "arrayBLSFile")
+                UserDefaults.standard.set(self.arrayBack, forKey: "arrayBLSBack")
             }
         }
-        print(self.arrayEducationalDetailsFile)
+        print(self.arrayFront)
+        print(self.arrayBack)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        //  imageViewUserImage.image = chosenImage
-        let imageData1:Data = UIImageJPEGRepresentation(chosenImage, 0.5)!
-        print(imageData1)
-        let Front:String  = "12"
-        var dataFront:Data = Front.data(using: .utf8)!
-        var dataBack:Data = Front.data(using: .utf8)!
+        let imageURL = info[UIImagePickerControllerReferenceURL] as! NSURL
+        let imageName = imageURL.lastPathComponent
 
+        let dataFile:Data = UIImageJPEGRepresentation(chosenImage, 0.5)!
+        print(dataFile)
         let dictArray = NSMutableDictionary()
-        dictArray.setValue("1", forKey: "image")
-        
-        if arrayEducationalDetails.count != 0{
-             dataFront = (arrayEducationalDetails[0] as AnyObject).value(forKey: "blsfront") as! Data
-             dataBack = (arrayEducationalDetails[0] as AnyObject).value(forKey: "blsback") as! Data
-        }
 
         if bButtonFront == true{
             if self.buttonFront.tag == 0{
-                dictArray.setValue(imageData1, forKey: "blsfront")
-                if dataBack.count != 2{
-                    dictArray.setValue(dataBack, forKey: "blsback")
+                self.labelFront.text = String(format: "%@",imageName!)
+                dictArray.setValue(dataFile, forKey: "blsfront")
+                dictArray.setValue("1", forKey: "image")
+                
+                if self.arrayFront.count == 0{
+                    self.arrayFront.insert(dictArray, at: 0)
                 }else{
-                    dictArray.setValue(dataBack, forKey: "blsback")
+                    self.arrayFront.replaceObject(at: 0, with: dictArray)
                 }
-                self.labelFront.text = "Image File Chosen"
-                if self.arrayEducationalDetails.count == 0{
-                    self.arrayEducationalDetails.insert(dictArray, at: 0)
-                }else{
-                    self.arrayEducationalDetails.replaceObject(at: 0, with: dictArray)
-                }
-                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayBLS")
+                UserDefaults.standard.set(self.arrayFront, forKey: "arrayBLSFront")
             }
         }else{
             if self.buttonBack.tag == 0{
-                dictArray.setValue(imageData1, forKey: "blsback")
-                if dataFront.count != 2{
-                    dictArray.setValue(dataFront, forKey: "blsfront")
+                self.labelBack.text = String(format: "%@",imageName!)
+                dictArray.setValue(dataFile, forKey: "blsback")
+                dictArray.setValue("1", forKey: "image")
+                
+                if self.arrayBack.count == 0{
+                    self.arrayBack.insert(dictArray, at: 0)
                 }else{
-                    dictArray.setValue(dataFront, forKey: "blsfront")
+                    self.arrayBack.replaceObject(at: 0, with: dictArray)
                 }
-
-                self.labelBack.text = "Image File Chosen"
-                if self.arrayEducationalDetails.count == 0{
-                    self.arrayEducationalDetails.insert(dictArray, at: 0)
-                }else{
-                    self.arrayEducationalDetails.replaceObject(at: 0, with: dictArray)
-                }
-                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayBLS")
+                UserDefaults.standard.set(self.arrayBack, forKey: "arrayBLSBack")
             }
         }
-        print(self.arrayEducationalDetailsFile)
+        print(self.arrayBack)
+        print(self.arrayFront)
         (self.delegate as! UIViewController).dismiss(animated: true, completion: nil)
     }
     

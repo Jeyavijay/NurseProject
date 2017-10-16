@@ -397,8 +397,6 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
         viewDocumentView.isHidden = false
         let dataFile = try! Data(contentsOf: url)
         fileData = dataFile
-        if controller.documentPickerMode == UIDocumentPickerMode.import {
-        }
     }
     
     func doc(asd:URL)
@@ -474,7 +472,7 @@ class AccountDetailsViewController: UIViewController,UITextFieldDelegate,UIPicke
     func callWebserviseAccessToken(){
         startLoading()
         let parameter = NSMutableDictionary()
-        let strNurseID:String = UserDefaults.standard.value(forKey: "nurse_ID") as! String
+        let strNurseID:String = UserDefaults.standard.value(forKey: "Email-ID") as! String
         let strPassword:String = UserDefaults.standard.value(forKey: "password") as! String
         parameter.setObject(strNurseID, forKey: "username" as NSCopying)
         parameter.setObject(strPassword, forKey: "password" as NSCopying)

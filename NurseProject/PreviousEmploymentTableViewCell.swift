@@ -49,14 +49,17 @@ class PreviousEmploymentTableViewCell: UITableViewCell,UITextFieldDelegate {
             datePickerview.datePickerMode = UIDatePickerMode.date
             textField.inputView = datePickerview
             textField.inputView = datePickerview
+            let now = Date()
+            let oneDaysAgo: Date? = now.addingTimeInterval(1 * 24 * 60 * 60)
+            datePickerview.maximumDate = oneDaysAgo
+
             nTextFieldTags = 1
             datePickerview.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
         }
         if textField == self.textFieldEndDate{
             datePickerview.datePickerMode = UIDatePickerMode.date
-            textField.inputView = datePickerview
-            textField.inputView = datePickerview
             nTextFieldTags = 2
+            textField.inputView = datePickerview
             datePickerview.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
         }
         return true
@@ -66,12 +69,12 @@ class PreviousEmploymentTableViewCell: UITableViewCell,UITextFieldDelegate {
         let dictArray = NSMutableDictionary()
         
         if textField.tag == 0{
-            dictArray.setValue(textFieldName.text, forKey: "SName")
-            dictArray.setValue(textFieldTitle.text, forKey: "STitle")
-            dictArray.setValue(textFieldHospitalName.text, forKey: "HName")
-            dictArray.setValue(textFieldDepartment.text, forKey: "HDepartment")
-            dictArray.setValue(textFieldStartDate.text, forKey: "SDate")
-            dictArray.setValue(textFieldEndDate.text, forKey: "EDate")
+            dictArray.setValue(textFieldName.text, forKey: "nameofsupervisor")
+            dictArray.setValue(textFieldTitle.text, forKey: "titleofsupervisor")
+            dictArray.setValue(textFieldHospitalName.text, forKey: "hospitalname")
+            dictArray.setValue(textFieldDepartment.text, forKey: "deptofhospital")
+            dictArray.setValue(textFieldStartDate.text, forKey: "startdate")
+            dictArray.setValue(textFieldEndDate.text, forKey: "enddate")
             if arrayEmploymentDetails.count == 0{
                 arrayEmploymentDetails.insert(dictArray, at: textField.tag)
             }else{
@@ -79,12 +82,12 @@ class PreviousEmploymentTableViewCell: UITableViewCell,UITextFieldDelegate {
             }
             UserDefaults.standard.set(arrayEmploymentDetails, forKey: "arrayEmp")
         }else{
-            dictArray.setValue(textFieldName.text, forKey: "SName")
-            dictArray.setValue(textFieldTitle.text, forKey: "STitle")
-            dictArray.setValue(textFieldHospitalName.text, forKey: "HName")
-            dictArray.setValue(textFieldDepartment.text, forKey: "HDepartment")
-            dictArray.setValue(textFieldStartDate.text, forKey: "SDate")
-            dictArray.setValue(textFieldEndDate.text, forKey: "EDate")
+            dictArray.setValue(textFieldName.text, forKey: "nameofsupervisor")
+            dictArray.setValue(textFieldTitle.text, forKey: "titleofsupervisor")
+            dictArray.setValue(textFieldHospitalName.text, forKey: "hospitalname")
+            dictArray.setValue(textFieldDepartment.text, forKey: "deptofhospital")
+            dictArray.setValue(textFieldStartDate.text, forKey: "startdate")
+            dictArray.setValue(textFieldEndDate.text, forKey: "enddate")
             if arrayEmploymentDetails.count == textField.tag{
                 arrayEmploymentDetails.insert(dictArray, at: textField.tag)
             }else{

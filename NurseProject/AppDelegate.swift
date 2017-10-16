@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         IQKeyboardManager.sharedManager().enable = true
 
-        
+        deleteUserdefaultKeys()
         let settings = UIUserNotificationSettings(
             types: [.badge, .sound, .alert], categories: nil)
         application.registerUserNotificationSettings(settings)
@@ -73,9 +73,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func deleteUserdefaultKeys(){
+        UserDefaults.standard.removeObject(forKey: "arrayEdu")
+        UserDefaults.standard.removeObject(forKey: "arrayEduFile")
+        
+        UserDefaults.standard.removeObject(forKey: "arrayBLSBack")
+        UserDefaults.standard.removeObject(forKey: "arrayBLSFront")
+        
+        UserDefaults.standard.removeObject(forKey: "arrayCertificate")
+        UserDefaults.standard.removeObject(forKey: "arrayCertificateFileFront")
+        UserDefaults.standard.removeObject(forKey: "arrayCertificateFileBack")
+        UserDefaults.standard.removeObject(forKey: "arrayEmp")
+        UserDefaults.standard.removeObject(forKey: "arrayRef")
 
-        
-        
     }
 
 }

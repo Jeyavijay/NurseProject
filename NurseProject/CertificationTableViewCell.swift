@@ -21,7 +21,8 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
     var strDocument = NSString()
 
     var arrayEducationalDetails = NSMutableArray()
-    var arrayEducationalDetailsFile = NSMutableArray()
+    var arrayEducationalDetailsFileFront = NSMutableArray()
+    var arrayEducationalDetailsFileBack = NSMutableArray()
     var datePickerview = UIDatePicker()
     var bButtonFront = Bool()
     let imagePicker = UIImagePickerController()
@@ -42,14 +43,15 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
         if ((UserDefaults.standard.value(forKey: "arrayCertificate") != nil)){
             let array:NSArray = UserDefaults.standard.array(forKey: "arrayCertificate")! as NSArray
             arrayEducationalDetails.addObjects(from: array as! [Any])
-            print(arrayEducationalDetails)
         }
-        if ((UserDefaults.standard.value(forKey: "arrayCertificateFile") != nil)){
-            let array:NSArray = UserDefaults.standard.array(forKey: "arrayCertificateFile")! as NSArray
-            arrayEducationalDetailsFile.addObjects(from: array as! [Any])
-            print(arrayEducationalDetailsFile)
+        if ((UserDefaults.standard.value(forKey: "arrayCertificateFileFront") != nil)){
+            let array:NSArray = UserDefaults.standard.array(forKey: "arrayCertificateFileFront")! as NSArray
+            arrayEducationalDetailsFileFront.addObjects(from: array as! [Any])
         }
-
+        if ((UserDefaults.standard.value(forKey: "arrayCertificateFileBack") != nil)){
+            let array:NSArray = UserDefaults.standard.array(forKey: "arrayCertificateFileBack")! as NSArray
+            arrayEducationalDetailsFileBack.addObjects(from: array as! [Any])
+        }
     }
     
     @IBAction func buttonPermanent(_ sender: Any)
@@ -67,7 +69,6 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
                 textFieldDate.text = ""
                 imageViewCalender.isHidden = true
             }
-            
         }else if (sender as AnyObject).tag == 2{
             if buttonNonPermanent.isSelected == true{
                 buttonNonPermanent.isSelected = false
@@ -80,17 +81,15 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
                 buttonPermanent.isSelected = false
                 imageViewCalender.isHidden = false
                 textFieldDate.isHidden = false
-                textFieldDate.text = ""
+
             }
         }
     }
-    
-    
+
     override func layoutSubviews(){
         super.layoutSubviews()
         self.textFieldUI(textField:textFieldDate)
         self.textFieldUI(textField:textFieldName)
-        
     }
     
     func textFieldUI(textField:HoshiTextField){
@@ -103,8 +102,8 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
     
     func datePickerValueChanged(sender: UIDatePicker) {
         let now = Date()
-        let oneDaysAgo: Date? = now.addingTimeInterval(1 * 24 * 60 * 60)
-        datePickerview.maximumDate = oneDaysAgo
+        let oneDaysAgo: Date? = now.addingTimeInterval(-1 * 24 * 60 * 60)
+        datePickerview.minimumDate = oneDaysAgo
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
@@ -113,16 +112,13 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
         dateFormatter1.dateStyle = .medium
         dateFormatter1.timeStyle = .none
         dateFormatter1.dateFormat = "MM/dd/yyyy"
-        //  let strDate:String = dateFormatter.string(from: sender.date)
         textFieldDate.text = dateFormatter1.string(from: sender.date)
-        
     }
-    
+
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
         if textField == self.textFieldDate{
             datePickerview.datePickerMode = UIDatePickerMode.date
-            textField.inputView = datePickerview
             textField.inputView = datePickerview
             datePickerview.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
         }
@@ -136,13 +132,13 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
         if textField.tag == 0{
             dictArray.setValue(textFieldName.text, forKey: "certificate_name")
             dictArray.setValue(textFieldDate.text, forKey: "expiry_date")
+            dictArray.setValue("1", forKey: "back_file_content")
             if textFieldDate.text != ""{
                 dictArray.setValue("permanent", forKey: "permanent")
+                self.buttonNonPermanent.isSelected = true
             }else{
-                dictArray.setValue("", forKey: "permanent")
+                dictArray.setValue("non-permanent", forKey: "permanent")
             }
-
-            
             if arrayEducationalDetails.count == 0{
                 arrayEducationalDetails.insert(dictArray, at: textField.tag)
             }else{
@@ -152,12 +148,13 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
         }else{
             dictArray.setValue(textFieldName.text, forKey: "certificate_name")
             dictArray.setValue(textFieldDate.text, forKey: "expiry_date")
+            dictArray.setValue("1", forKey: "back_file_content")
             if textFieldDate.text != ""{
                 dictArray.setValue("permanent", forKey: "permanent")
+                self.buttonNonPermanent.isSelected = true
             }else{
-                dictArray.setValue("", forKey: "permanent")
+                dictArray.setValue("non-permanent", forKey: "permanent")
             }
-
             if arrayEducationalDetails.count == textField.tag{
                 arrayEducationalDetails.insert(dictArray, at: textField.tag)
             }else{
@@ -176,74 +173,177 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
         documentPicker.modalPresentationStyle = UIModalPresentationStyle.fullScreen
         (self.delegate as! UIViewController).present(documentPicker, animated: true, completion: nil)
     }
+    
     func documentPicker(_ controller: UIDocumentPickerViewController,didPickDocumentAt url: URL) {
         let dictArray = NSMutableDictionary()
+        let dictArray1 = NSMutableDictionary()
         let dataFile = try! Data(contentsOf: url)
         print(dataFile)
-        let Front:String  = "12"
-        var dataFront:Data = Front.data(using: .utf8)!
-        var dataBack:Data = Front.data(using: .utf8)!
-        
         dictArray.setValue("0", forKey: "image")
-        
-        if arrayEducationalDetailsFile.count != 0{
-            dataFront = (arrayEducationalDetailsFile[0] as AnyObject).value(forKey: "blsfront") as! Data
-            dataBack = (arrayEducationalDetailsFile[0] as AnyObject).value(forKey: "blsback") as! Data
-        }
-        
-
 
         if bButtonFront == true{
             if self.buttonUploadFront.tag == 0{
                 self.labelDocumentFront.text = String(format: "%@",url.lastPathComponent)
-                dictArray.setValue(dataFile, forKey: "blsfront")
-                if dataBack.count != 2{
-                    dictArray.setValue(dataBack, forKey: "blsback")
+                dictArray.setValue(dataFile, forKey: "front")
+                dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                dictArray1.setValue("0", forKey: "back_file_content")
+                if textFieldDate.text != ""{
+                    dictArray1.setValue("permanent", forKey: "permanent")
                 }else{
-                    dictArray.setValue(dataBack, forKey: "blsback")
+                    dictArray1.setValue("non-permanent", forKey: "permanent")
                 }
 
-                if self.arrayEducationalDetails.count == 0{
-                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadFront.tag)
+                if self.arrayEducationalDetailsFileFront.count == 0{
+                    self.arrayEducationalDetailsFileFront.insert(dictArray, at: self.buttonUploadFront.tag)
+                    if arrayEducationalDetails.count == 0{
+                        self.arrayEducationalDetails.insert(dictArray1, at: self.buttonUploadFront.tag)
+                    }else{
+                        self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray1)
+                    }
                 }else{
+                    self.arrayEducationalDetailsFileFront.replaceObject(at: self.buttonUploadFront.tag, with: dictArray)
                     self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray)
                 }
                 UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+                UserDefaults.standard.set(self.arrayEducationalDetailsFileFront, forKey: "arrayCertificateFileFront")
+                let dict3 = NSMutableDictionary()
+                dict3.setValue("", forKey: "Document")
+                self.arrayEducationalDetailsFileBack.insert(dict3, at: self.buttonUploadBack.tag)
+                UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
+
             }else{
-                dictArray.setValue(url.absoluteString, forKey: "Document")
-                
-                if self.arrayEducationalDetails.count == self.buttonUploadFront.tag{
-                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadFront.tag)
+                self.labelDocumentFront.text = String(format: "%@",url.lastPathComponent)
+                dictArray.setValue(dataFile, forKey: "front")
+                dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                dictArray1.setValue("0", forKey: "back_file_content")
+                if textFieldDate.text != ""{
+                    dictArray1.setValue("permanent", forKey: "permanent")
                 }else{
+                    dictArray1.setValue("non-permanent", forKey: "permanent")
+                }
+                if self.arrayEducationalDetailsFileFront.count != 0{
+                    self.arrayEducationalDetailsFileFront.insert(dictArray, at: self.buttonUploadFront.tag)
+                    if arrayEducationalDetails.count == 0{
+                        self.arrayEducationalDetails.insert(dictArray1, at: self.buttonUploadFront.tag)
+                    }else{
+                        self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray1)
+                    }
+                }else{
+                    self.arrayEducationalDetailsFileFront.replaceObject(at: self.buttonUploadFront.tag, with: dictArray)
                     self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray)
                 }
                 UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+                UserDefaults.standard.set(self.arrayEducationalDetailsFileFront, forKey: "arrayCertificateFileFront")
+                let dict3 = NSMutableDictionary()
+                dict3.setValue("", forKey: "Document")
+                self.arrayEducationalDetailsFileBack.insert(dict3, at: self.buttonUploadBack.tag)
+                UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
             }
-            print(self.arrayEducationalDetails)
-
-        }else{
+        }
+        else
+        {
             if self.buttonUploadBack.tag == 0{
                 self.labelDocumentBack.text = String(format: "%@",url.lastPathComponent)
                 dictArray.setValue(url.absoluteString, forKey: "Document")
                 if self.arrayEducationalDetails.count == 0{
-                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadBack.tag)
+                    dictArray.setValue(dataFile, forKey: "back")
+                    dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                    dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                    dictArray1.setValue("1", forKey: "back_file_content")
+                    if textFieldDate.text != ""{
+                        dictArray1.setValue("permanent", forKey: "permanent")
+                    }else{
+                        dictArray1.setValue("non-permanent", forKey: "permanent")
+                    }
+                    if self.arrayEducationalDetailsFileBack.count == 0{
+                        self.arrayEducationalDetailsFileBack.insert(dictArray, at: self.buttonUploadBack.tag)
+                        if self.arrayEducationalDetails.count == 0{
+                            self.arrayEducationalDetails.insert(dictArray1, at: self.buttonUploadBack.tag)
+                        }else{
+                            self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                        }
+                    }else{
+                        self.arrayEducationalDetailsFileBack.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                        self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                    }
+                    UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+                    UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
                 }else{
-                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                    dictArray.setValue(dataFile, forKey: "back")
+                    dictArray.setValue(url.absoluteString, forKey: "Document")
+                    dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                    dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                    dictArray1.setValue("1", forKey: "back_file_content")
+                    if textFieldDate.text != ""{
+                        dictArray1.setValue("permanent", forKey: "permanent")
+                    }else{
+                        dictArray1.setValue("non-permanent", forKey: "permanent")
+                    }
+                    if self.arrayEducationalDetailsFileBack.count == 0{
+                        self.arrayEducationalDetailsFileBack.insert(dictArray, at: self.buttonUploadBack.tag)
+                        if self.arrayEducationalDetails.count == 0{
+                            self.arrayEducationalDetails.insert(dictArray1, at: self.buttonUploadBack.tag)
+                        }else{
+                            self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                        }
+                    }else{
+                        self.arrayEducationalDetailsFileBack.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                        self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                    }
+                    UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+                    UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
                 }
-                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
             }else{
+                self.labelDocumentBack.text = String(format: "%@",url.lastPathComponent)
                 dictArray.setValue(url.absoluteString, forKey: "Document")
-                
-                if self.arrayEducationalDetails.count == self.buttonUploadBack.tag{
-                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadBack.tag)
+                if self.arrayEducationalDetails.count != 0{
+                    dictArray.setValue(dataFile, forKey: "back")
+                    dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                    dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                    dictArray1.setValue("1", forKey: "back_file_content")
+                    if textFieldDate.text != ""{
+                        dictArray1.setValue("permanent", forKey: "permanent")
+                    }else{
+                        dictArray1.setValue("non-permanent", forKey: "permanent")
+                    }
+                    if self.arrayEducationalDetailsFileBack.count == 0{
+                        self.arrayEducationalDetailsFileBack.insert(dictArray, at: self.buttonUploadBack.tag)
+                        if self.arrayEducationalDetails.count == 0{
+                            self.arrayEducationalDetails.insert(dictArray1, at: self.buttonUploadBack.tag)
+                        }else{
+                            self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                        }
+
+                    }else{
+                        self.arrayEducationalDetailsFileBack.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                        self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                    }
+                    UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+                    UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
                 }else{
-                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                    dictArray.setValue(dataFile, forKey: "back")
+                    
+                    dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                    dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                    dictArray1.setValue("1", forKey: "back_file_content")
+                    if self.textFieldDate.text != ""{
+                        dictArray1.setValue("permanent", forKey: "permanent")
+                    }else{
+                        dictArray1.setValue("non-permanent", forKey: "permanent")
+                    }
+
+                    self.arrayEducationalDetailsFileBack.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                    UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+                    UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
                 }
-                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
             }
-            print(self.arrayEducationalDetails)
-            
         }
+        print(self.arrayEducationalDetails)
+        print(self.arrayEducationalDetailsFileFront)
+        print(self.arrayEducationalDetailsFileBack)
     }
 
     @IBAction func buttonUploadFront(_ sender: UIButton) {
@@ -267,9 +367,9 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
         actionSheet.addAction(UIAlertAction(title: "Photo Library", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
             self.photoLibrary()
         }))
-//        actionSheet.addAction(UIAlertAction(title: "From Document", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
-//            self.DocLibrary()
-//        }))
+        actionSheet.addAction(UIAlertAction(title: "From Document", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
+            self.DocLibrary()
+        }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         (self.delegate as! UIViewController).present(actionSheet, animated: true, completion: nil)
     }
@@ -293,56 +393,174 @@ class CertificationTableViewCell :UITableViewCell ,UITextFieldDelegate,UIDocumen
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        //  imageViewUserImage.image = chosenImage
-        let imageData1:Data = UIImageJPEGRepresentation(chosenImage, 0.5)!
-        print(imageData1)
+        let dataFile:Data = UIImageJPEGRepresentation(chosenImage, 0.5)!
+        let url = info[UIImagePickerControllerReferenceURL] as! NSURL
+        print(dataFile)
+        
         let dictArray = NSMutableDictionary()
+        let dictArray1 = NSMutableDictionary()
+        dictArray.setValue("1", forKey: "image")
         
         if bButtonFront == true{
             if self.buttonUploadFront.tag == 0{
-                self.labelDocumentFront.text = "Image File Chosen"
-                dictArray.setValue(imageData1, forKey: "Document")
-                if self.arrayEducationalDetails.count == 0{
-                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadFront.tag)
+                self.labelDocumentFront.text = String(format: "%@",url.lastPathComponent!)
+                dictArray.setValue(dataFile, forKey: "front")
+                dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                dictArray1.setValue("0", forKey: "back_file_content")
+                if textFieldDate.text != ""{
+                    dictArray1.setValue("permanent", forKey: "permanent")
                 }else{
+                    dictArray1.setValue("non-permanent", forKey: "permanent")
+                }
+                
+                if self.arrayEducationalDetailsFileFront.count == 0{
+                    self.arrayEducationalDetailsFileFront.insert(dictArray, at: self.buttonUploadFront.tag)
+                    if arrayEducationalDetails.count == 0{
+                        self.arrayEducationalDetails.insert(dictArray1, at: self.buttonUploadFront.tag)
+                    }else{
+                        self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray1)
+                    }
+                }else{
+                    self.arrayEducationalDetailsFileFront.replaceObject(at: self.buttonUploadFront.tag, with: dictArray)
                     self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray)
                 }
                 UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
-            }else{
-                dictArray.setValue(imageData1, forKey: "Document")
+                UserDefaults.standard.set(self.arrayEducationalDetailsFileFront, forKey: "arrayCertificateFileFront")
+                let dict3 = NSMutableDictionary()
+                dict3.setValue("", forKey: "Document")
+                self.arrayEducationalDetailsFileBack.insert(dict3, at: self.buttonUploadBack.tag)
+                UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
                 
-                if self.arrayEducationalDetails.count == self.buttonUploadFront.tag{
-                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadFront.tag)
-                }else{
-                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray)
-                }
-                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
-            }
-            print(self.arrayEducationalDetails)
-            
-        }else{
-            if self.buttonUploadBack.tag == 0{
-                self.labelDocumentBack.text = "Image File Chosen"
-                dictArray.setValue(imageData1, forKey: "Document")
-                if self.arrayEducationalDetails.count == 0{
-                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadBack.tag)
-                }else{
-                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
-                }
-                UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
             }else{
-                dictArray.setValue(imageData1, forKey: "Document")
-                
-                if self.arrayEducationalDetails.count == self.buttonUploadBack.tag{
-                    self.arrayEducationalDetails.insert(dictArray, at: self.buttonUploadBack.tag)
+                self.labelDocumentFront.text = String(format: "%@",url.lastPathComponent!)
+                dictArray.setValue(dataFile, forKey: "front")
+                dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                dictArray1.setValue("0", forKey: "back_file_content")
+                if textFieldDate.text != ""{
+                    dictArray1.setValue("permanent", forKey: "permanent")
                 }else{
-                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                    dictArray1.setValue("non-permanent", forKey: "permanent")
+                }
+                if self.arrayEducationalDetailsFileFront.count == 0{
+                    self.arrayEducationalDetailsFileFront.insert(dictArray, at: self.buttonUploadFront.tag)
+                    if arrayEducationalDetails.count == 0{
+                        self.arrayEducationalDetails.insert(dictArray1, at: self.buttonUploadFront.tag)
+                    }else{
+                        self.arrayEducationalDetails.replaceObject(at: self.buttonUploadFront.tag, with: dictArray1)
+                    }
+                }else{
+                    self.arrayEducationalDetailsFileFront.insert(dictArray, at: self.buttonUploadFront.tag)
+                    self.arrayEducationalDetails.insert(dictArray1, at: self.buttonUploadFront.tag)
                 }
                 UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+                UserDefaults.standard.set(self.arrayEducationalDetailsFileFront, forKey: "arrayCertificateFileFront")
+                let dict3 = NSMutableDictionary()
+                dict3.setValue("", forKey: "Document")
+                self.arrayEducationalDetailsFileBack.insert(dict3, at: self.buttonUploadBack.tag)
+                UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
             }
-            print(self.arrayEducationalDetails)
-            
         }
+        else
+        {
+            if self.buttonUploadBack.tag == 0{
+                self.labelDocumentBack.text = String(format: "%@",url.lastPathComponent!)
+                if self.arrayEducationalDetails.count == 0{
+                    dictArray.setValue(dataFile, forKey: "back")
+                    dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                    dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                    dictArray1.setValue("1", forKey: "back_file_content")
+                    if textFieldDate.text != ""{
+                        dictArray1.setValue("permanent", forKey: "permanent")
+                    }else{
+                        dictArray1.setValue("non-permanent", forKey: "permanent")
+                    }
+                    if self.arrayEducationalDetailsFileBack.count == 0{
+                        self.arrayEducationalDetailsFileBack.insert(dictArray, at: self.buttonUploadBack.tag)
+                        if self.arrayEducationalDetails.count == 0{
+                            self.arrayEducationalDetails.insert(dictArray1, at: self.buttonUploadBack.tag)
+                        }else{
+                            self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                        }
+                    }else{
+                        self.arrayEducationalDetailsFileBack.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                        self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                    }
+                    UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+                    UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
+                }else{
+                    dictArray.setValue(dataFile, forKey: "back")
+                    dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                    dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                    dictArray1.setValue("1", forKey: "back_file_content")
+                    if textFieldDate.text != ""{
+                        dictArray1.setValue("permanent", forKey: "permanent")
+                    }else{
+                        dictArray1.setValue("non-permanent", forKey: "permanent")
+                    }
+                    if self.arrayEducationalDetailsFileBack.count == 0{
+                        self.arrayEducationalDetailsFileBack.insert(dictArray, at: self.buttonUploadBack.tag)
+                        if self.arrayEducationalDetails.count == 0{
+                            self.arrayEducationalDetails.insert(dictArray1, at: self.buttonUploadBack.tag)
+                        }else{
+                            self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                        }
+                    }else{
+                        self.arrayEducationalDetailsFileBack.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                        self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                    }
+                    UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+                    UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
+                }
+            }else{
+                self.labelDocumentBack.text = String(format: "%@",url.lastPathComponent!)
+                dictArray.setValue(url.absoluteString, forKey: "Document")
+                if self.arrayEducationalDetails.count != 0{
+                    dictArray.setValue(dataFile, forKey: "back")
+                    dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                    dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                    dictArray1.setValue("1", forKey: "back_file_content")
+                    if textFieldDate.text != ""{
+                        dictArray1.setValue("permanent", forKey: "permanent")
+                    }else{
+                        dictArray1.setValue("non-permanent", forKey: "permanent")
+                    }
+                    if self.arrayEducationalDetailsFileBack.count == 0{
+                        self.arrayEducationalDetailsFileBack.insert(dictArray, at: self.buttonUploadBack.tag)
+                        if self.arrayEducationalDetails.count == 0{
+                            self.arrayEducationalDetails.insert(dictArray1, at: self.buttonUploadBack.tag)
+                        }else{
+                            self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                        }
+                        
+                    }else{
+                        self.arrayEducationalDetailsFileBack.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                        self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                    }
+                    UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+                    UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
+                }else{
+                    dictArray.setValue(dataFile, forKey: "back")
+                    dictArray1.setValue(textFieldName.text, forKey: "certificate_name")
+                    dictArray1.setValue(textFieldDate.text, forKey: "expiry_date")
+                    dictArray1.setValue("1", forKey: "back_file_content")
+                    if self.textFieldDate.text != ""{
+                        dictArray1.setValue("permanent", forKey: "permanent")
+                    }else{
+                        dictArray1.setValue("non-permanent", forKey: "permanent")
+                    }
+                    
+                    self.arrayEducationalDetailsFileBack.replaceObject(at: self.buttonUploadBack.tag, with: dictArray)
+                    self.arrayEducationalDetails.replaceObject(at: self.buttonUploadBack.tag, with: dictArray1)
+                    UserDefaults.standard.set(self.arrayEducationalDetails, forKey: "arrayCertificateFile")
+                    UserDefaults.standard.set(self.arrayEducationalDetailsFileBack, forKey: "arrayCertificateFileBack")
+                }
+            }
+        }
+        print(self.arrayEducationalDetails)
+        print(self.arrayEducationalDetailsFileFront)
+        print(self.arrayEducationalDetailsFileBack)
         (self.delegate as! UIViewController).dismiss(animated: true, completion: nil)
 
     }
