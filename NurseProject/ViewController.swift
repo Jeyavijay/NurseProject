@@ -76,6 +76,7 @@ class ViewController: UIViewController {
             print(responseDictionary)
             if let Status:Any = (responseDictionary).value(forKey: "status")
             {
+                self.stopLoading()
                 let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
                 if strStatus == statusSuccess{
                     if let AccessToken:String = (responseDictionary).value(forKey: "access_token") as? String{
@@ -85,11 +86,17 @@ class ViewController: UIViewController {
                     if let strNurseID:String = (responseDictionary).value(forKey: "userid") as? String{
                         UserDefaults.standard.set(strNurseID, forKey:"nurse_ID" )
                     }
-                    let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AccountDetailStatementViewController") as! AccountDetailStatementViewController
-                                self.navigationController?.pushViewController(nextViewController, animated: true)
-                    self.stopLoading()
+                    if let strCompletedSteps = (responseDictionary).value(forKey: "completed_steps"){
+                        let strStatusStep:NSString = ConvertToString().anyToStr(convert: strCompletedSteps)
+                        self.NavigateToViewcontroller(StepID: strStatusStep)
+
+
+                    }
+
                 }else if strStatus == AccessToken{
 
+                }else if strStatus == "2"{
+                    
                 }else{
                     self.stopLoading()
                     if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
@@ -102,6 +109,58 @@ class ViewController: UIViewController {
             self.stopLoading()
             self.popupAlert(Title: "Information", msg: error.localizedDescription)
         })
+    }
+    
+    //MARK:- Navigate to StepID
+    func NavigateToViewcontroller(StepID: NSString) {
+        switch StepID {
+        case "1":
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AccountDetailsViewController") as! AccountDetailsViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+            break
+        case "2":
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"RNDetailsViewController") as! RNDetailsViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+            break
+        case "3":
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AccountDetailsEducationViewController") as! AccountDetailsEducationViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+
+            break
+        case "4":
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"ProfessionalEducationViewController") as! ProfessionalEducationViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+            break
+        case "5":
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"EducationCertificationViewController") as! EducationCertificationViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+            break
+        case "6":
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"CurrentEmploymentViewController") as! CurrentEmploymentViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+            break
+        case "7":
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"PreviousEmploymentViewController") as! PreviousEmploymentViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+            break
+        case "8":
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"ReferenceViewController") as! ReferenceViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+            break
+        case "9":
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"ResumeViewController") as! ResumeViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+            break
+        case "10":
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"SpecialitiesViewController") as! SpecialitiesViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+            break
+        default:
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AccountDetailStatementViewController") as! AccountDetailStatementViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+            break
+
+        }
     }
 
     //MARK:- Alert PopUps
