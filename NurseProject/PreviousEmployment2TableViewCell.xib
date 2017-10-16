@@ -23,26 +23,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HpA-Hv-Qyx">
-                        <rect key="frame" x="15" y="5" width="140" height="40"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="18"/>
-                        <state key="normal" title="Add More" backgroundImage="button">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djl-rA-X4j">
-                        <rect key="frame" x="165" y="5" width="140" height="40"/>
+                        <rect key="frame" x="70" y="29" width="180" height="40"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="Lato-Semibold" family="Lato" pointSize="18"/>
-                        <state key="normal" title="NEXT" backgroundImage="button">
+                        <state key="normal" title="SUBMIT" backgroundImage="button">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="buttonAddMore" destination="HpA-Hv-Qyx" id="ycx-Bn-sBe"/>
                 <outlet property="buttonNext" destination="djl-rA-X4j" id="lUK-Q7-KTR"/>
             </connections>
         </tableViewCell>

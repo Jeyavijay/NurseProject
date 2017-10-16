@@ -15,6 +15,6 @@ class ApiString: NSString {
     let loginUrl = "api_login.php"
     let getAccessTokenUrl = "api_nurseaccess.php"
     let completeRegistrationUrl = "api_complete_registration.php"
-
+    let getCompetencyDetailsUrl = "api_competency_details.php"
 
 }

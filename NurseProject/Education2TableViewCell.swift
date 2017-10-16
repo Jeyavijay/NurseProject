@@ -1,11 +1,3 @@
-//
-//  Education2TableViewCell.swift
-//  NurseProject
-//
-//  Created by Jeyavijay on 17/09/17.
-//  Copyright © 2017 Jeyavijay N. All rights reserved.
-//
-
 import UIKit
 
 class Education2TableViewCell: UITableViewCell {

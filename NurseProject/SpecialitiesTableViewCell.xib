@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SpecialitiesTableViewCell" id="KGk-i7-Jjw" customClass="SpecialitiesTableViewCell" customModule="NurseProject" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="53l-UW-cja" customClass="ButtonIndexPath" customModule="NurseProject" customModuleProvider="target">
+                        <rect key="frame" x="285" y="9" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="5LW-VB-ZzG"/>
+                            <constraint firstAttribute="width" constant="24" id="RT5-dg-S8d"/>
+                        </constraints>
+                        <state key="normal" title="Button" backgroundImage="checkboxwithoutTick">
+                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ICU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="n01-ek-4Wq">
+                        <rect key="frame" x="50" y="9" width="225" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="rDp-UM-DP7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                        <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="n01-ek-4Wq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="gIE-Aj-XUk"/>
+                    <constraint firstItem="53l-UW-cja" firstAttribute="leading" secondItem="n01-ek-4Wq" secondAttribute="trailing" constant="10" id="lau-iN-5NZ"/>
+                    <constraint firstAttribute="trailing" secondItem="53l-UW-cja" secondAttribute="trailing" constant="11" id="lxF-Hg-lYs"/>
+                    <constraint firstItem="n01-ek-4Wq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="rHf-0I-J5a"/>
+                    <constraint firstItem="53l-UW-cja" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="yad-ey-lxB"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="buttonCheckBox" destination="53l-UW-cja" id="rr6-5f-MLt"/>
+                <outlet property="labelTitle" destination="n01-ek-4Wq" id="BdE-Tp-USI"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="checkboxwithoutTick" width="25" height="25"/>
+    </resources>
+</document>

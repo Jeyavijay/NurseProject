@@ -26,7 +26,7 @@ class PreviousEmploymentViewController: UIViewController,UITableViewDelegate,UIT
     func updateUI()
     {
         self.tableViewEmployment.register(UINib(nibName: "PreviousEmploymentTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "PECell")
-        self.tableViewEmployment.register(UINib(nibName: "PreviousEmployment2TableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "PECell2")
+        self.tableViewEmployment.register(UINib(nibName: "Education2TableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "lastCell")
         tableViewEmployment.reloadData()
     }
 
@@ -67,7 +67,7 @@ class PreviousEmploymentViewController: UIViewController,UITableViewDelegate,UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         if nsectionCount == (indexPath as NSIndexPath).section{
-            let lastCell = tableView.dequeueReusableCell(withIdentifier: "PECell2") as! PreviousEmployment2TableViewCell!
+            let lastCell = tableView.dequeueReusableCell(withIdentifier: "lastCell") as! Education2TableViewCell!
             lastCell!.buttonNext.addTarget(self, action: #selector(self.buttonNext), for: .touchUpInside)
             lastCell!.buttonAddMore.addTarget(self, action: #selector(self.buttonAddMore), for: .touchUpInside)
             return lastCell!

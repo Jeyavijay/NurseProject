@@ -107,7 +107,7 @@ class ResumeViewController: UIViewController, UIDocumentPickerDelegate,UIDocumen
             {
                 let strStatus:NSString = ConvertToString().anyToStr(convert: Status)
                 if strStatus == statusSuccess{
-                    let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"RNDetailsViewController") as! RNDetailsViewController
+                    let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"SpecialitiesViewController") as! SpecialitiesViewController
                     self.navigationController?.pushViewController(nextViewController, animated: true)
                 }else if strStatus == AccessToken{
                     self.callWebserviseAccessToken()
