@@ -89,14 +89,10 @@ class ViewController: UIViewController {
                     if let strCompletedSteps = (responseDictionary).value(forKey: "completed_steps"){
                         let strStatusStep:NSString = ConvertToString().anyToStr(convert: strCompletedSteps)
                         self.NavigateToViewcontroller(StepID: strStatusStep)
-
-
                     }
-
-                }else if strStatus == AccessToken{
-
-                }else if strStatus == "2"{
-                    
+                    else if strStatus == "2"{
+                    let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MyDashBoardViewController") as! MyDashBoardViewController
+                    self.navigationController?.pushViewController(nextViewController, animated: true)
                 }else{
                     self.stopLoading()
                     if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
