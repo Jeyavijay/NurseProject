@@ -17,6 +17,8 @@ class FirstSignUpViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet var textFieldCPassword: HoshiTextField!
     var activity:NVActivityIndicatorView!
     var dictStoredValues = NSMutableDictionary()
+    @IBOutlet var buttonCheckBox: UIButton!
+
 
     
     
@@ -35,11 +37,24 @@ class FirstSignUpViewController: UIViewController,UITextFieldDelegate {
     }
     
     func UIInitialization(){
+        let DSImage:UIImage = UIImage(named: "checkboxwithoutTick")!
+        let SImage:UIImage = UIImage(named: "checkboxtick")!
+        buttonCheckBox.setImage(DSImage, for: .normal)
+        buttonCheckBox.setImage(SImage, for: .selected)
         var fixedString: String = "+1 "
         let attributedString = NSMutableAttributedString(string: fixedString)
         attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: 0, length: (fixedString.characters.count )))
         textFieldPhoneNumber?.attributedText = attributedString
 
+    }
+    
+    @IBAction func buttonCheckBox(_ sender: Any)
+    {
+            if buttonCheckBox.isSelected == true{
+                buttonCheckBox.isSelected = false
+            }else{
+                buttonCheckBox.isSelected = true
+            }
     }
     
     
@@ -92,6 +107,9 @@ class FirstSignUpViewController: UIViewController,UITextFieldDelegate {
             self.popupAlert(Title: "Information",msg: stringMessages().stringPassword, butttonColor: UIColor.red)
         }else if textFieldPassword.text != textFieldCPassword.text{
             self.popupAlert(Title: "Information",msg: stringMessages().stringConfirmPassword, butttonColor: UIColor.red)
+        }else if buttonCheckBox.isSelected == false
+        {
+            self.popupAlert(Title: "Information",msg: "Please Select Terms and Conditions", butttonColor: UIColor.red)
         }else{
             dictStoredValues.setObject(textFieldFirstName.text!, forKey: "firstname" as NSCopying)
             dictStoredValues.setObject(textFieldMiddleName.text!, forKey: "middlename" as NSCopying)

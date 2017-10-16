@@ -207,11 +207,11 @@ class ProfessionalEducationViewController: UIViewController,UITextFieldDelegate,
                 }else if strStatus == AccessToken{
                     self.callWebserviseAccessToken(params:params)
                 }else{
-                    self.stopLoading()
                     if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
                         self.popupAlert(Title: "Information", msg: Msg)
                     }
                 }
+                self.stopLoading()
             }
         }, failure: { (operation, error) -> Void in
             self.stopLoading()
